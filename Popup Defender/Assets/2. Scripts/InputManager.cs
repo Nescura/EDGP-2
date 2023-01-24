@@ -17,17 +17,17 @@ public class InputManager
         }
         return instance;
     }
+
     // Start is called before the first frame update
     void Start()
     {
-
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public KeyCode GenerateKey()
@@ -46,6 +46,7 @@ public class InputManager
         keyCodeList.Add(x);
     }
 
+    // Get the entire list made (or reset)
     public void PopulateList()
     {
         keyCodeList.Clear();
@@ -76,6 +77,5 @@ public class InputManager
         keyCodeList.Add(KeyCode.Y);
         keyCodeList.Add(KeyCode.Z);
         keyCodeList.Add(KeyCode.Space);
-
     }
 }
