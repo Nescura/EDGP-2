@@ -13,7 +13,7 @@ public class Panel : MonoBehaviour
 
     // Display Stuff
     public GameObject thisMask;
-    public TextMesh thisKeyMesh, thisTimeMesh;
+    public TMPro.TextMeshPro thisKeyMesh, thisTimeMesh;
 
     public void Initialize(IPanelStrategy panelStrategy, float sizeX, float sizeY, float timeInSecs, KeyCode key)
     {
@@ -33,17 +33,41 @@ public class Panel : MonoBehaviour
         thisMask.GetComponent<SpriteRenderer>().size = new Vector2(panelSizeX, panelSizeY);
 
         // Get the key display thing and display it
-        thisKeyMesh = transform.Find("KeyBG").transform.Find("KeyTxt").GetComponent<TextMesh>();
+        thisKeyMesh = transform.Find("KeyBG").transform.Find("KeyTxt").GetComponent<TMPro.TextMeshPro>();
         thisKeyMesh.text = assignedKey.ToString();
 
         // Get the time display thing
-        thisTimeMesh = transform.Find("TimeBG").transform.Find("TimeTxt").GetComponent<TextMesh>();
+        thisTimeMesh = transform.Find("TimeBG").transform.Find("TimeTxt").GetComponent<TMPro.TextMeshPro>();
     }
 
     public void SetSuccess(bool b)
 	{
         isObjectiveClear = b;
 	}
+
+    public void LayerToFront(int index)
+	{
+        // Border
+        GetComponent<SpriteRenderer>().sortingOrder += index;
+
+        // Objects in Panel Minigame
+        foreach (Transform child in transform.Find("DisplayGameObjs"))
+		{
+            child.TryGetComponent(out SpriteRenderer childSprRen);
+            childSprRen.sortingLayerID += index;
+		}
+
+        // Key Mesh
+        thisKeyMesh.transform.parent.GetComponent<SpriteRenderer>().sortingOrder += index;
+        thisKeyMesh.sortingOrder += index;
+
+        // Time Mesh
+        thisTimeMesh.transform.parent.GetComponent<SpriteRenderer>().sortingOrder += index;
+        thisTimeMesh.sortingOrder += index;
+
+        // Masking BG
+        thisMask.GetComponent<SpriteRenderer>().sortingOrder += index;
+    }
 
     // Start is called before the first frame update
     void Start()

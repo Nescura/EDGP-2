@@ -11,6 +11,8 @@ public class GameControlling : MonoBehaviour
 
     public List<IPanelStrategy> minigames = new List<IPanelStrategy>();
 
+    public int layerAppend = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,5 +44,7 @@ public class GameControlling : MonoBehaviour
 
         GameObject newPanel = Instantiate(panelPrefab, new Vector2(Random.Range(viewportZero.x, viewportOne.x), Random.Range(viewportZero.y, viewportOne.y)), Quaternion.identity, this.transform);
         newPanel.GetComponent<Panel>().Initialize(chosenPanelStrat, Random.Range(0.8f, 2f), Random.Range(0.8f, 2f), 10f, InputManager.GetInstance().GenerateKey());
+        newPanel.GetComponent<Panel>().LayerToFront(layerAppend);
+        layerAppend += 50;
     }
 }
