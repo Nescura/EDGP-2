@@ -11,6 +11,8 @@ public class GameControlling : MonoBehaviour
 
     public static int layerAppend = 0;
 
+    float windowSpawner = 5;
+
     // Singleton
     public static GameControlling itsMe;
     public static GameControlling GetInstance()
@@ -33,10 +35,12 @@ public class GameControlling : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        windowSpawner -= Time.deltaTime;
         //spawn Panel (debug)
-        if (Input.GetKeyDown(KeyCode.Backspace))
+        if (windowSpawner <= 0)
         {
             SpawnPanel();
+            windowSpawner = 5;
         }
     }
 
