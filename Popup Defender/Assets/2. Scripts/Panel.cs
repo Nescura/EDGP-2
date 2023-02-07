@@ -6,7 +6,7 @@ using UnityEngine.TextCore;
 public class Panel : MonoBehaviour
 {
     // Initialization Variables
-    private bool isObjectiveClear = false;
+    public bool isObjectiveClear = false;
     public float panelSizeX = 1.125f, panelSizeY = 1.2f, timeLeft = 10f, difficulty = 1f;
     private KeyCode assignedKey;
     public IPanelStrategy panelStrat;
@@ -65,8 +65,18 @@ public class Panel : MonoBehaviour
         foreach (Transform child in transform.Find("DisplayGameObjs"))
 		{
             child.TryGetComponent(out SpriteRenderer childSprRen);
-            childSprRen.sortingOrder = index - 5;
-		}
+            child.TryGetComponent(out TMPro.TextMeshPro childTMPro);
+            if (childSprRen != null) childSprRen.sortingOrder = index - 5;
+            if (childTMPro != null) childTMPro.sortingOrder = index - 5;
+
+            foreach(Transform grandchild in child)
+            {
+                grandchild.TryGetComponent(out SpriteRenderer grandchildSprRen);
+                grandchild.TryGetComponent(out TMPro.TextMeshPro grandchildTMPro);
+                if (grandchildSprRen != null) grandchildSprRen.sortingOrder = index - 5;
+                if (grandchildTMPro != null) grandchildTMPro.sortingOrder = index - 5;
+            }
+        }
 
         // Key Mesh
         thisKeyMesh.transform.parent.GetComponent<SpriteRenderer>().sortingOrder = index;

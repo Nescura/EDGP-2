@@ -11,7 +11,7 @@ public class GameControlling : MonoBehaviour
 
     public static int layerAppend = 0;
 
-    float windowSpawner = 5;
+    float windowSpawner = 0;
 
     // Singleton
     public static GameControlling itsMe;
