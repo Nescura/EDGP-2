@@ -6,11 +6,12 @@ using UnityEngine.UI;
 
 public class Scene : MonoBehaviour
 {
-    //public string levelToLoad;
+    public GameObject desktopPage;
+    public GameObject browserPage;
+    public GameObject websitePage;
+    public GameObject dayPage;
 
-    public GameObject ui;
-    public static bool isPaused;
-    public static string difficulty;
+    public Text dayText;
 
     public void Play()
     {
@@ -26,35 +27,10 @@ public class Scene : MonoBehaviour
         Application.Quit();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.Escape))
-        {
-            Toggle();
-        }
-    }
-
-    public void Toggle()
-    {
-        ui.SetActive(!ui.activeSelf);
-
-        if (ui.activeSelf)
-        {
-            Time.timeScale = 0f;
-            isPaused = true;
-        }
-        else
-        {
-            Time.timeScale = 1f;
-            isPaused = false;
-        }
-    }
-
     public void Retry()
     {
         FindObjectOfType<AudioManager>().Play("Button");
 
-        Toggle();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -63,11 +39,35 @@ public class Scene : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("Button");
         FindObjectOfType<AudioManager>().Stop("GameBGM");
         FindObjectOfType<AudioManager>().Play("MenuBGM");
-
-        // just in case this function was accessed from PauseMenu
-        Time.timeScale = 1f;
-        isPaused = false;
         
         SceneManager.LoadScene(0);
+    }
+
+    public void BrowserButton()
+    {
+        desktopPage.SetActive(false);
+        browserPage.SetActive(true);
+    }
+
+    public void WebsiteButton()
+    {
+        browserPage.SetActive(false);
+        websitePage.SetActive(true);
+    }
+
+    public void SubmitButton()
+    {
+        websitePage.SetActive(false);
+        dayPage.SetActive(true);
+
+        StartCoroutine(DesktopPage());
+    }
+
+    IEnumerator DesktopPage()
+    {
+        yield return new WaitForSeconds(5);
+
+        dayPage.SetActive(false);
+        desktopPage.SetActive(true);
     }
 }
