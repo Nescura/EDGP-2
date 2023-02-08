@@ -53,19 +53,31 @@ public class GameControlling : MonoBehaviour
         //spawn Panel (debug)
         if (spawnPanelTime <= 0 || Input.GetKeyDown(KeyCode.Backspace))
         {
+            if (GetActivePanelCount() < 1) // spawn two more if there's not even a single one on screen
+            {
+                SpawnPanel();
+                SpawnPanel();
+            }
             SpawnPanel();
-            spawnPanelTime = Random.Range(3f, 6f);
+
+            spawnPanelTime = Random.Range(6f, 10f); // for playtest (09/02/2023), randomize intervals of time between panel spawns. Note that this will be a constant for each different level
         }
     }
 
     public IPanelStrategy GetRandomMinigame()
 	{
-        int index = Random.Range(0, 1);
+        int index = Random.Range(0, 4);
         switch (index)
         {
             // ADD ALL YOUR PANEL MINIGAMES HERE!!!
             case 0:
                 return new PanelTest();
+            case 1:
+                return new PanelDonutTouch();
+            case 2:
+                return new PanelHold();
+            case 3:
+                return new PanelHotDog();
             default:
                 return new PanelTest();
 		}
@@ -89,7 +101,7 @@ public class GameControlling : MonoBehaviour
         //Debug.Log(string.Format(("{0}, {1}"), viewportZero, viewportOne));
 
         GameObject newPanel = Instantiate(panelPrefab, new Vector2(Random.Range(viewportZero.x * 0.9f, viewportOne.x * 0.9f), Random.Range(viewportZero.y * 0.9f, viewportOne.y * 0.9f)), Quaternion.identity, this.transform);
-        newPanel.GetComponent<Panel>().Initialize(chosenPanelStrat, Random.Range(0.8f, 2f), Random.Range(0.8f, 2f), 10f, inputManager.GenerateKey());
+        newPanel.GetComponent<Panel>().Initialize(chosenPanelStrat, 12f, inputManager.GenerateKey());
         newPanel.GetComponent<Panel>().LayerToFront(layerAppend += 50);
     }
 

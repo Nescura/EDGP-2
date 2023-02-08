@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TextCore;
@@ -7,19 +7,22 @@ public class Panel : MonoBehaviour
 {
     // Initialization Variables
     public bool isObjectiveClear = false;
-    public float panelSizeX = 1.125f, panelSizeY = 1.2f, timeLeft = 10f, difficulty = 1f;
+    public float /*panelSizeX = 1.125f, panelSizeY = 1.2f,*/ timeLeft = 10f, expiryTime = 0f;//difficulty = 1f;
     private KeyCode assignedKey;
     public IPanelStrategy panelStrat;
     public GameObject thisDisplayParent;
 
     // Display Stuff
     public GameObject thisMask;
-    public TMPro.TextMeshPro thisKeyMesh, thisTimeMesh;
+    public SpriteRenderer thisKeyBG, thisTimeBG;
+    public TMPro.TextMeshPro thisKeyMesh, thisTimeMesh, thisTimeMeshDec, thisObjectiveMesh;
+    public Color thisKeyBGColour;
 
     // Panel Dragging Stuff
     public Vector3 mouseClickPosOffset;
 
-    public void Initialize(IPanelStrategy panelStrategy, float sizeX, float sizeY, float timeInSecs, KeyCode key)
+    // Initialization of variables - there's a lot here, it's because these variables would change very often. Please bear with it lol
+    public void Initialize(IPanelStrategy panelStrategy, float timeInSecs, KeyCode key)
     {
         // Define parent for interface to spawn gameobjects in
         thisDisplayParent = transform.Find("DisplayGameObjs").gameObject;
@@ -29,32 +32,65 @@ public class Panel : MonoBehaviour
 
         // Setting strategies
         this.panelStrat = panelStrategy;
-        panelSizeX = sizeX; panelSizeY = sizeY; timeLeft = timeInSecs;
+        //panelSizeX = sizeX; panelSizeY = sizeY;
+        timeLeft = timeInSecs;
 
-        // Get the mask in child
+        // Assign the mask in child
         thisMask = transform.Find("PanelMask").gameObject;
 
-        // Set size of panel
-        GetComponent<RectTransform>().sizeDelta = new Vector2(panelSizeX, panelSizeY);
-        GetComponent<SpriteRenderer>().size = new Vector2(panelSizeX, panelSizeY);
-        thisMask.GetComponent<SpriteRenderer>().size = new Vector2(panelSizeX, panelSizeY);
-        GetComponent<BoxCollider2D>().size = new Vector2(panelSizeX, panelSizeY); // collider
+        // Assign the key display's components
+        thisKeyBG = transform.Find("KeyBG").GetComponent<SpriteRenderer>();
+        thisKeyMesh = thisKeyBG.transform.Find("KeyTxt").GetComponent<TMPro.TextMeshPro>();
+        if (assignedKey == KeyCode.Space)
+		{
+            thisKeyMesh.text = "\u25ac"; // may be too ambiguous? 
+        }
+        else
+		{
+            thisKeyMesh.text = assignedKey.ToString();
+		}
+        thisKeyBGColour = new Color (0f, 0f, 0f, 155f / 255f);
 
-        // Get the key display thing and display it
-        thisKeyMesh = transform.Find("KeyBG").transform.Find("KeyTxt").GetComponent<TMPro.TextMeshPro>();
-        thisKeyMesh.text = assignedKey.ToString();
+        // Assign the time display's components
+        thisTimeBG = transform.Find("TimeBG").GetComponent<SpriteRenderer>();
+        thisTimeMesh = thisTimeBG.transform.Find("TimeTxt").GetComponent<TMPro.TextMeshPro>();
+        thisTimeMeshDec = thisTimeBG.transform.Find("TimeTxtDec").GetComponent<TMPro.TextMeshPro>();
 
-        // Get the time display thing
-        thisTimeMesh = transform.Find("TimeBG").transform.Find("TimeTxt").GetComponent<TMPro.TextMeshPro>();
+        // Assign the objective display's text component and show the minigame's objective
+        thisObjectiveMesh = transform.Find("ObjectiveTxt").GetComponent<TMPro.TextMeshPro>();
 
-        // LASTLY. Reset the minigame and set their parents up (for success)
+        // Reset the minigame and set their parents up (for success)
         panelStrat.ResetMinigame(this.gameObject, thisDisplayParent);
+
+        // Set size of panel
+        GetComponent<RectTransform>().sizeDelta = //new Vector2(panelSizeX, panelSizeY);
+        GetComponent<SpriteRenderer>().size = panelStrat.SetPanelSize(); //new Vector2(panelSizeX, panelSizeY);
+        thisMask.GetComponent<SpriteRenderer>().size = panelStrat.SetPanelSize(); // new Vector2(panelSizeX, panelSizeY);
+        GetComponent<BoxCollider2D>().size = panelStrat.SetPanelSize(); // new Vector2(panelSizeX, panelSizeY); // collider
+
+        // Set expiryTime to zero - this timer is purely for animation when an objective is completed
+        expiryTime = 0f;
     }
 
-    public void SetSuccess(bool b)
+    public void SetSuccess(bool b) // Checks whether the minigame is cleared or not
 	{
         isObjectiveClear = b;
 	}
+
+    public void ForceTimeLeft(float f, bool directSet) // Forcefully change the time minigame has left
+    {
+        if (f < 0) thisTimeBG.color = new Color(1f, 0f, 0f, 1f);
+        if (f > 0) thisTimeBG.color = new Color(0f, 188f / 255f, 0f, 155f / 255f);
+
+        if (directSet) // if directSet is true, it SETS the time to f
+		{
+            timeLeft = f;
+		}
+        else // if directSet is false, it adds f to the time. If you want to reduce time, f would need to be negative
+		{
+            timeLeft += f;
+		}
+    }
 
     public void LayerToFront(int index)
 	{
@@ -96,6 +132,10 @@ public class Panel : MonoBehaviour
         // Time Mesh
         thisTimeMesh.transform.parent.GetComponent<SpriteRenderer>().sortingOrder = index;
         thisTimeMesh.sortingOrder = index;
+        thisTimeMeshDec.sortingOrder = index;
+
+        // Objective Mesh
+        thisObjectiveMesh.sortingOrder = index;
 
         // Masking BG
         thisMask.GetComponent<SpriteRenderer>().sortingOrder = index - 20;
@@ -109,42 +149,77 @@ public class Panel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Objective Description Handling
+        thisObjectiveMesh.text = panelStrat.ObjectiveDesc();
+
         // Timer Handling
         if (timeLeft > 0)
 		{
-            timeLeft -= Time.deltaTime;
-            thisTimeMesh.text = string.Format("{00}", Mathf.FloorToInt(timeLeft));
+            if (!isObjectiveClear) timeLeft -= Time.deltaTime; // Only decrease time if objective is not complete
 
             panelStrat.MiniUpdate();
         }
         else
 		{
             panelStrat.OnTimeUp();
-            GameControlling.GetInstance().inputManager.ReturnKey(assignedKey);
-            gameObject.SetActive(false);
 
             //gameControlling.popupCounter -= 1;
         }
+        thisTimeMesh.text = string.Format("{0}", Mathf.FloorToInt(Mathf.Abs(timeLeft)));
+        thisTimeMeshDec.text = string.Format(".{0}  ", Mathf.FloorToInt(Mathf.Abs(timeLeft) * 10 % 10));
+
+        // Expiry Actions - executed ONLY when isObjective is true, or if you failed
+        if (isObjectiveClear || timeLeft <= 0)
+		{
+            expiryTime += Time.deltaTime;
+
+            if (expiryTime >= 1.2f) // After 1.2s, run all the stuff that deactivates it 
+			{
+                GameControlling.GetInstance().inputManager.ReturnKey(assignedKey);
+                Destroy(this.gameObject); // gameObject.SetActive(false); replace with object pooling expire down the line
+
+                if (isObjectiveClear)
+				{
+                    // virus timer regen code and minigame clear animation stuff goes here
+				}
+                else
+				{
+                    // minigame fail animation goes here
+				}
+            }
+		}
 
         // Input Handling
-        if (Input.GetKeyDown(assignedKey))
-		{
-            panelStrat.OnControlDown();
-		}
-        if (Input.GetKey(assignedKey))
+        if (timeLeft > 0)
         {
-            panelStrat.OnControlHold();
-        }
-        if (Input.GetKeyUp(assignedKey))
-        {
-            panelStrat.OnControlUp();
+            if (Input.GetKeyDown(assignedKey))
+            {
+                panelStrat.OnControlDown();
+                thisKeyBGColour = new Color(1f, 0f, 105f / 255f, 155f / 255f);
+            }
+            if (Input.GetKey(assignedKey))
+            {
+                panelStrat.OnControlHold();
+            }
+            if (Input.GetKeyUp(assignedKey))
+            {
+                panelStrat.OnControlUp();
+                thisKeyBGColour = new Color(0f, 0f, 0f, 155f / 255f);
+            }
         }
 
+        // Change colour of the time & key's BG for *flair*
+        thisKeyBG.color = Color.Lerp(thisKeyBG.color, thisKeyBGColour, 0.05f);
+        thisTimeBG.color = Color.Lerp(thisTimeBG.color, new Color(0f, 0f, 0f, 155f / 255f), 0.01f);
+
         // Objective Clearing
-        if (isObjectiveClear)
+        if (timeLeft <= 0 && !isObjectiveClear)
+		{
+            GetComponent<SpriteRenderer>().color = Color.red;
+        }
+        else if (isObjectiveClear)
 		{
             GetComponent<SpriteRenderer>().color = Color.green;
-            timeLeft -= Time.deltaTime;
         }
         else
 		{
@@ -168,6 +243,8 @@ public class Panel : MonoBehaviour
 
 public interface IPanelStrategy
 {
+    Vector2 SetPanelSize(); // Defines the size of the panel. Should be unique for each minigame. ALWAYS return a new Vector2 for this one
+    string ObjectiveDesc(); // Defines the objective of the minigame as instructions for the player. ALWAYS return a string for this one
     void ResetMinigame(GameObject panelParent, GameObject displayParent); // Used when reinitialising game from object pool. Also as a just in case if things go wrong
     void OnControlDown(); // On the frame the control is pressed
     void OnControlHold(); // Each frame when the control is held down
