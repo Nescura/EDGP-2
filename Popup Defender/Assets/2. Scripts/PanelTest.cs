@@ -2,33 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PanelTest : MonoBehaviour, IPanelStrategy
+public class PanelTest : IPanelStrategy
 {
-    GameObject myDad;
+    GameObject myPanel, myDisplay;
 
     private GameObject testObj;
     int clickCount;
 
-    public void ResetMinigame(GameObject parent)
+    public void ResetMinigame(GameObject panelParent, GameObject displayParent)
     {
-        myDad = parent;
+        myPanel = panelParent;
+        myDisplay = displayParent;
 
         if (testObj == null)
 		{
-            Debug.LogWarning("cock");
-            testObj = Instantiate(Resources.Load("TestObj"), new Vector3(Random.Range(-0.7f, 0.7f), Random.Range(-0.7f, 0.7f), 1) + parent.transform.position, Quaternion.identity, parent.transform) as GameObject;
+            testObj = GameObject.Instantiate(Resources.Load("TestObj"), new Vector3(Random.Range(-0.7f, 0.7f), Random.Range(-0.7f, 0.7f), 1) + myDisplay.transform.position, Quaternion.identity, myDisplay.transform) as GameObject;
 
             //GetComponent();
-            clickCount = 0;
+            clickCount = 10;
         }
     }
 
     public void OnControlDown()
-    {
-        clickCount++;
-        if (clickCount >= 10)
+	{
+		clickCount--;
+        if (clickCount <= 0)
         {
-            myDad.GetComponent<Panel>().SetSuccess(true);
+            myPanel.GetComponent<Panel>().SetSuccess(true);
         }
     }
 
@@ -48,7 +48,6 @@ public class PanelTest : MonoBehaviour, IPanelStrategy
     public void MiniUpdate()
     {
         testObj.GetComponent<SpriteRenderer>().color = Color.red;
-        testObj.GetComponentInChildren<TMPro.TextMeshPro>().text = "Count: " + clickCount;
-
+        testObj.GetComponentInChildren<TMPro.TextMeshPro>().text = clickCount.ToString();
     }
 }

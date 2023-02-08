@@ -11,38 +11,50 @@ public class GameControlling : MonoBehaviour
 
     public static int layerAppend = 0;
 
-    float windowSpawner = 0;
+    float spawnPanelTime = 0;
 
-    public int popupCounter = 0;
+    //public int popupCounter = 0;
+
+    public InputManager inputManager;
 
     // Singleton
-    public static GameControlling itsMe;
-    public static GameControlling GetInstance()
-    {
-        if (itsMe == null)
+    private static GameControlling itsMe;
+    public static GameControlling GetInstance() => itsMe;
+	private void Awake()
+	{
+        // if another GameControlling already exist, kill myself as I am not needed :c
+        if (itsMe != null)
         {
-            itsMe = new GameControlling();
+            Destroy(gameObject);
         }
-        return itsMe;
+        
+        // if the GameControlling haven't existed, this instance becomes the OG
+        else
+        {
+            itsMe = this;
+            //DontDestroyOnLoad(gameObject); // This line makes it so that the GameControlling persists between scenes - disable if not needed 
+        }
     }
 
-
-    // Start is called before the first frame update
-    void Start()
+	// Start is called before the first frame update
+	void Start()
     {
+        // Make a new Input Manager for this game controller singleton
+        inputManager = new InputManager();
+
         // Populate the alphabet
-        InputManager.GetInstance().PopulateList();
+        inputManager.PopulateList();
     }
 
     // Update is called once per frame
     void Update()
     {
-        windowSpawner -= Time.deltaTime;
+        spawnPanelTime -= Time.deltaTime;
         //spawn Panel (debug)
-        if (windowSpawner <= 0)
+        if (spawnPanelTime <= 0 || Input.GetKeyDown(KeyCode.Backspace))
         {
             SpawnPanel();
-            windowSpawner = 5;
+            spawnPanelTime = Random.Range(3f, 6f);
         }
     }
 
@@ -67,7 +79,7 @@ public class GameControlling : MonoBehaviour
 	{
         //popupCounter += 1;
         
-        Debug.Log(InputManager.GetInstance().keyCodeList.Count);
+        //Debug.Log(inputManager.keyCodeList.Count);
         // Pull one random minigame to be spawned
         // Make sure you throw your script into the minigames List
         IPanelStrategy chosenPanelStrat = GetRandomMinigame();
@@ -77,7 +89,7 @@ public class GameControlling : MonoBehaviour
         //Debug.Log(string.Format(("{0}, {1}"), viewportZero, viewportOne));
 
         GameObject newPanel = Instantiate(panelPrefab, new Vector2(Random.Range(viewportZero.x * 0.9f, viewportOne.x * 0.9f), Random.Range(viewportZero.y * 0.9f, viewportOne.y * 0.9f)), Quaternion.identity, this.transform);
-        newPanel.GetComponent<Panel>().Initialize(chosenPanelStrat, Random.Range(0.8f, 2f), Random.Range(0.8f, 2f), 10f, InputManager.GetInstance().GenerateKey());
+        newPanel.GetComponent<Panel>().Initialize(chosenPanelStrat, Random.Range(0.8f, 2f), Random.Range(0.8f, 2f), 10f, inputManager.GenerateKey());
         newPanel.GetComponent<Panel>().LayerToFront(layerAppend += 50);
     }
 

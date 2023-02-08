@@ -2,16 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PanelPrototype : MonoBehaviour, IPanelStrategy
+public class PanelPrototype : IPanelStrategy
 {
+    GameObject myPanel, myDisplay;
     private GameObject testObj;
 
-    public void ResetMinigame(GameObject parent)
+    public void ResetMinigame(GameObject panelParent, GameObject displayParent)
     {
+        myPanel = panelParent;
+        myDisplay = displayParent;
+
         if (testObj == null)
 		{
             Debug.LogWarning("cock");
-            testObj = Instantiate(Resources.Load("TestObj"), new Vector3(Random.Range(-0.7f, 0.7f), Random.Range(-0.7f, 0.7f), 1) + parent.transform.position, Quaternion.identity, parent.transform) as GameObject;
+            testObj = GameObject.Instantiate(Resources.Load("TestObj"), new Vector3(Random.Range(-0.7f, 0.7f), Random.Range(-0.7f, 0.7f), 1) + myDisplay.transform.position, Quaternion.identity, myDisplay.transform) as GameObject;
         }
 
     }

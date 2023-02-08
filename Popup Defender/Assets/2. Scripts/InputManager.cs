@@ -6,6 +6,8 @@ public class InputManager
 {
     public List<KeyCode> keyCodeList = new List<KeyCode>();
 
+    /* - Tams here. This MonoBehaviour-less script being a singleton is surprisingly causing some of the "suddenly things stop working" problems we keep having. Now it is MADE IN GameControlling.cs, which is a singleton
+
     private InputManager() { }
     private static InputManager instance;
 
@@ -16,19 +18,7 @@ public class InputManager
             instance = new InputManager();
         }
         return instance;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    }*/ 
 
     public KeyCode GenerateKey()
     {

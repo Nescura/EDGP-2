@@ -5,10 +5,14 @@ using UnityEngine;
 public class InputManagerTest : MonoBehaviour
 {
     public KeyCode chosenKey;
+    InputManager inputManager;
+
     // Start is called before the first frame update
     void Start()
     {
-        InputManager.GetInstance().PopulateList();
+        inputManager = new InputManager();
+        //InputManager.GetInstance().GenerateKey();
+        inputManager.PopulateList();
     }
 
     // Update is called once per frame
@@ -16,12 +20,13 @@ public class InputManagerTest : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
-            chosenKey = InputManager.GetInstance().GenerateKey();
+            chosenKey = inputManager.GenerateKey(); //InputManager.GetInstance().GenerateKey();
         }
 
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            InputManager.GetInstance().ReturnKey(chosenKey);
+            inputManager.ReturnKey(chosenKey);
+            //InputManager.GetInstance().ReturnKey(chosenKey);
         }
     }
 }

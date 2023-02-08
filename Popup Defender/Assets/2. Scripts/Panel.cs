@@ -10,7 +10,7 @@ public class Panel : MonoBehaviour
     public float panelSizeX = 1.125f, panelSizeY = 1.2f, timeLeft = 10f, difficulty = 1f;
     private KeyCode assignedKey;
     public IPanelStrategy panelStrat;
-    public GameObject thisParent;
+    public GameObject thisDisplayParent;
 
     // Display Stuff
     public GameObject thisMask;
@@ -22,7 +22,7 @@ public class Panel : MonoBehaviour
     public void Initialize(IPanelStrategy panelStrategy, float sizeX, float sizeY, float timeInSecs, KeyCode key)
     {
         // Define parent for interface to spawn gameobjects in
-        thisParent = transform.Find("DisplayGameObjs").gameObject;
+        thisDisplayParent = transform.Find("DisplayGameObjs").gameObject;
 
         // Get a random input from the input list
         assignedKey = key;
@@ -47,8 +47,8 @@ public class Panel : MonoBehaviour
         // Get the time display thing
         thisTimeMesh = transform.Find("TimeBG").transform.Find("TimeTxt").GetComponent<TMPro.TextMeshPro>();
 
-        // LASTLY. Reset the minigame
-        panelStrat.ResetMinigame(thisParent);
+        // LASTLY. Reset the minigame and set their parents up (for success)
+        panelStrat.ResetMinigame(this.gameObject, thisDisplayParent);
     }
 
     public void SetSuccess(bool b)
@@ -62,6 +62,17 @@ public class Panel : MonoBehaviour
         GetComponent<SpriteRenderer>().sortingOrder = index + 10; // extra numbers are their "deafult" values
 
         // Objects in Panel Minigame
+        GameObject displayObjs = transform.Find("DisplayGameObjs").gameObject;
+
+        // Layering all objects with SpriteRenderer components
+        SpriteRenderer[] spriteRenders = displayObjs.GetComponentsInChildren<SpriteRenderer>();
+        foreach (SpriteRenderer sprRender in spriteRenders) sprRender.sortingOrder = index - 5;
+
+        // Layering all objects with TextMeshPro components
+        TMPro.TextMeshPro[] textMeshes = displayObjs.GetComponentsInChildren<TMPro.TextMeshPro>();
+        foreach (TMPro.TextMeshPro tmPro in textMeshes) tmPro.sortingOrder = index - 5;
+
+        /*
         foreach (Transform child in transform.Find("DisplayGameObjs"))
 		{
             child.TryGetComponent(out SpriteRenderer childSprRen);
@@ -76,7 +87,7 @@ public class Panel : MonoBehaviour
                 if (grandchildSprRen != null) grandchildSprRen.sortingOrder = index - 5;
                 if (grandchildTMPro != null) grandchildTMPro.sortingOrder = index - 5;
             }
-        }
+        }*/
 
         // Key Mesh
         thisKeyMesh.transform.parent.GetComponent<SpriteRenderer>().sortingOrder = index;
@@ -109,7 +120,7 @@ public class Panel : MonoBehaviour
         else
 		{
             panelStrat.OnTimeUp();
-            InputManager.GetInstance().ReturnKey(assignedKey);
+            GameControlling.GetInstance().inputManager.ReturnKey(assignedKey);
             gameObject.SetActive(false);
 
             //gameControlling.popupCounter -= 1;
@@ -127,6 +138,17 @@ public class Panel : MonoBehaviour
         if (Input.GetKeyUp(assignedKey))
         {
             panelStrat.OnControlUp();
+        }
+
+        // Objective Clearing
+        if (isObjectiveClear)
+		{
+            GetComponent<SpriteRenderer>().color = Color.green;
+            timeLeft -= Time.deltaTime;
+        }
+        else
+		{
+            GetComponent<SpriteRenderer>().color = Color.white;
         }
     }
 
@@ -146,7 +168,7 @@ public class Panel : MonoBehaviour
 
 public interface IPanelStrategy
 {
-    void ResetMinigame(GameObject parent); // Used when reinitialising game from object pool. Also as a just in case if things go wrong
+    void ResetMinigame(GameObject panelParent, GameObject displayParent); // Used when reinitialising game from object pool. Also as a just in case if things go wrong
     void OnControlDown(); // On the frame the control is pressed
     void OnControlHold(); // Each frame when the control is held down
     void OnControlUp(); // On the frame the control is released
