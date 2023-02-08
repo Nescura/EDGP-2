@@ -32,7 +32,7 @@ public class GameControlling : MonoBehaviour
         else
         {
             itsMe = this;
-            //DontDestroyOnLoad(gameObject); // This line makes it so that the GameControlling persists between scenes - disable if not needed 
+            // DontDestroyOnLoad(gameObject); // This line makes it so that the GameControlling persists between scenes - disable if not needed 
         }
     }
 
