@@ -10,8 +10,9 @@ public class Scene : MonoBehaviour
     public GameObject browserPage;
     public GameObject websitePage;
     public GameObject dayPage;
-
     public Text dayText;
+
+    GameControlling gameControlling;
 
     public void Play()
     {
@@ -69,5 +70,17 @@ public class Scene : MonoBehaviour
 
         dayPage.SetActive(false);
         desktopPage.SetActive(true);
+    }
+
+    public void disableButton()
+    {
+        if (gameControlling.popupCounter > 0)
+        {
+            GetComponent<Button>().interactable = false;
+        }
+        else
+        {
+            GetComponent<Button>().interactable = true;
+        }
     }
 }

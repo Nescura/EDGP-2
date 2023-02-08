@@ -297,6 +297,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 174395313}
+        m_TargetAssemblyTypeName: Scene, Assembly-CSharp
+        m_MethodName: disableButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &14297270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -447,6 +459,7 @@ MonoBehaviour:
   browserPage: {fileID: 1582649889}
   websitePage: {fileID: 261226246}
   dayPage: {fileID: 746875255}
+  dayText: {fileID: 0}
 --- !u!4 &174395314
 Transform:
   m_ObjectHideFlags: 0
@@ -699,6 +712,18 @@ MonoBehaviour:
       - m_Target: {fileID: 174395313}
         m_TargetAssemblyTypeName: Scene, Assembly-CSharp
         m_MethodName: SubmitButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 174395313}
+        m_TargetAssemblyTypeName: Scene, Assembly-CSharp
+        m_MethodName: disableButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1366,6 +1391,18 @@ MonoBehaviour:
       - m_Target: {fileID: 174395313}
         m_TargetAssemblyTypeName: Scene, Assembly-CSharp
         m_MethodName: WebsiteButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 174395313}
+        m_TargetAssemblyTypeName: Scene, Assembly-CSharp
+        m_MethodName: disableButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

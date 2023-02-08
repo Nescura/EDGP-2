@@ -13,6 +13,8 @@ public class GameControlling : MonoBehaviour
 
     float windowSpawner = 0;
 
+    public int popupCounter = 0;
+
     // Singleton
     public static GameControlling itsMe;
     public static GameControlling GetInstance()
@@ -63,6 +65,8 @@ public class GameControlling : MonoBehaviour
 
     public void SpawnPanel()
 	{
+        popupCounter += 1;
+        
         Debug.Log(InputManager.GetInstance().keyCodeList.Count);
         // Pull one random minigame to be spawned
         // Make sure you throw your script into the minigames List
