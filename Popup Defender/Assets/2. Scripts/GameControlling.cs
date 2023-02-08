@@ -65,7 +65,7 @@ public class GameControlling : MonoBehaviour
 
     public void SpawnPanel()
 	{
-        popupCounter += 1;
+        //popupCounter += 1;
         
         Debug.Log(InputManager.GetInstance().keyCodeList.Count);
         // Pull one random minigame to be spawned
@@ -79,5 +79,12 @@ public class GameControlling : MonoBehaviour
         GameObject newPanel = Instantiate(panelPrefab, new Vector2(Random.Range(viewportZero.x * 0.9f, viewportOne.x * 0.9f), Random.Range(viewportZero.y * 0.9f, viewportOne.y * 0.9f)), Quaternion.identity, this.transform);
         newPanel.GetComponent<Panel>().Initialize(chosenPanelStrat, Random.Range(0.8f, 2f), Random.Range(0.8f, 2f), 10f, InputManager.GetInstance().GenerateKey());
         newPanel.GetComponent<Panel>().LayerToFront(layerAppend += 50);
+    }
+
+    public int GetActivePanelCount()
+    {
+        Panel[] activePanelCount = FindObjectsOfType<Panel>();
+        //Debug.Log(activePanelCount.Length);
+        return activePanelCount.Length;
     }
 }

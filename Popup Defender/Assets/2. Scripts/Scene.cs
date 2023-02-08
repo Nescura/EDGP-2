@@ -6,13 +6,11 @@ using UnityEngine.UI;
 
 public class Scene : MonoBehaviour
 {
-    public GameObject desktopPage;
-    public GameObject browserPage;
-    public GameObject websitePage;
+    public GameObject desktopPage, browserPage, websitePage;
+    public GameObject browserButton, websiteButton, submitButton;
+
     public GameObject dayPage;
     public Text dayText;
-
-    GameControlling gameControlling;
 
     public void Play()
     {
@@ -72,15 +70,24 @@ public class Scene : MonoBehaviour
         desktopPage.SetActive(true);
     }
 
-    public void disableButton()
+    public void ButtonCanInteract()
     {
-        if (gameControlling.popupCounter > 0)
+        if (GameControlling.GetInstance().GetActivePanelCount() > 0)
         {
-            GetComponent<Button>().interactable = false;
+            browserButton.GetComponent<Button>().interactable = false;
+            websiteButton.GetComponent<Button>().interactable = false;
+            submitButton.GetComponent<Button>().interactable = false;
         }
         else
         {
-            GetComponent<Button>().interactable = true;
+            browserButton.GetComponent<Button>().interactable = true;
+            websiteButton.GetComponent<Button>().interactable = true;
+            submitButton.GetComponent<Button>().interactable = true;
         }
+    }
+
+    private void Update()
+    {
+        ButtonCanInteract();
     }
 }

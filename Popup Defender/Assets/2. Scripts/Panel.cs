@@ -19,8 +19,6 @@ public class Panel : MonoBehaviour
     // Panel Dragging Stuff
     public Vector3 mouseClickPosOffset;
 
-    GameControlling gameControlling;
-
     public void Initialize(IPanelStrategy panelStrategy, float sizeX, float sizeY, float timeInSecs, KeyCode key)
     {
         // Define parent for interface to spawn gameobjects in
@@ -114,7 +112,7 @@ public class Panel : MonoBehaviour
             InputManager.GetInstance().ReturnKey(assignedKey);
             gameObject.SetActive(false);
 
-            gameControlling.popupCounter -= 1;
+            //gameControlling.popupCounter -= 1;
         }
 
         // Input Handling

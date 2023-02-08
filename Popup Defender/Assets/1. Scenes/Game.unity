@@ -458,8 +458,11 @@ MonoBehaviour:
   desktopPage: {fileID: 322961161}
   browserPage: {fileID: 1582649889}
   websitePage: {fileID: 261226246}
+  browserButton: {fileID: 14297267}
+  websiteButton: {fileID: 2013610638}
+  submitButton: {fileID: 357297546}
   dayPage: {fileID: 746875255}
-  dayText: {fileID: 0}
+  dayText: {fileID: 2097856132}
 --- !u!4 &174395314
 Transform:
   m_ObjectHideFlags: 0
@@ -1033,6 +1036,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 746875255}
   m_CullTransparentMesh: 1
+--- !u!1 &855682402
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 855682404}
+  - component: {fileID: 855682403}
+  m_Layer: 0
+  m_Name: GameCuntroller
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &855682403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 855682402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a41fc661a98c7e34a962dfa50d42b378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 401060415}
+  panelPrefab: {fileID: 2792343087782938337, guid: e890eb794a5e5b243857baa5fbf95a70, type: 3}
+  popupCounter: 0
+--- !u!4 &855682404
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 855682402}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1068802123
 GameObject:
   m_ObjectHideFlags: 0
