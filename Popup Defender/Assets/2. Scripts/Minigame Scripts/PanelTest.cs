@@ -30,10 +30,13 @@ public class PanelTest : IPanelStrategy
 
     public void OnControlDown()
 	{
-		clickCount--;
         if (clickCount <= 0)
         {
             myPanel.GetComponent<Panel>().SetSuccess(true);
+        }
+        else
+        {
+            clickCount--;
         }
     }
 
