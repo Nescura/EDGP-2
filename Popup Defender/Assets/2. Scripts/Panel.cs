@@ -5,20 +5,20 @@ using UnityEngine.TextCore;
 
 public class Panel : MonoBehaviour
 {
-    // Initialization Variables
+    [Header("Initialization Variables")]
     public bool isObjectiveClear = false;
-    public float /*panelSizeX = 1.125f, panelSizeY = 1.2f,*/ timeLeft = 10f, expiryTime = 0f;//difficulty = 1f;
+    public float /*panelSizeX = 1.125f, panelSizeY = 1.2f,*/ timeInit = 10f, timeLeft, expiryTime = 0f;//difficulty = 1f;
     private KeyCode assignedKey;
     public IPanelStrategy panelStrat;
     public GameObject thisDisplayParent;
 
-    // Display Stuff
-    public GameObject thisMask;
-    public SpriteRenderer thisKeyBG, thisTimeBG;
-    public TMPro.TextMeshPro thisKeyMesh, thisTimeMesh, thisTimeMeshDec, thisObjectiveMesh;
+    [Header("Display Stuff (please leave them empty)")]
     public Color thisKeyBGColour;
+    public GameObject thisMask, thisTimeParent, thisTimeBarFill;
+    public SpriteRenderer thisKeyBG, thisTimeBarBG, thisTimeBarSpr;
+    public TMPro.TextMeshPro thisKeyMesh, thisTimeMesh, thisTimeMeshDec, thisObjectiveMesh;
 
-    // Panel Dragging Stuff
+    [Header("Panel Dragging Stuff")]
     public Vector3 mouseClickPosOffset;
 
     // Initialization of variables - there's a lot here, it's because these variables would change very often. Please bear with it lol
@@ -33,7 +33,8 @@ public class Panel : MonoBehaviour
         // Setting strategies
         this.panelStrat = panelStrategy;
         //panelSizeX = sizeX; panelSizeY = sizeY;
-        timeLeft = timeInSecs;
+        timeInit = timeInSecs;
+        timeLeft = timeInit + 2f; // 2 seconds of leeway
 
         // Assign the mask in child
         thisMask = transform.Find("PanelMask").gameObject;
@@ -43,7 +44,7 @@ public class Panel : MonoBehaviour
         thisKeyMesh = thisKeyBG.transform.Find("KeyTxt").GetComponent<TMPro.TextMeshPro>();
         if (assignedKey == KeyCode.Space)
 		{
-            thisKeyMesh.text = "\u25ac"; // may be too ambiguous? 
+            thisKeyMesh.text = "Spc"; // may be too long? 
         }
         else
 		{
@@ -52,9 +53,12 @@ public class Panel : MonoBehaviour
         thisKeyBGColour = new Color (0f, 0f, 0f, 155f / 255f);
 
         // Assign the time display's components
-        thisTimeBG = transform.Find("TimeBG").GetComponent<SpriteRenderer>();
-        thisTimeMesh = thisTimeBG.transform.Find("TimeTxt").GetComponent<TMPro.TextMeshPro>();
-        thisTimeMeshDec = thisTimeBG.transform.Find("TimeTxtDec").GetComponent<TMPro.TextMeshPro>();
+        thisTimeParent = transform.Find("TimeParent").gameObject;
+        thisTimeMesh = thisTimeParent.transform.Find("TimeTxt").GetComponent<TMPro.TextMeshPro>();
+        thisTimeMeshDec = thisTimeParent.transform.Find("TimeTxtDec").GetComponent<TMPro.TextMeshPro>();
+        thisTimeBarFill = thisTimeParent.transform.Find("TimeBarFill").gameObject;
+        thisTimeBarSpr = thisTimeBarFill.transform.Find("TimeBarSpr").GetComponent<SpriteRenderer>();
+        thisTimeBarBG = thisTimeParent.transform.Find("TimeBarBG").GetComponent<SpriteRenderer>();
 
         // Assign the objective display's text component and show the minigame's objective
         thisObjectiveMesh = transform.Find("ObjectiveTxt").GetComponent<TMPro.TextMeshPro>();
@@ -63,7 +67,7 @@ public class Panel : MonoBehaviour
         panelStrat.ResetMinigame(this.gameObject, thisDisplayParent);
 
         // Set size of panel
-        GetComponent<RectTransform>().sizeDelta = //new Vector2(panelSizeX, panelSizeY);
+        GetComponent<RectTransform>().sizeDelta = panelStrat.SetPanelSize(); //new Vector2(panelSizeX, panelSizeY);
         GetComponent<SpriteRenderer>().size = panelStrat.SetPanelSize(); //new Vector2(panelSizeX, panelSizeY);
         thisMask.GetComponent<SpriteRenderer>().size = panelStrat.SetPanelSize(); // new Vector2(panelSizeX, panelSizeY);
         GetComponent<BoxCollider2D>().size = panelStrat.SetPanelSize(); // new Vector2(panelSizeX, panelSizeY); // collider
@@ -79,8 +83,8 @@ public class Panel : MonoBehaviour
 
     public void ForceTimeLeft(float f, bool directSet) // Forcefully change the time minigame has left
     {
-        if (f < 0) thisTimeBG.color = new Color(1f, 0f, 0f, 1f);
-        if (f > 0) thisTimeBG.color = new Color(0f, 188f / 255f, 0f, 155f / 255f);
+        if (f < 0) thisTimeBarBG.color = new Color(1f, 0f, 0f, 1f);
+        if (f > 0) thisTimeBarBG.color = new Color(0f, 188f / 255f, 0f, 155f / 255f);
 
         if (directSet) // if directSet is true, it SETS the time to f
 		{
@@ -100,11 +104,11 @@ public class Panel : MonoBehaviour
         // Objects in Panel Minigame
         GameObject displayObjs = transform.Find("DisplayGameObjs").gameObject;
 
-        // Layering all objects with SpriteRenderer components
+        // Layering all objects with SpriteRenderer components in DisplayGameObjs
         SpriteRenderer[] spriteRenders = displayObjs.GetComponentsInChildren<SpriteRenderer>();
         foreach (SpriteRenderer sprRender in spriteRenders) sprRender.sortingOrder = index - 5;
 
-        // Layering all objects with TextMeshPro components
+        // Layering all objects with TextMeshPro components in DisplayGameObjs
         TMPro.TextMeshPro[] textMeshes = displayObjs.GetComponentsInChildren<TMPro.TextMeshPro>();
         foreach (TMPro.TextMeshPro tmPro in textMeshes) tmPro.sortingOrder = index - 5;
 
@@ -126,13 +130,15 @@ public class Panel : MonoBehaviour
         }*/
 
         // Key Mesh
-        thisKeyMesh.transform.parent.GetComponent<SpriteRenderer>().sortingOrder = index;
-        thisKeyMesh.sortingOrder = index;
+        thisKeyMesh.transform.parent.GetComponent<SpriteRenderer>().sortingOrder = index + 14;
+        thisKeyMesh.sortingOrder = index + 15;
 
-        // Time Mesh
-        thisTimeMesh.transform.parent.GetComponent<SpriteRenderer>().sortingOrder = index;
-        thisTimeMesh.sortingOrder = index;
-        thisTimeMeshDec.sortingOrder = index;
+        // Time Bars and Mesh
+        //thisTimeMesh.transform.parent.GetComponent<SpriteRenderer>().sortingOrder = index;
+        thisTimeBarBG.sortingOrder = index + 12;
+        thisTimeBarSpr.sortingOrder = index + 13;
+        thisTimeMesh.sortingOrder = index + 15;
+        thisTimeMeshDec.sortingOrder = index + 15;
 
         // Objective Mesh
         thisObjectiveMesh.sortingOrder = index;
@@ -153,6 +159,8 @@ public class Panel : MonoBehaviour
         thisObjectiveMesh.text = panelStrat.ObjectiveDesc();
 
         // Timer Handling
+        thisTimeBarFill.transform.localScale = new Vector3(Mathf.Clamp(timeLeft / timeInit, 0f, 1f), 1, 1);
+
         if (timeLeft > 0)
 		{
             if (!isObjectiveClear) timeLeft -= Time.deltaTime; // Only decrease time if objective is not complete
@@ -166,7 +174,8 @@ public class Panel : MonoBehaviour
             //gameControlling.popupCounter -= 1;
         }
         thisTimeMesh.text = string.Format("{0}", Mathf.FloorToInt(Mathf.Abs((int)timeLeft)));
-        thisTimeMeshDec.text = string.Format(".{0}  ", Mathf.FloorToInt(Mathf.Abs((int)timeLeft) * 10 % 10));
+        thisTimeMeshDec.text = string.Format(".{0}", (int)Mathf.FloorToInt(Mathf.Abs(timeLeft * 10 % 10)));
+        Debug.Log((int)Mathf.Abs(timeLeft * 10 % 10));
 
         // Expiry Actions - executed ONLY when isObjective is true, or if you failed
         if (isObjectiveClear || timeLeft <= 0)
@@ -210,7 +219,7 @@ public class Panel : MonoBehaviour
 
         // Change colour of the time & key's BG for *flair*
         thisKeyBG.color = Color.Lerp(thisKeyBG.color, thisKeyBGColour, 0.05f);
-        thisTimeBG.color = Color.Lerp(thisTimeBG.color, new Color(0f, 0f, 0f, 155f / 255f), 0.01f);
+        thisTimeBarBG.color = Color.Lerp(thisTimeBarBG.color, new Color(0f, 0f, 0f, 155f / 255f), 0.01f);
 
         // Objective Clearing
         if (timeLeft <= 0 && !isObjectiveClear)

@@ -29,15 +29,9 @@ public class PanelTest : IPanelStrategy
     }
 
     public void OnControlDown()
-	{
-        if (clickCount <= 0)
-        {
-            myPanel.GetComponent<Panel>().SetSuccess(true);
-        }
-        else
-        {
-            clickCount--;
-        }
+    {
+        if (clickCount > 0) clickCount--;
+        if (clickCount <= 0) myPanel.GetComponent<Panel>().SetSuccess(true);
     }
 
     public void OnControlHold()

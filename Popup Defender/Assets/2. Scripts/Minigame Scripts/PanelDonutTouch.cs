@@ -51,7 +51,7 @@ public class PanelDonutTouch : IPanelStrategy
         if (shouldYouPress == 0)
         {
             youFuckedIt = true;
-            myPanel.GetComponent<Panel>().ForceTimeLeft(-10f, true);
+            myPanel.GetComponent<Panel>().ForceTimeLeft(0f, true);
         }
         else
         {

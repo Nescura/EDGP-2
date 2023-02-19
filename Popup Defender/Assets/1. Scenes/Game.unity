@@ -1069,7 +1069,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 401060415}
-  panelPrefab: {fileID: 2792343087782938337, guid: e890eb794a5e5b243857baa5fbf95a70, type: 3}
+  panelPrefab: {fileID: -5879608897876754005, guid: e890eb794a5e5b243857baa5fbf95a70, type: 3}
 --- !u!4 &855682404
 Transform:
   m_ObjectHideFlags: 0
