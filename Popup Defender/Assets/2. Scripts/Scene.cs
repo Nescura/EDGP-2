@@ -19,6 +19,7 @@ public class Scene : MonoBehaviour
         myController = GameObject.Find("GameCuntroller");
     }
 
+    #region Bttn Functions
     public void Play()
     {
         SceneManager.LoadScene(1);
@@ -69,6 +70,7 @@ public class Scene : MonoBehaviour
 
         StartCoroutine(DesktopPage());
     }
+    #endregion
 
     IEnumerator DesktopPage()
     {

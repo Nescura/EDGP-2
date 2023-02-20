@@ -170,12 +170,13 @@ public class Panel : MonoBehaviour
         else
 		{
             panelStrat.OnTimeUp();
+            Destroy(this.gameObject);
 
             //gameControlling.popupCounter -= 1;
         }
         thisTimeMesh.text = string.Format("{0}", Mathf.FloorToInt(Mathf.Abs((int)timeLeft)));
         thisTimeMeshDec.text = string.Format(".{0}", (int)Mathf.FloorToInt(Mathf.Abs(timeLeft * 10 % 10)));
-        Debug.Log((int)Mathf.Abs(timeLeft * 10 % 10));
+        //Debug.Log((int)Mathf.Abs(timeLeft * 10 % 10));
 
         // Expiry Actions - executed ONLY when isObjective is true, or if you failed
         if (isObjectiveClear || timeLeft <= 0)

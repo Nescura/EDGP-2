@@ -52,6 +52,10 @@ public class PanelDonutTouch : IPanelStrategy
         {
             youFuckedIt = true;
             myPanel.GetComponent<Panel>().ForceTimeLeft(0f, true);
+            GameObject myController = GameObject.Find("GameCuntroller");
+            GameTimer myTimerScript = myController.GetComponent<GameTimer>();
+
+            myTimerScript.deadlineTimer += 1;
         }
         else
         {
@@ -72,6 +76,13 @@ public class PanelDonutTouch : IPanelStrategy
         if (shouldYouPress == 0 && !youFuckedIt)
         {
             myPanel.GetComponent<Panel>().SetSuccess(true);
+        }
+        else
+        {
+            GameObject myController = GameObject.Find("GameCuntroller");
+            GameTimer myTimerScript = myController.GetComponent<GameTimer>();
+
+            myTimerScript.deadlineTimer += 1;
         }
     }
 

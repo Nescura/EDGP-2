@@ -38,6 +38,10 @@ public class PanelPrototype : IPanelStrategy
 
     public void OnTimeUp()
     {
+        GameObject myController = GameObject.Find("GameCuntroller");
+        GameTimer myTimerScript = myController.GetComponent<GameTimer>();
+
+        myTimerScript.deadlineTimer += 1;
     }
 
     public void MiniUpdate()
