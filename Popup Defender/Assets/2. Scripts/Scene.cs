@@ -12,6 +12,13 @@ public class Scene : MonoBehaviour
     public GameObject dayPage;
     public Text dayText;
 
+    private GameObject myController;
+
+    private void Start()
+    {
+        myController = GameObject.Find("GameCuntroller");
+    }
+
     public void Play()
     {
         SceneManager.LoadScene(1);
@@ -58,15 +65,18 @@ public class Scene : MonoBehaviour
     {
         websitePage.SetActive(false);
         dayPage.SetActive(true);
+        myController.GetComponent<GameTimer>().myDeadLineTxt.enabled = false;
 
         StartCoroutine(DesktopPage());
     }
 
     IEnumerator DesktopPage()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
 
         dayPage.SetActive(false);
+        myController.GetComponent<GameTimer>().ResetTimer();
+        myController.GetComponent<GameTimer>().myDeadLineTxt.enabled = true;
         desktopPage.SetActive(true);
     }
 

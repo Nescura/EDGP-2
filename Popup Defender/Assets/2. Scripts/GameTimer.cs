@@ -28,12 +28,12 @@ public class GameTimer : MonoBehaviour
         //as long as game's state is not END or Paused, the deadline timer will continue to tick down
         if (myState.state == GameCurrentState.START)
         {
-            if (deadlinetimerSec > 30)
+            if (deadlinetimerSec > 15)
             {
                 deadlineTimer += 1;
                 deadlinetimerSec = 0;
             }
-            else if (deadlinetimerSec < 30)
+            else if (deadlinetimerSec < 15)
             {
                 deadlinetimerSec += Time.deltaTime;
             }
@@ -47,5 +47,12 @@ public class GameTimer : MonoBehaviour
             myState.state = GameCurrentState.END;
             myDeadLineTxt.text = "00:00";
         }
+    }
+
+    public void ResetTimer()
+    {
+        deadlinetimerSec = 0;
+        deadlineTimer = 50;
+        myDeadLineTxt.text = "23:" + (int)deadlineTimer;
     }
 }
