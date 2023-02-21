@@ -37,13 +37,13 @@ public class Panel : MonoBehaviour
         //panelSizeX = sizeX; panelSizeY = sizeY;
         timeInit = timeInSecs;
 
-        if (this.panelStrat.ToString() == "PanelHold")
+        if (this.panelStrat.ToString() == "PanelDonutTouch")
         {
-            timeLeft = timeInit + 2f; // 2 seconds of leeway
+            timeLeft = timeInit - 5f;
         }
         else
         {
-            timeLeft = timeInit + 1f; // 2 seconds of leeway
+            timeLeft = timeInit - 1f;
         }
         #endregion
 
