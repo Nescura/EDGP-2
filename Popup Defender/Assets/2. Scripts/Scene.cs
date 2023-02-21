@@ -7,10 +7,11 @@ using UnityEngine.UI;
 public class Scene : MonoBehaviour
 {
     public GameObject desktopPage, browserPage, websitePage;
-    public GameObject browserButton, websiteButton, submitButton;
+    public GameObject browserBttn, websiteBttn, submitBttn;
 
     public GameObject dayPage;
     public Text dayText;
+    public bool canInteract;
 
     private GameObject myController;
 
@@ -86,15 +87,19 @@ public class Scene : MonoBehaviour
     {
         if (GameControlling.GetInstance().GetActivePanelCount() > 0)
         {
-            browserButton.GetComponent<Button>().interactable = false;
-            websiteButton.GetComponent<Button>().interactable = false;
-            submitButton.GetComponent<Button>().interactable = false;
+            canInteract = false;
+
+            browserBttn.GetComponent<SpriteRenderer>().color = new Color(125f / 225f, 125f / 225f, 125f / 225f);
+            websiteBttn.GetComponent<SpriteRenderer>().color = new Color(125f / 225f, 125f / 225f, 125f / 225f);
+            submitBttn.GetComponent<SpriteRenderer>().color = new Color(125f / 225f, 125f / 225f, 125f / 225f);
         }
         else
         {
-            browserButton.GetComponent<Button>().interactable = true;
-            websiteButton.GetComponent<Button>().interactable = true;
-            submitButton.GetComponent<Button>().interactable = true;
+            canInteract = true;
+
+            browserBttn.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
+            websiteBttn.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
+            submitBttn.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
         }
     }
 

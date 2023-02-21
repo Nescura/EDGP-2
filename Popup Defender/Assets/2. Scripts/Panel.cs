@@ -24,22 +24,34 @@ public class Panel : MonoBehaviour
     // Initialization of variables - there's a lot here, it's because these variables would change very often. Please bear with it lol
     public void Initialize(IPanelStrategy panelStrategy, float timeInSecs, KeyCode key)
     {
-        // Define parent for interface to spawn gameobjects in
+        #region Define parent for interface to spawn gameobjects in
         thisDisplayParent = transform.Find("DisplayGameObjs").gameObject;
+        #endregion
 
-        // Get a random input from the input list
+        #region Get a random input from the input list
         assignedKey = key;
+        #endregion
 
-        // Setting strategies
+        #region Setting strategies
         this.panelStrat = panelStrategy;
         //panelSizeX = sizeX; panelSizeY = sizeY;
         timeInit = timeInSecs;
-        timeLeft = timeInit + 2f; // 2 seconds of leeway
 
-        // Assign the mask in child
+        if (this.panelStrat.ToString() == "PanelHold")
+        {
+            timeLeft = timeInit + 2f; // 2 seconds of leeway
+        }
+        else
+        {
+            timeLeft = timeInit + 1f; // 2 seconds of leeway
+        }
+        #endregion
+
+        #region Assign the mask in child
         thisMask = transform.Find("PanelMask").gameObject;
+        #endregion
 
-        // Assign the key display's components
+        #region Assign the key display's components
         thisKeyBG = transform.Find("KeyBG").GetComponent<SpriteRenderer>();
         thisKeyMesh = thisKeyBG.transform.Find("KeyTxt").GetComponent<TMPro.TextMeshPro>();
         if (assignedKey == KeyCode.Space)
@@ -51,29 +63,35 @@ public class Panel : MonoBehaviour
             thisKeyMesh.text = assignedKey.ToString();
 		}
         thisKeyBGColour = new Color (0f, 0f, 0f, 155f / 255f);
+        #endregion
 
-        // Assign the time display's components
+        #region Assign the time display's components
         thisTimeParent = transform.Find("TimeParent").gameObject;
         thisTimeMesh = thisTimeParent.transform.Find("TimeTxt").GetComponent<TMPro.TextMeshPro>();
         thisTimeMeshDec = thisTimeParent.transform.Find("TimeTxtDec").GetComponent<TMPro.TextMeshPro>();
         thisTimeBarFill = thisTimeParent.transform.Find("TimeBarFill").gameObject;
         thisTimeBarSpr = thisTimeBarFill.transform.Find("TimeBarSpr").GetComponent<SpriteRenderer>();
         thisTimeBarBG = thisTimeParent.transform.Find("TimeBarBG").GetComponent<SpriteRenderer>();
+        #endregion
 
-        // Assign the objective display's text component and show the minigame's objective
+        #region Assign the objective display's text component and show the minigame's objective
         thisObjectiveMesh = transform.Find("ObjectiveTxt").GetComponent<TMPro.TextMeshPro>();
+        #endregion
 
-        // Reset the minigame and set their parents up (for success)
+        #region Reset the minigame and set their parents up (for success)
         panelStrat.ResetMinigame(this.gameObject, thisDisplayParent);
+        #endregion
 
-        // Set size of panel
+        #region Set size of panel
         GetComponent<RectTransform>().sizeDelta = panelStrat.SetPanelSize(); //new Vector2(panelSizeX, panelSizeY);
         GetComponent<SpriteRenderer>().size = panelStrat.SetPanelSize(); //new Vector2(panelSizeX, panelSizeY);
         thisMask.GetComponent<SpriteRenderer>().size = panelStrat.SetPanelSize(); // new Vector2(panelSizeX, panelSizeY);
         GetComponent<BoxCollider2D>().size = panelStrat.SetPanelSize(); // new Vector2(panelSizeX, panelSizeY); // collider
+        #endregion
 
-        // Set expiryTime to zero - this timer is purely for animation when an objective is completed
+        #region Set expiryTime to zero - this timer is purely for animation when an objective is completed
         expiryTime = 0f;
+        #endregion
     }
 
     public void SetSuccess(bool b) // Checks whether the minigame is cleared or not
@@ -145,11 +163,6 @@ public class Panel : MonoBehaviour
 
         // Masking BG
         thisMask.GetComponent<SpriteRenderer>().sortingOrder = index - 20;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
     }
 
     // Update is called once per frame

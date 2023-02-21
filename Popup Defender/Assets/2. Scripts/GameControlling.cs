@@ -100,8 +100,11 @@ public class GameControlling : MonoBehaviour
         Vector2 viewportOne  = mainCamera.ViewportToWorldPoint(Vector2.one);
         //Debug.Log(string.Format(("{0}, {1}"), viewportZero, viewportOne));
 
-        GameObject newPanel = Instantiate(panelPrefab, new Vector2(Random.Range(viewportZero.x * 0.9f, viewportOne.x * 0.9f), Random.Range(viewportZero.y * 0.9f, viewportOne.y * 0.9f)), Quaternion.identity, this.transform);
-        newPanel.GetComponent<Panel>().Initialize(chosenPanelStrat, 10f, inputManager.GenerateKey());
+        GameObject newPanel = Instantiate(panelPrefab, 
+            new Vector2(Random.Range(viewportZero.x * 0.9f, viewportOne.x * 0.9f), 
+            Random.Range(viewportZero.y * 0.9f, viewportOne.y * 0.9f)), 
+            Quaternion.identity, this.transform);
+        newPanel.GetComponent<Panel>().Initialize(chosenPanelStrat, 5f, inputManager.GenerateKey());
         newPanel.GetComponent<Panel>().LayerToFront(layerAppend += 50);
     }
 
