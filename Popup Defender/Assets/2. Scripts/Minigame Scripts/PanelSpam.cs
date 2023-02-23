@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PanelTest : IPanelStrategy
+public class PanelSpam : IPanelStrategy
 {
     // MAKE SURE THESE VARIABLES ARE IN
     GameObject myPanel, myDisplay;
@@ -13,12 +13,13 @@ public class PanelTest : IPanelStrategy
     int clickCount;
 
     public Vector2 SetPanelSize() => new Vector2(sizeX, sizeY);
-    public string ObjectiveDesc() => "Hit until the counter hits zero!";
+    public int ObjectiveKeyTech() => 3;
+    public string ObjectiveDesc() => "to defeat the monster!";
 
     public void ResetMinigame(GameObject panelParent, GameObject displayParent)
     {
         myPanel = panelParent; myDisplay = displayParent;
-        sizeX = Random.Range(1f, 1.5f); sizeY = Random.Range(1f, 1.5f); // You can do a lot with the size of panels and even vary it up like so
+        sizeX = Random.Range(1.5f, 2f); sizeY = Random.Range(1.5f, 2f); // You can do a lot with the size of panels and even vary it up like so
 
         if (testObj == null)
 		{
@@ -45,10 +46,12 @@ public class PanelTest : IPanelStrategy
 
     public void OnTimeUp()
     {
-        GameObject myController = GameObject.Find("GameCuntroller");
+        /*GameObject myController = GameObject.Find("GameCuntroller");
         GameTimer myTimerScript = myController.GetComponent<GameTimer>();
 
         myTimerScript.deadlineTimer += 1;
+        
+        Refer to PanelDonutTouch.cs at line 84 to see why this is commented out */
     }
 
     public void MiniUpdate()

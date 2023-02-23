@@ -8,6 +8,7 @@ public class PanelPrototype : IPanelStrategy
     private GameObject testObj;
 
     public Vector2 SetPanelSize() => new Vector2(1f, 1f);
+    public int ObjectiveKeyTech() => 0;
     public string ObjectiveDesc() => "ligma";
 
     public void ResetMinigame(GameObject panelParent, GameObject displayParent)
@@ -38,10 +39,12 @@ public class PanelPrototype : IPanelStrategy
 
     public void OnTimeUp()
     {
-        GameObject myController = GameObject.Find("GameCuntroller");
+        /*GameObject myController = GameObject.Find("GameCuntroller");
         GameTimer myTimerScript = myController.GetComponent<GameTimer>();
 
-        myTimerScript.deadlineTimer += 1;
+        myTimerScript.deadlineTimer += 1; 
+        
+        Refer to PanelDonutTouch.cs at line 84 to see why this is commented out */
     }
 
     public void MiniUpdate()

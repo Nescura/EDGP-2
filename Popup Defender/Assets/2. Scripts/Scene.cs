@@ -78,7 +78,7 @@ public class Scene : MonoBehaviour
         yield return new WaitForSeconds(3);
 
         dayPage.SetActive(false);
-        myController.GetComponent<GameTimer>().ResetTimer();
+        myController.GetComponent<GameTimer>().ResetSystemTimer();
         myController.GetComponent<GameTimer>().myDeadLineTxt.enabled = true;
         desktopPage.SetActive(true);
     }

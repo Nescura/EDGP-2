@@ -7,16 +7,17 @@ public class Panel : MonoBehaviour
 {
     [Header("Initialization Variables")]
     public bool isObjectiveClear = false;
-    public float /*panelSizeX = 1.125f, panelSizeY = 1.2f,*/ timeInit = 10f, timeLeft, expiryTime = 0f;//difficulty = 1f;
+    public float /*panelSizeX = 1.125f, panelSizeY = 1.2f,*/ timeInit = 10f, timeLeft, expiryTime = 0f; // NOTE: Timers here are Mini Timers
     private KeyCode assignedKey;
     public IPanelStrategy panelStrat;
     public GameObject thisDisplayParent;
+    public string[] keyTechs = {"Press", "Tap", "Hold", "Spam"};
 
     [Header("Display Stuff (please leave them empty)")]
     public Color thisKeyBGColour;
     public GameObject thisMask, thisTimeParent, thisTimeBarFill;
     public SpriteRenderer thisKeyBG, thisTimeBarBG, thisTimeBarSpr;
-    public TMPro.TextMeshPro thisKeyMesh, thisTimeMesh, thisTimeMeshDec, thisObjectiveMesh;
+    public TMPro.TextMeshPro thisKeyMesh, thisTimeMesh, thisTimeMeshDec, thisObjectiveKeyTechMesh, thisObjectiveMesh;
 
     [Header("Panel Dragging Stuff")]
     public Vector3 mouseClickPosOffset;
@@ -37,6 +38,7 @@ public class Panel : MonoBehaviour
         //panelSizeX = sizeX; panelSizeY = sizeY;
         timeInit = timeInSecs;
 
+        /* This doesn't need to be here. If we wanted to make time tick down faster for this minigame, we can do it in that script instead. Refer to line 97 in PanelDonutTouch.cs
         if (this.panelStrat.ToString() == "PanelDonutTouch")
         {
             timeLeft = timeInit - 5f;
@@ -44,7 +46,7 @@ public class Panel : MonoBehaviour
         else
         {
             timeLeft = timeInit - 1f;
-        }
+        }*/
         #endregion
 
         #region Assign the mask in child
@@ -75,7 +77,8 @@ public class Panel : MonoBehaviour
         #endregion
 
         #region Assign the objective display's text component and show the minigame's objective
-        thisObjectiveMesh = transform.Find("ObjectiveTxt").GetComponent<TMPro.TextMeshPro>();
+        thisObjectiveKeyTechMesh = transform.Find("ObjectiveTxtLeft").GetComponent<TMPro.TextMeshPro>();
+        thisObjectiveMesh = transform.Find("ObjectiveTxtRight").GetComponent<TMPro.TextMeshPro>();
         #endregion
 
         #region Reset the minigame and set their parents up (for success)
@@ -159,7 +162,8 @@ public class Panel : MonoBehaviour
         thisTimeMeshDec.sortingOrder = index + 15;
 
         // Objective Mesh
-        thisObjectiveMesh.sortingOrder = index;
+        thisObjectiveKeyTechMesh.sortingOrder = index + 15;
+        thisObjectiveMesh.sortingOrder = index + 15;
 
         // Masking BG
         thisMask.GetComponent<SpriteRenderer>().sortingOrder = index - 20;
@@ -168,7 +172,8 @@ public class Panel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Objective Description Handling
+        // Objective Text Handling
+        thisObjectiveKeyTechMesh.text = keyTechs[Mathf.Clamp(panelStrat.ObjectiveKeyTech(), 0, 3)];
         thisObjectiveMesh.text = panelStrat.ObjectiveDesc();
 
         // Timer Handling
@@ -183,7 +188,7 @@ public class Panel : MonoBehaviour
         else
 		{
             panelStrat.OnTimeUp();
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject); This shouldn't be here. Lines 199 to 217 already does this
 
             //gameControlling.popupCounter -= 1;
         }
@@ -199,16 +204,20 @@ public class Panel : MonoBehaviour
             if (expiryTime >= 1.2f) // After 1.2s, run all the stuff that deactivates it 
 			{
                 GameControlling.GetInstance().inputManager.ReturnKey(assignedKey);
-                Destroy(this.gameObject); // gameObject.SetActive(false); replace with object pooling expire down the line
 
                 if (isObjectiveClear)
 				{
                     // virus timer regen code and minigame clear animation stuff goes here
-				}
+                    GameControlling.GetInstance().GetComponent<GameTimer>().AddVirusTimer(+5f);
+
+                }
                 else
 				{
+
                     // minigame fail animation goes here
-				}
+                }
+
+                Destroy(this.gameObject); // gameObject.SetActive(false); replace with object pooling expire down the line
             }
 		}
 
@@ -267,7 +276,8 @@ public class Panel : MonoBehaviour
 public interface IPanelStrategy
 {
     Vector2 SetPanelSize(); // Defines the size of the panel. Should be unique for each minigame. ALWAYS return a new Vector2 for this one
-    string ObjectiveDesc(); // Defines the objective of the minigame as instructions for the player. ALWAYS return a string for this one
+    int ObjectiveKeyTech(); // 0 for Press, 1 for Tap, 2 for Hold, 3 for Spam
+    string ObjectiveDesc(); // Defines the objective of the minigame as instructions for the player. You do NOT need to put a space in the beginning of the string
     void ResetMinigame(GameObject panelParent, GameObject displayParent); // Used when reinitialising game from object pool. Also as a just in case if things go wrong
     void OnControlDown(); // On the frame the control is pressed
     void OnControlHold(); // Each frame when the control is held down

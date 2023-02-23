@@ -71,7 +71,7 @@ public class GameControlling : MonoBehaviour
         {
             // ADD ALL YOUR PANEL MINIGAMES HERE!!!
             case 0:
-                return new PanelTest();
+                return new PanelSpam();
             case 1:
                 return new PanelDonutTouch();
             case 2:
@@ -79,7 +79,7 @@ public class GameControlling : MonoBehaviour
             case 3:
                 return new PanelHotDog();
             default:
-                return new PanelTest();
+                return new PanelSpam();
 		}
 
         // I'M SURE THERE'S A BETTER WAY TO DO THIS BUT...

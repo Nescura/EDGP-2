@@ -13,7 +13,8 @@ public class PanelHotDog : IPanelStrategy
     private float direction = 5f;
 
     public Vector2 SetPanelSize() => new Vector2(sizeX, sizeY);
-    public string ObjectiveDesc() => "Catch the hotdog!";
+    public int ObjectiveKeyTech() => 1;
+    public string ObjectiveDesc() => "to catch the hotdog!";
 
     public void ResetMinigame(GameObject panelParent, GameObject displayParent)
     {
@@ -55,10 +56,12 @@ public class PanelHotDog : IPanelStrategy
 
     public void OnTimeUp()
     {
-        GameObject myController = GameObject.Find("GameCuntroller");
+        /*GameObject myController = GameObject.Find("GameCuntroller");
         GameTimer myTimerScript = myController.GetComponent<GameTimer>();
 
         myTimerScript.deadlineTimer += 1;
+        
+        Refer to PanelDonutTouch.cs at line 84 to see why this is commented out */
     }
 
     public void MiniUpdate()

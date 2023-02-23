@@ -13,7 +13,8 @@ public class PanelHold : IPanelStrategy
     float progress;
 
     public Vector2 SetPanelSize() => new Vector2(sizeX, sizeY);
-    public string ObjectiveDesc() => "Hold to download!";
+    public int ObjectiveKeyTech() => 2;
+    public string ObjectiveDesc() => "to finish the download!";
 
     public void ResetMinigame(GameObject panelParent, GameObject displayParent)
     {
@@ -50,10 +51,12 @@ public class PanelHold : IPanelStrategy
 
     public void OnTimeUp()
     {
-        GameObject myController = GameObject.Find("GameCuntroller");
+        /*GameObject myController = GameObject.Find("GameCuntroller");
         GameTimer myTimerScript = myController.GetComponent<GameTimer>();
 
         myTimerScript.deadlineTimer += 1;
+        
+        Refer to PanelDonutTouch.cs at line 84 to see why this is commented out */
     }
 
     public void MiniUpdate()
