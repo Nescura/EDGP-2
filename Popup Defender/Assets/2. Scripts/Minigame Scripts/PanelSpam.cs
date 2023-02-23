@@ -19,7 +19,7 @@ public class PanelSpam : IPanelStrategy
     public void ResetMinigame(GameObject panelParent, GameObject displayParent)
     {
         myPanel = panelParent; myDisplay = displayParent;
-        sizeX = Random.Range(1.5f, 2f); sizeY = Random.Range(1.5f, 2f); // You can do a lot with the size of panels and even vary it up like so
+        sizeX = 2f; sizeY = 2f;
 
         if (testObj == null)
 		{

@@ -79,7 +79,7 @@ public class GameControlling : MonoBehaviour
             case 3:
                 return new PanelHotDog();
             default:
-                return new PanelSpam();
+                return new PanelTemplate();
 		}
 
         // I'M SURE THERE'S A BETTER WAY TO DO THIS BUT...
