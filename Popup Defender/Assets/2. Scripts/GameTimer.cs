@@ -14,12 +14,14 @@ public class GameTimer : MonoBehaviour
     private GameState myState;
 
     // UI & Animation Stuff
-    public float virusTimerLerp;
+    private float virusTimerLerp;
 
     // Start is called before the first frame update
     void Start()
     {
         myState = this.GetComponent<GameState>();
+        systemTimer = 50;
+        virusTimer = 15f; // at some point we'd probably need to make this scalable for stages
         virusTimerLerp = virusTimer;
     }
 
