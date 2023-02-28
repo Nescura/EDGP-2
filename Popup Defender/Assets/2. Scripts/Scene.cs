@@ -55,12 +55,16 @@ public class Scene : MonoBehaviour
     {
         desktopPage.SetActive(false);
         browserPage.SetActive(true);
+
+        myController.GetComponent<GameControlling>().spawnPanelTime = 0f;
     }
 
     public void WebsiteButton()
     {
         browserPage.SetActive(false);
         websitePage.SetActive(true);
+
+        myController.GetComponent<GameControlling>().spawnPanelTime = 0f;
     }
 
     public void SubmitButton()
@@ -68,19 +72,21 @@ public class Scene : MonoBehaviour
         websitePage.SetActive(false);
         dayPage.SetActive(true);
         myController.GetComponent<GameTimer>().myDeadLineTxt.enabled = false;
-
+        myController.GetComponent<GameControlling>().spawnPanelTime = 99f;
+        myController.GetComponent<Levels>().CheckCurrentLevel();
         StartCoroutine(DesktopPage());
     }
     #endregion
 
     IEnumerator DesktopPage()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1.5f);
 
         dayPage.SetActive(false);
         myController.GetComponent<GameTimer>().ResetSystemTimer();
         myController.GetComponent<GameTimer>().myDeadLineTxt.enabled = true;
         desktopPage.SetActive(true);
+        myController.GetComponent<GameControlling>().spawnPanelTime = 0f;
     }
 
     public void ButtonCanInteract()

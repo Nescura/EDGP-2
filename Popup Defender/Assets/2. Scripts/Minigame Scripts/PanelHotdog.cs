@@ -56,12 +56,7 @@ public class PanelHotDog : IPanelStrategy
 
     public void OnTimeUp()
     {
-        /*GameObject myController = GameObject.Find("GameCuntroller");
-        GameTimer myTimerScript = myController.GetComponent<GameTimer>();
 
-        myTimerScript.deadlineTimer += 1;
-        
-        Refer to PanelDonutTouch.cs at line 84 to see why this is commented out */
     }
 
     public void MiniUpdate()

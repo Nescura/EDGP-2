@@ -7,7 +7,7 @@ public class Panel : MonoBehaviour
 {
     [Header("Initialization Variables")]
     public bool isObjectiveClear = false;
-    public float /*panelSizeX = 1.125f, panelSizeY = 1.2f,*/ timeInit = 10f, timeLeft, expiryTime = 0f; // NOTE: Timers here are Mini Timers
+    public float /*panelSizeX = 1.125f, panelSizeY = 1.2f,*/ timeInit, timeLeft, expiryTime = 0f; // NOTE: Timers here are Mini Timers
     private KeyCode assignedKey;
     public IPanelStrategy panelStrat;
     public GameObject thisDisplayParent;
@@ -108,13 +108,13 @@ public class Panel : MonoBehaviour
         if (f > 0) thisTimeBarBG.color = new Color(0f, 188f / 255f, 0f, 155f / 255f);
 
         if (directSet) // if directSet is true, it SETS the time to f
-		{
+        {
             timeLeft = f;
-		}
+        }
         else // if directSet is false, it adds f to the time. If you want to reduce time, f would need to be negative
-		{
+        {
             timeLeft += f;
-		}
+        }
     }
 
     public void LayerToFront(int index)
@@ -133,6 +133,7 @@ public class Panel : MonoBehaviour
         TMPro.TextMeshPro[] textMeshes = displayObjs.GetComponentsInChildren<TMPro.TextMeshPro>();
         foreach (TMPro.TextMeshPro tmPro in textMeshes) tmPro.sortingOrder = index - 5;
 
+        #region To be Removed
         /*
         foreach (Transform child in transform.Find("DisplayGameObjs"))
 		{
@@ -149,6 +150,7 @@ public class Panel : MonoBehaviour
                 if (grandchildTMPro != null) grandchildTMPro.sortingOrder = index - 5;
             }
         }*/
+        #endregion
 
         // Key Mesh
         thisKeyMesh.transform.parent.GetComponent<SpriteRenderer>().sortingOrder = index + 14;
@@ -179,19 +181,23 @@ public class Panel : MonoBehaviour
         // Timer Handling
         thisTimeBarFill.transform.localScale = new Vector3(Mathf.Clamp(timeLeft / timeInit, 0f, 1f), 1, 1);
 
-        if (timeLeft > 0)
-		{
-            if (!isObjectiveClear) timeLeft -= Time.deltaTime; // Only decrease time if objective is not complete
+        if (GameControlling.GetInstance().GetComponent<GameState>().state == GameCurrentState.START)
+        {
+            if (timeLeft > 0)
+            {
+                if (!isObjectiveClear) timeLeft -= Time.deltaTime; // Only decrease time if objective is not complete
 
-            panelStrat.MiniUpdate();
-        }
-        else
-		{
-            panelStrat.OnTimeUp();
-            //Destroy(this.gameObject); This shouldn't be here. Lines 199 to 217 already does this
+                panelStrat.MiniUpdate();
+            }
+            else
+            {
+                panelStrat.OnTimeUp();
+                //Destroy(this.gameObject); This shouldn't be here. Lines 199 to 217 already does this
 
-            //gameControlling.popupCounter -= 1;
+                //gameControlling.popupCounter -= 1;
+            }
         }
+        
         thisTimeMesh.text = string.Format("{0}", Mathf.FloorToInt(Mathf.Abs((int)timeLeft)));
         thisTimeMeshDec.text = string.Format(".{0}", (int)Mathf.FloorToInt(Mathf.Abs(timeLeft * 10 % 10)));
         //Debug.Log((int)Mathf.Abs(timeLeft * 10 % 10));
@@ -209,11 +215,9 @@ public class Panel : MonoBehaviour
 				{
                     // virus timer regen code and minigame clear animation stuff goes here
                     GameControlling.GetInstance().GetComponent<GameTimer>().AddVirusTimer(+5f);
-
                 }
                 else
 				{
-
                     // minigame fail animation goes here
                 }
 

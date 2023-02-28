@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class GameControlling : MonoBehaviour
 {
+    #region Variables
     // get NEW inputmanager in this class
-
     public Camera mainCamera;
     public GameObject panelPrefab;
 
     public static int layerAppend = 0;
 
-    float spawnPanelTime = 0;
+    public int spawnMax = 3; // max amt of pop-ups that can be on screen
+    public float spawnPanelTime = 0;
+    public float minigameTimer = 10f;
 
     //public int popupCounter = 0;
 
@@ -20,7 +22,9 @@ public class GameControlling : MonoBehaviour
     // Singleton
     private static GameControlling itsMe;
     public static GameControlling GetInstance() => itsMe;
-	private void Awake()
+    #endregion
+
+    private void Awake()
 	{
         // if another GameControlling already exist, kill myself as I am not needed :c
         if (itsMe != null)
@@ -49,18 +53,29 @@ public class GameControlling : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        spawnPanelTime -= Time.deltaTime;
-        //spawn Panel (debug)
-        if (spawnPanelTime <= 0 || Input.GetKeyDown(KeyCode.Backspace))
+        if (GetComponent<GameState>().state == GameCurrentState.START)
         {
-            if (GetActivePanelCount() < 1) // spawn two more if there's not even a single one on screen
+            #region Spawn Panel
+            spawnPanelTime -= Time.deltaTime;
+            //spawn Panel (debug)
+            if (spawnPanelTime <= 0 || Input.GetKeyDown(KeyCode.Backspace))
             {
-                SpawnPanel();
-                SpawnPanel();
-            }
-            SpawnPanel();
+                if (GetActivePanelCount() < spawnMax) // spawn two more if there's not even a single one on screen
+                {
+                    Panel[] activePanelCount = FindObjectsOfType<Panel>();
+                    int totalPanel = activePanelCount.Length;
+                    int amtToSpawn = spawnMax - totalPanel;
+                    int randomAmt = (int)Random.Range(1, amtToSpawn);
 
-            spawnPanelTime = Random.Range(6f, 10f); // for playtest (09/02/2023), randomize intervals of time between panel spawns. Note that this will be a constant for each different level
+                    for (int i = 0; i < randomAmt; i++)
+                    {
+                        SpawnPanel();
+                    }
+                }
+
+                spawnPanelTime = Random.Range(6f, 10f); // for playtest (09/02/2023), randomize intervals of time between panel spawns. Note that this will be a constant for each different level
+            }
+            #endregion
         }
     }
 
@@ -104,7 +119,7 @@ public class GameControlling : MonoBehaviour
             new Vector2(Random.Range(viewportZero.x * 0.9f, viewportOne.x * 0.9f), 
             Random.Range(viewportZero.y * 0.9f, viewportOne.y * 0.9f)), 
             Quaternion.identity, this.transform);
-        newPanel.GetComponent<Panel>().Initialize(chosenPanelStrat, 10f, inputManager.GenerateKey());
+        newPanel.GetComponent<Panel>().Initialize(chosenPanelStrat, minigameTimer, inputManager.GenerateKey());
         newPanel.GetComponent<Panel>().LayerToFront(layerAppend += 50);
     }
 

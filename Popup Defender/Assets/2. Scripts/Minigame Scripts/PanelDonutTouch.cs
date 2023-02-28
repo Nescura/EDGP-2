@@ -77,16 +77,6 @@ public class PanelDonutTouch : IPanelStrategy
         {
             myPanel.GetComponent<Panel>().SetSuccess(true);
         }
-        /* Not necessary: the game controller script is a singleton, so you can simply use GameControlling.GetInstance() to access it without having to use .Find
-           to access the game controller game object, you then use GameControlling.GetInstance().gameObject and then use GetComponent if you need to get other things
-           also commented out to account for virus timer stuff, refer to GameTimer.cs for that
-        else
-        {
-            GameObject myController = GameObject.Find("GameCuntroller");
-            GameTimer myTimerScript = myController.GetComponent<GameTimer>();
-
-            myTimerScript.deadlineTimer += 1;
-        }*/
     }
 
     public void MiniUpdate()
