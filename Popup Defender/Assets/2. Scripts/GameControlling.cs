@@ -58,14 +58,14 @@ public class GameControlling : MonoBehaviour
             #region Spawn Panel
             spawnPanelTime -= Time.deltaTime;
             //spawn Panel (debug)
-            if (spawnPanelTime <= 0 || Input.GetKeyDown(KeyCode.Backspace))
+            if (spawnPanelTime <= 0)
             {
                 if (GetActivePanelCount() < spawnMax) // spawn two more if there's not even a single one on screen
                 {
-                    Panel[] activePanelCount = FindObjectsOfType<Panel>();
-                    int totalPanel = activePanelCount.Length;
-                    int amtToSpawn = spawnMax - totalPanel;
-                    int randomAmt = (int)Random.Range(1, amtToSpawn);
+                    //Panel[] activePanelCount = FindObjectsOfType<Panel>();
+                    //int totalPanel = activePanelCount.Length;
+                    int amtToSpawn = spawnMax - GetActivePanelCount(); //totalPanel;
+                    int randomAmt = Random.Range(1, amtToSpawn + 1);
 
                     for (int i = 0; i < randomAmt; i++)
                     {
@@ -76,6 +76,11 @@ public class GameControlling : MonoBehaviour
                 spawnPanelTime = Random.Range(6f, 10f); // for playtest (09/02/2023), randomize intervals of time between panel spawns. Note that this will be a constant for each different level
             }
             #endregion
+
+            if (Input.GetKeyDown(KeyCode.Backspace)) // FOR DEBUGGING PURPOSES
+			{
+                SpawnPanel();
+			}
         }
     }
 
@@ -125,8 +130,14 @@ public class GameControlling : MonoBehaviour
 
     public int GetActivePanelCount()
     {
-        Panel[] activePanelCount = FindObjectsOfType<Panel>();
+        int unclearedPanels = 0;
+        Panel[] panelInstances = FindObjectsOfType<Panel>();
+        foreach(Panel thisPan in panelInstances)
+		{
+            if (thisPan.isObjectiveClear == false) unclearedPanels += 1;
+		}
         //Debug.Log(activePanelCount.Length);
-        return activePanelCount.Length;
+        //Debug.Log(unclearedPanels);
+        return unclearedPanels;
     }
 }

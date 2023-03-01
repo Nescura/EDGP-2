@@ -87,7 +87,7 @@ public class Panel : MonoBehaviour
 
         #region Set size of panel
         GetComponent<RectTransform>().sizeDelta = panelStrat.SetPanelSize(); //new Vector2(panelSizeX, panelSizeY);
-        GetComponent<SpriteRenderer>().size = panelStrat.SetPanelSize(); //new Vector2(panelSizeX, panelSizeY);
+        GetComponent<SpriteRenderer>().size = new Vector2(panelStrat.SetPanelSize().x + 0.4975f, panelStrat.SetPanelSize().y + 0.495f); //new Vector2(panelSizeX, panelSizeY);
         thisMask.GetComponent<SpriteRenderer>().size = panelStrat.SetPanelSize(); // new Vector2(panelSizeX, panelSizeY);
         GetComponent<BoxCollider2D>().size = panelStrat.SetPanelSize(); // new Vector2(panelSizeX, panelSizeY); // collider
         #endregion
@@ -127,7 +127,7 @@ public class Panel : MonoBehaviour
 
         // Layering all objects with SpriteRenderer components in DisplayGameObjs
         SpriteRenderer[] spriteRenders = displayObjs.GetComponentsInChildren<SpriteRenderer>();
-        foreach (SpriteRenderer sprRender in spriteRenders) sprRender.sortingOrder = index - 5;
+        foreach (SpriteRenderer sprRender in spriteRenders) sprRender.sortingOrder = index - 5 + sprRender.GetComponent<LayerAppending>().indexToAppend;
 
         // Layering all objects with TextMeshPro components in DisplayGameObjs
         TMPro.TextMeshPro[] textMeshes = displayObjs.GetComponentsInChildren<TMPro.TextMeshPro>();

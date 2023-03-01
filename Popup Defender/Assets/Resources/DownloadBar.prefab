@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1390770416546486923}
   - component: {fileID: 1690026682834039967}
+  - component: {fileID: 4563957918555681162}
   m_Layer: 0
   m_Name: BarSpr
   m_TagString: Untagged
@@ -82,6 +83,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4563957918555681162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 48041418823266768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1af0575c1a8ddaa48acf67dba0dab729, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indexToAppend: 1
 --- !u!1 &358130962041964864
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,6 +137,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5148570881965587634}
   - component: {fileID: 1364581759640706652}
+  - component: {fileID: 3628568700163955187}
   m_Layer: 0
   m_Name: BG
   m_TagString: Untagged
@@ -195,6 +210,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3628568700163955187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6080923289848230096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1af0575c1a8ddaa48acf67dba0dab729, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indexToAppend: 0
 --- !u!1 &8467391543440387394
 GameObject:
   m_ObjectHideFlags: 0

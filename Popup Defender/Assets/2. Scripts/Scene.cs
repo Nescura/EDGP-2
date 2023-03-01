@@ -76,6 +76,11 @@ public class Scene : MonoBehaviour
         myController.GetComponent<Levels>().CheckCurrentLevel();
         StartCoroutine(DesktopPage());
     }
+
+    public void WrongButton()
+	{
+        myController.GetComponent<GameControlling>().spawnPanelTime = 0f;
+    }
     #endregion
 
     IEnumerator DesktopPage()
@@ -89,23 +94,24 @@ public class Scene : MonoBehaviour
         myController.GetComponent<GameControlling>().spawnPanelTime = 0f;
     }
 
+    // Decoupled so that all buttons can be interacted with less hardcoding
     public void ButtonCanInteract()
     {
         if (GameControlling.GetInstance().GetActivePanelCount() > 0)
         {
             canInteract = false;
 
-            browserBttn.GetComponent<SpriteRenderer>().color = new Color(125f / 225f, 125f / 225f, 125f / 225f);
+            /*browserBttn.GetComponent<SpriteRenderer>().color = new Color(125f / 225f, 125f / 225f, 125f / 225f);
             websiteBttn.GetComponent<SpriteRenderer>().color = new Color(125f / 225f, 125f / 225f, 125f / 225f);
-            submitBttn.GetComponent<SpriteRenderer>().color = new Color(125f / 225f, 125f / 225f, 125f / 225f);
+            submitBttn.GetComponent<SpriteRenderer>().color = new Color(125f / 225f, 125f / 225f, 125f / 225f);*/
         }
         else
         {
             canInteract = true;
 
-            browserBttn.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
+            /*browserBttn.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
             websiteBttn.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
-            submitBttn.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
+            submitBttn.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);*/
         }
     }
 
