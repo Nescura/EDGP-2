@@ -8,7 +8,7 @@ public class GameTimer : MonoBehaviour
     // Tams here, sorry for changing the names of the variables, it's mostly to avoid confusion ^^;7
     public int systemTimer; // Was deadlineTimer before, and was a float
     public float virusTimer = 15f; // Was deadlinetimerSec before
-    public Text myDeadLineTxt;
+    public TMPro.TextMeshProUGUI myDeadLineTxt;
     public Image myVirusTimePie;
 
     private GameState myState;
@@ -29,6 +29,8 @@ public class GameTimer : MonoBehaviour
     void Update()
     {
         DeadlineTimerFunctions();
+
+        //systemTimer.
     }
 
     void DeadlineTimerFunctions()

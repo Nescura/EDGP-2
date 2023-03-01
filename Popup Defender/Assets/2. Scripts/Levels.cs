@@ -6,11 +6,11 @@ public class Levels : MonoBehaviour
 {
     public int currentLevel;
 
-    private GameObject myController;
+    private GameControlling myController;
 
     private void Start()
     {
-        myController = GameObject.Find("GameCuntroller");
+        //myController = GameControlling.GetInstance();
     }
 
     public void CheckCurrentLevel()
@@ -20,17 +20,17 @@ public class Levels : MonoBehaviour
         if (currentLevel % 2 == 0)
         {
             //max number of pop-ups +1
-            if (myController.GetComponent<GameControlling>().spawnMax < 20)
+            if (GameControlling.GetInstance().spawnMax < 20)
             {
-                myController.GetComponent<GameControlling>().spawnMax += 1;
+                GameControlling.GetInstance().spawnMax += 1;
             }
         }
         else
         {
             //mini game timer -1 seconds
-            if (myController.GetComponent<GameControlling>().minigameTimer > 5f)
+            if (GameControlling.GetInstance().minigameTimer > 5f)
             {
-                myController.GetComponent<GameControlling>().minigameTimer -= 1;
+                GameControlling.GetInstance().minigameTimer -= 1;
             }
         }
     }

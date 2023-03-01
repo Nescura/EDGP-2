@@ -87,9 +87,9 @@ public class Panel : MonoBehaviour
 
         #region Set size of panel
         GetComponent<RectTransform>().sizeDelta = panelStrat.SetPanelSize(); //new Vector2(panelSizeX, panelSizeY);
-        GetComponent<SpriteRenderer>().size = new Vector2(panelStrat.SetPanelSize().x + 0.4975f, panelStrat.SetPanelSize().y + 0.495f); //new Vector2(panelSizeX, panelSizeY);
+        GetComponent<SpriteRenderer>().size = new Vector2(panelStrat.SetPanelSize().x + 0.497f, panelStrat.SetPanelSize().y + 0.49f); //new Vector2(panelSizeX, panelSizeY);
         thisMask.GetComponent<SpriteRenderer>().size = panelStrat.SetPanelSize(); // new Vector2(panelSizeX, panelSizeY);
-        GetComponent<BoxCollider2D>().size = panelStrat.SetPanelSize(); // new Vector2(panelSizeX, panelSizeY); // collider
+        GetComponent<BoxCollider2D>().size = new Vector2(panelStrat.SetPanelSize().x + 0.1125f, panelStrat.SetPanelSize().y + 0.175f); // new Vector2(panelSizeX, panelSizeY); // collider
         #endregion
 
         #region Set expiryTime to zero - this timer is purely for animation when an objective is completed
@@ -179,7 +179,7 @@ public class Panel : MonoBehaviour
         thisObjectiveMesh.text = panelStrat.ObjectiveDesc();
 
         // Timer Handling
-        thisTimeBarFill.transform.localScale = new Vector3(Mathf.Clamp(timeLeft / timeInit, 0f, 1f), 1, 1);
+        thisTimeBarFill.transform.localScale = new Vector3(Mathf.Clamp(timeLeft / timeInit, 0f, 1f), 1, 0);
 
         if (GameControlling.GetInstance().GetComponent<GameState>().state == GameCurrentState.START)
         {
@@ -268,7 +268,6 @@ public class Panel : MonoBehaviour
         LayerToFront(GameControlling.layerAppend += 50);
         //Debug.Log(GameControlling.layerAppend);
         mouseClickPosOffset = this.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane + 1));
-
     }
 
 	private void OnMouseDrag()

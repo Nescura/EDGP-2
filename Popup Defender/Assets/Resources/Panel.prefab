@@ -27,7 +27,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: -5879608897876754005}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -5}
   m_LocalScale: {x: 2.9999995, y: 2.9999998, z: 1}
   m_Children:
   - {fileID: 4039650977004929228}
@@ -43,7 +43,7 @@ RectTransform:
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1.6875, y: 1.8}
-  m_Pivot: {x: 0.5, y: 0.4871795}
+  m_Pivot: {x: 0.5, y: 0.485}
 --- !u!212 &8249480552175527781
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -89,7 +89,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 2.185, y: 2.29}
+  m_Size: {x: 2.18, y: 2.285}
   m_AdaptiveModeThreshold: 0
   m_SpriteTileMode: 1
   m_WasSpriteAssigned: 1
@@ -143,18 +143,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.015625}
+  m_Offset: {x: 0, y: 0.065}
   m_SpriteTilingProperty:
     border: {x: 0.246875, y: 0.20625, z: 0.25625, w: 0.3125}
     pivot: {x: 0.498, y: 0.4722222}
     oldSize: {x: 2.34375, y: 1.85625}
-    newSize: {x: 2.185, y: 2.29}
+    newSize: {x: 2.18, y: 2.285}
     adaptiveTilingThreshold: 0
     drawMode: 1
     adaptiveTiling: 1
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.6875, y: 1.8}
+  m_Size: {x: 1.8, y: 1.975}
   m_EdgeRadius: 0
 --- !u!1 &304704797851499951
 GameObject:
@@ -1376,7 +1376,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.000026703, y: -0.000027061}
-  m_SizeDelta: {x: 1, y: 1}
+  m_SizeDelta: {x: 0.9, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &679856777480264241
 MeshRenderer:
@@ -1469,9 +1469,9 @@ MonoBehaviour:
   m_fontSize: 8
   m_fontSizeBase: 8
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 1
+  m_fontSizeMax: 8
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512

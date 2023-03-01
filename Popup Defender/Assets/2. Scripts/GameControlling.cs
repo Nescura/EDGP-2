@@ -77,10 +77,22 @@ public class GameControlling : MonoBehaviour
             }
             #endregion
 
-            if (Input.GetKeyDown(KeyCode.Backspace)) // FOR DEBUGGING PURPOSES
+            if (Input.GetKeyDown(KeyCode.Backspace)) // FOR DEBUGGING PURPOSES - spawn a panel regardless of time or max
 			{
-                SpawnPanel();
-			}
+                SpawnPanel(); 
+                spawnPanelTime = Random.Range(6f, 10f);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Equals)) // FOR DEBUGGING PURPOSES - clear all panels and give 20s of breathing room
+            {
+                Panel[] panelInstances = FindObjectsOfType<Panel>();
+                foreach (Panel thisPan in panelInstances)
+                {
+                    thisPan.isObjectiveClear = true;
+                    thisPan.ForceTimeLeft(0, true);
+                }
+                spawnPanelTime = 20f;
+            }
         }
     }
 
@@ -121,8 +133,8 @@ public class GameControlling : MonoBehaviour
         //Debug.Log(string.Format(("{0}, {1}"), viewportZero, viewportOne));
 
         GameObject newPanel = Instantiate(panelPrefab, 
-            new Vector2(Random.Range(viewportZero.x * 0.9f, viewportOne.x * 0.9f), 
-            Random.Range(viewportZero.y * 0.9f, viewportOne.y * 0.9f)), 
+            new Vector3(Random.Range(viewportZero.x * 0.9f, viewportOne.x * 0.9f), 
+            Random.Range(viewportZero.y * 0.9f, viewportOne.y * 0.9f), -5), 
             Quaternion.identity, this.transform);
         newPanel.GetComponent<Panel>().Initialize(chosenPanelStrat, minigameTimer, inputManager.GenerateKey());
         newPanel.GetComponent<Panel>().LayerToFront(layerAppend += 50);
