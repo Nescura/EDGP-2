@@ -42,8 +42,8 @@ public class Scene : MonoBehaviour
         if (objectPools.TryGetValue(objName, out List<GameObject> z) && objectPools[objName].Find(obj => obj.name.Contains(objName)))
         {
             objChosen = objectPools[objName].Find(obj => obj.name.Contains(objName));
-            objectPools[objName].Remove(objChosen);
             objLoaded?.Invoke(objChosen);
+            objectPools[objName].Remove(objChosen);
         }
         else
         {
@@ -77,6 +77,7 @@ public class Scene : MonoBehaviour
     public void SetupLevel(int level)
 	{
         // First, flush all Buttons
+        if (browserBttn != null) ObjectEnd(browserBttn.name, browserBttn); 
         foreach (GameObject d in activeDesktopIcons)
         {
             ObjectEnd(d.name, d);
@@ -105,18 +106,18 @@ public class Scene : MonoBehaviour
             ObjectUse(browserBttn.name, (browserIcon) =>
             {
                 browserIcon.name = "BrowserBttn";
-                browserIcon.transform.position = new Vector3(Random.Range(-8f, 0f), Random.Range(-3f, 3.8f), 0);
+                browserIcon.GetComponent<DesktopIcon>().Initialise();
             }, desktopBttnPrefab, desktopPage.transform);
         }
-        /*
-        for (int i = (level - 1) * 2; i > 99;  i -= 1)
+        for (int i = (level - 1) * 2; i > 0;  i -= 1)
 		{
-            GameObject d = ObjectUse("Dcon", (desktopIcon) =>
+            GameObject d = ObjectUse("dsktpIcon", (desktopIcon) =>
             {
-                desktopIcon.name = "Dcon";
+                desktopIcon.name = "dsktpIcon";
                 desktopIcon.GetComponent<DesktopIcon>().Initialise();
             }, desktopBttnPrefab, desktopPage.transform);
-        }*/
+            activeDesktopIcons.Add(d);
+        }
 
         // Creation of Browser Buttons (will have more than one bookmark)
         // nothing here for now

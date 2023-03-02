@@ -81,7 +81,7 @@ public class Buttons : MonoBehaviour
 	{
         if (this.name == "Litterbin" && collision.gameObject.name != "BrowserBttn" && collision.gameObject.TryGetComponent(out Buttons btnScr) && (btnScr.upTime > 0 || btnScr.upTime2 > 0))
 		{
-            myScene.ObjectEnd("Dcon", collision.gameObject);
+            myScene.ObjectEnd("dsktpIcon", collision.gameObject);
 		}
 	}
 

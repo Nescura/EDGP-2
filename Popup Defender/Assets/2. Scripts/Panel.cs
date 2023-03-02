@@ -207,7 +207,7 @@ public class Panel : MonoBehaviour
 		{
             expiryTime += Time.deltaTime;
 
-            if (expiryTime >= 1.2f) // After 1.2s, run all the stuff that deactivates it 
+            if ((expiryTime >= 1.2f && isObjectiveClear) || (expiryTime >= 3.5f && !isObjectiveClear)) // After expiryTime is up, run all the stuff that deactivates it 
 			{
                 GameControlling.GetInstance().inputManager.ReturnKey(assignedKey);
 
