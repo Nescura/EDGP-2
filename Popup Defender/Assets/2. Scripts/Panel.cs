@@ -263,17 +263,22 @@ public class Panel : MonoBehaviour
         }
     }
 
-	private void OnMouseDown()
-	{
-        LayerToFront(GameControlling.layerAppend += 50);
-        //Debug.Log(GameControlling.layerAppend);
-        mouseClickPosOffset = this.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane + 1));
+    private void OnMouseDown()
+    {
+        if (GameControlling.GetInstance().GetComponent<GameState>().state != GameCurrentState.PAUSED)
+        {
+            LayerToFront(GameControlling.layerAppend += 50);
+            mouseClickPosOffset = this.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane + 1));
+        }
     }
 
-	private void OnMouseDrag()
-	{
-        this.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane + 1)) + mouseClickPosOffset;
-	}
+    private void OnMouseDrag()
+    {
+        if (GameControlling.GetInstance().GetComponent<GameState>().state == GameCurrentState.PAUSED)
+        {
+            this.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane + 1)) + mouseClickPosOffset;
+        }
+    }
 }
 
 public interface IPanelStrategy

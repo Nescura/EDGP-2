@@ -51,7 +51,7 @@ public class GameTimer : MonoBehaviour
             // virus time ticks to 0 ALWAYS if there are minigames on screen
             if (virusTimer > 0 && GameControlling.GetInstance().GetActivePanelCount() > 0)
             {
-                virusTimer -= Time.deltaTime;
+                virusTimer -= Time.deltaTime * 2; //previous virus timer goes down to slow
             }
 
             // virus timer display stuff

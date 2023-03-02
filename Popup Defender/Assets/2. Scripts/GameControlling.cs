@@ -53,7 +53,7 @@ public class GameControlling : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GetComponent<GameState>().state == GameCurrentState.START)
+        if (GetComponent<GameState>().state != GameCurrentState.PAUSED)
         {
             #region Spawn Panel
             spawnPanelTime -= Time.deltaTime;
@@ -93,6 +93,11 @@ public class GameControlling : MonoBehaviour
                 }
                 spawnPanelTime = 20f;
             }
+
+            if (Input.GetKeyDown(KeyCode.End))
+            {
+                GetComponent<GameState>().state = GameCurrentState.END;
+            }
         }
     }
 
@@ -131,13 +136,21 @@ public class GameControlling : MonoBehaviour
         Vector2 viewportZero = mainCamera.ViewportToWorldPoint(Vector2.zero);
         Vector2 viewportOne  = mainCamera.ViewportToWorldPoint(Vector2.one);
         //Debug.Log(string.Format(("{0}, {1}"), viewportZero, viewportOne));
-
+        FindObjectOfType<AudioManager>().Play("PopUp");
         GameObject newPanel = Instantiate(panelPrefab, 
             new Vector3(Random.Range(viewportZero.x * 0.9f, viewportOne.x * 0.9f), 
             Random.Range(viewportZero.y * 0.9f, viewportOne.y * 0.9f), -5), 
             Quaternion.identity, this.transform);
         newPanel.GetComponent<Panel>().Initialize(chosenPanelStrat, minigameTimer, inputManager.GenerateKey());
         newPanel.GetComponent<Panel>().LayerToFront(layerAppend += 50);
+    }
+
+    public void SpawnMaxPanels()
+    {
+        for (int x = 0; x < spawnMax; x++)
+        {
+            SpawnPanel();
+        }
     }
 
     public int GetActivePanelCount()

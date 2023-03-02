@@ -627,7 +627,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8eb1cd388b6ed40aa51d2bb9ea90eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ui: {fileID: 0}
+  desktopBttnPrefab: {fileID: 0}
+  browserBttnPrefab: {fileID: 0}
+  websiteBttnPrefab: {fileID: 0}
+  desktopPage: {fileID: 0}
+  browserPage: {fileID: 0}
+  websitePage: {fileID: 0}
+  dayPage: {fileID: 0}
+  dayTextMesh: {fileID: 0}
+  canInteract: 0
+  activeDesktopIcons: []
+  activeBrowserIcons: []
+  activeSubmitBttns: []
 --- !u!4 &1098063813
 Transform:
   m_ObjectHideFlags: 0
@@ -891,4 +902,16 @@ MonoBehaviour:
     pitch: 0
     loop: 0
     source: {fileID: 0}
-  MasterVolume: 1
+  - name: Button
+    clip: {fileID: 8300000, guid: 453c23142c7329a4382e4f85454c7b03, type: 3}
+    volume: 0.5
+    pitch: 2
+    loop: 0
+    source: {fileID: 0}
+  - name: PopUp
+    clip: {fileID: 8300000, guid: 416b0c1a03ac1674bbec861739e36852, type: 3}
+    volume: 1
+    pitch: 3
+    loop: 0
+    source: {fileID: 0}
+  MasterVolume: 5

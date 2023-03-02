@@ -90,11 +90,13 @@ public class Buttons : MonoBehaviour
         if (hit.collider.gameObject.name == "BrowserBttn" && myScene.canInteract == true)
         {
             myScene.BrowserButton();
+            GameControlling.GetInstance().SpawnMaxPanels();
             ResetTimers();
         }
         else if (hit.collider.gameObject.name == "Website Bttn" && myScene.canInteract == true)
         {
             myScene.WebsiteButton();
+            GameControlling.GetInstance().SpawnMaxPanels();
             ResetTimers();
         }
         else if (hit.collider.gameObject.name == "Submit Bttn" && myScene.canInteract == true)

@@ -6,13 +6,6 @@ public class Levels : MonoBehaviour
 {
     public int currentLevel;
 
-    private GameControlling myController;
-
-    private void Start()
-    {
-        //myController = GameControlling.GetInstance();
-    }
-
     public void CheckCurrentLevel()
     {
         currentLevel += 1;
@@ -22,7 +15,7 @@ public class Levels : MonoBehaviour
             //max number of pop-ups +1
             if (GameControlling.GetInstance().spawnMax < 20)
             {
-                GameControlling.GetInstance().spawnMax += 1;
+                GameControlling.GetInstance().spawnMax += 2;
             }
         }
         else

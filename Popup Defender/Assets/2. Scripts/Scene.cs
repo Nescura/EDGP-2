@@ -65,12 +65,26 @@ public class Scene : MonoBehaviour
     private void Start()
     {
         gameCtrl = GameControlling.GetInstance();
-        SubmitButton();
+
+        if (SceneManager.GetActiveScene().name != "MainMenu")
+        {
+            SubmitButton();
+        }
     }
 
     private void Update()
     {
-        ButtonCanInteract();
+        if (SceneManager.GetActiveScene().name != "MainMenu")
+        {
+            ButtonCanInteract();
+        }
+        
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            FindObjectOfType<AudioManager>().Play("Button");
+        }
+
     }
 
     #region Randomisation of Button Locations
@@ -137,21 +151,16 @@ public class Scene : MonoBehaviour
 
     public void Quit()
     {
-        FindObjectOfType<AudioManager>().Play("Button");
-
         Application.Quit();
     }
 
     public void Retry()
     {
-        FindObjectOfType<AudioManager>().Play("Button");
-
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void MainMenu()
     {
-        FindObjectOfType<AudioManager>().Play("Button");
         FindObjectOfType<AudioManager>().Stop("GameBGM");
         FindObjectOfType<AudioManager>().Play("MenuBGM");
         
@@ -206,6 +215,7 @@ public class Scene : MonoBehaviour
         gameCtrl.GetComponent<GameTimer>().ResetSystemTimer();
         gameCtrl.GetComponent<GameTimer>().myDeadLineTxt.enabled = true;
         desktopPage.SetActive(true);
+        gameCtrl.SpawnMaxPanels();
         gameCtrl.spawnPanelTime = 0f;
     }
 
@@ -215,18 +225,10 @@ public class Scene : MonoBehaviour
         if (GameControlling.GetInstance().GetActivePanelCount() > 0)
         {
             canInteract = false;
-
-            /*browserBttn.GetComponent<SpriteRenderer>().color = new Color(125f / 225f, 125f / 225f, 125f / 225f);
-            websiteBttn.GetComponent<SpriteRenderer>().color = new Color(125f / 225f, 125f / 225f, 125f / 225f);
-            submitBttn.GetComponent<SpriteRenderer>().color = new Color(125f / 225f, 125f / 225f, 125f / 225f);*/
         }
         else
         {
             canInteract = true;
-
-            /*browserBttn.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
-            websiteBttn.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
-            submitBttn.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);*/
         }
     }
 }
