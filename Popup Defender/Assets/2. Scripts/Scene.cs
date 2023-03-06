@@ -81,18 +81,18 @@ public class Scene : MonoBehaviour
         if (SceneManager.GetActiveScene().name != "MainMenu")
         {
             ButtonCanInteract();
+
+            if (GameControlling.GetInstance().gameObject.GetComponent<GameState>().state == GameCurrentState.END)
+            {
+                restartBttn.SetActive(true);
+                mainMenuBttn.SetActive(true);
+            }
         }
         
 
         if (Input.GetMouseButtonDown(0))
         {
             FindObjectOfType<AudioManager>().Play("Button");
-        }
-
-        if (GameControlling.GetInstance().gameObject.GetComponent<GameState>().state == GameCurrentState.END)
-        {
-            restartBttn.SetActive(true);
-            mainMenuBttn.SetActive(true);
         }
     }
 
