@@ -56,24 +56,44 @@ public class GameControlling : MonoBehaviour
         if (GetComponent<GameState>().state != GameCurrentState.PAUSED)
         {
             #region Spawn Panel
-            spawnPanelTime -= Time.deltaTime;
-            //spawn Panel (debug)
-            if (spawnPanelTime <= 0)
-            {
-                if (GetActivePanelCount() < spawnMax) // spawn two more if there's not even a single one on screen
-                {
-                    //Panel[] activePanelCount = FindObjectsOfType<Panel>();
-                    //int totalPanel = activePanelCount.Length;
-                    int amtToSpawn = spawnMax - GetActivePanelCount(); //totalPanel;
-                    int randomAmt = Random.Range(1, amtToSpawn + 1);
 
-                    for (int i = 0; i < randomAmt; i++)
+            if (GetComponent<GameState>().state == GameCurrentState.END)
+            {
+                spawnMax = 24;
+
+                if(GetActivePanelCount() < spawnMax)
+                {
+                    if (spawnPanelTime <= 0)
                     {
                         SpawnPanel();
+                        spawnPanelTime = 1.5f;
+                    }
+                    else
+                    {
+                        spawnPanelTime -= Time.deltaTime * 10;
                     }
                 }
+            }
+            else if(GetComponent<GameState>().state == GameCurrentState.START)
+            {
+                spawnPanelTime -= Time.deltaTime;
 
-                spawnPanelTime = Random.Range(6f, 10f); // for playtest (09/02/2023), randomize intervals of time between panel spawns. Note that this will be a constant for each different level
+                //spawn Panel (debug)
+                if (spawnPanelTime <= 0)
+                {
+                    if (GetActivePanelCount() < spawnMax) // spawn two more if there's not even a single one on screen
+                    {
+                        int amtToSpawn = spawnMax - GetActivePanelCount(); //totalPanel;
+                        int randomAmt = Random.Range(1, amtToSpawn + 1);
+
+                        for (int i = 0; i < randomAmt; i++)
+                        {
+                            SpawnPanel();
+                        }
+                    }
+
+                    spawnPanelTime = Random.Range(6f, 10f); // for playtest (09/02/2023), randomize intervals of time between panel spawns. Note that this will be a constant for each different level
+                }
             }
             #endregion
 

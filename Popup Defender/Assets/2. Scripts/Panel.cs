@@ -265,7 +265,7 @@ public class Panel : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (GameControlling.GetInstance().GetComponent<GameState>().state != GameCurrentState.PAUSED)
+        if (GameControlling.GetInstance().GetComponent<GameState>().state == GameCurrentState.START)
         {
             LayerToFront(GameControlling.layerAppend += 50);
             mouseClickPosOffset = this.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane + 1));
@@ -274,7 +274,7 @@ public class Panel : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        if (GameControlling.GetInstance().GetComponent<GameState>().state == GameCurrentState.PAUSED)
+        if (GameControlling.GetInstance().GetComponent<GameState>().state == GameCurrentState.START)
         {
             this.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane + 1)) + mouseClickPosOffset;
         }

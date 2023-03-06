@@ -7,7 +7,7 @@ public class GameTimer : MonoBehaviour
 {
     // Tams here, sorry for changing the names of the variables, it's mostly to avoid confusion ^^;7
     public int systemTimer; // Was deadlineTimer before, and was a float
-    public float virusTimer = 15f; // Was deadlinetimerSec before
+    public float virusTimer = 10f; // Was deadlinetimerSec before
     public TMPro.TextMeshProUGUI myDeadLineTxt;
     public Image myVirusTimePie;
 
@@ -21,7 +21,7 @@ public class GameTimer : MonoBehaviour
     {
         myState = this.GetComponent<GameState>();
         systemTimer = 50;
-        virusTimer = 15f; // at some point we'd probably need to make this scalable for stages
+        virusTimer = 10f;
         virusTimerLerp = virusTimer;
     }
 
@@ -44,7 +44,7 @@ public class GameTimer : MonoBehaviour
             if (Mathf.InverseLerp(0, 15f, virusTimerLerp) < 0.0005f)
             { 
                 systemTimer += 1;
-                virusTimer = 15;
+                virusTimer = 10;
                 virusTimerLerp = virusTimer;
             }
 
@@ -56,7 +56,7 @@ public class GameTimer : MonoBehaviour
 
             // virus timer display stuff
             virusTimerLerp = Mathf.Lerp(virusTimerLerp, virusTimer, Time.deltaTime * 2);
-            myVirusTimePie.fillAmount = Mathf.InverseLerp(0, 15f, virusTimerLerp);
+            myVirusTimePie.fillAmount = Mathf.InverseLerp(0, 10f, virusTimerLerp);
 
             myDeadLineTxt.text = "23:" + string.Format("{0:D2}", (int)systemTimer);
         }
@@ -71,13 +71,13 @@ public class GameTimer : MonoBehaviour
 
     public void ResetSystemTimer() // Was ResetTimer() before
     {
-        virusTimer = 15f; virusTimerLerp = virusTimer;
+        virusTimer = 10f; virusTimerLerp = virusTimer;
         systemTimer = 50;
         myDeadLineTxt.text = "23:" + string.Format("{0}:D2", (int)systemTimer);
     }
 
     public void AddVirusTimer(float timeToAdd)
 	{
-        virusTimer = Mathf.Clamp(virusTimer + timeToAdd, 0f, 15.1f); // Value can also be negative to reduce virus time, if needed
+        virusTimer = Mathf.Clamp(virusTimer + timeToAdd, 0f, 10.1f); // Value can also be negative to reduce virus time, if needed
 	}
 }

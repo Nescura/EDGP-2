@@ -16,6 +16,14 @@ public class Pause : MonoBehaviour
         myState = GetComponent<GameState>();
     }
 
+    private void Update()
+    {
+        if (GetComponent<GameState>().state == GameCurrentState.END)
+        {
+            myPauseBttn.SetActive(false);
+        }
+    }
+
     public void PauseClicked()
     {
         FindObjectOfType<AudioManager>().Play("Button");
