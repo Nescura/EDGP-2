@@ -14,7 +14,7 @@ public class PanelSpam : IPanelStrategy
 
     public Vector2 SetPanelSize() => new Vector2(sizeX, sizeY);
     public int ObjectiveKeyTech() => 3;
-    public string ObjectiveDesc() => "to defeat the monster!";
+    public string ObjectiveDesc() => "  to defeat the monster!";
 
     public void ResetMinigame(GameObject panelParent, GameObject displayParent)
     {

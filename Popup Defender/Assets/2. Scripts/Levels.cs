@@ -5,6 +5,12 @@ using UnityEngine;
 public class Levels : MonoBehaviour
 {
     public int currentLevel;
+    public int clearedLevel;
+
+    private void Start()
+    {
+        clearedLevel = -1;
+    }
 
     public void CheckCurrentLevel()
     {

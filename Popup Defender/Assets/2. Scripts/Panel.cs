@@ -268,6 +268,7 @@ public class Panel : MonoBehaviour
         if (GameControlling.GetInstance().GetComponent<GameState>().state == GameCurrentState.START)
         {
             LayerToFront(GameControlling.layerAppend += 50);
+
             mouseClickPosOffset = this.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane + 1));
         }
     }

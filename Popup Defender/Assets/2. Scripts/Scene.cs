@@ -74,6 +74,8 @@ public class Scene : MonoBehaviour
         {
             SubmitButton();
         }
+
+        gameCtrl.GetComponent<GameDataManager>().Load();
     }
 
     private void Update()
@@ -217,6 +219,7 @@ public class Scene : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
 
+        gameCtrl.GetComponent<Levels>().clearedLevel += 1;
         SetupLevel(gameCtrl.GetComponent<Levels>().currentLevel);
 
         yield return new WaitForSeconds(0.1f);

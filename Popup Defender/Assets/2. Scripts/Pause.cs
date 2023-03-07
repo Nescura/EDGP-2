@@ -10,6 +10,7 @@ public class Pause : MonoBehaviour
     public GameObject myPauseBttn;
     public GameObject myResumeBttn;
     public GameObject pauseMenu;
+    public GameObject myHowToPlay;
 
     private void Start()
     {
@@ -44,5 +45,19 @@ public class Pause : MonoBehaviour
     {
         FindObjectOfType<AudioManager>().Play("Button");
         SceneManager.LoadScene(0);
+    }
+
+    public void HelpClicked()
+    {
+        FindObjectOfType<AudioManager>().Play("Button");
+        pauseMenu.SetActive(false);
+        myHowToPlay.SetActive(true);
+    }
+
+    public void CloseHelpClicked()
+    {
+        FindObjectOfType<AudioManager>().Play("Button");
+        myHowToPlay.SetActive(false);
+        pauseMenu.SetActive(true);
     }
 }
