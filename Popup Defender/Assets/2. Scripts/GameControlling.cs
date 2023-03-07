@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class GameControlling : MonoBehaviour
 {
@@ -22,6 +24,20 @@ public class GameControlling : MonoBehaviour
     // Singleton
     private static GameControlling itsMe;
     public static GameControlling GetInstance() => itsMe;
+
+    //End Screen Stuff
+    [Header("End Screen Stuff")]
+    public GameObject restartBttn;
+    public GameObject mainMenuBttn;
+    public GameObject blueScreen;
+
+    public float BlinkTime;
+    public string textToBlink;
+    public TMP_Text textComponent;
+    public bool blinked = false;
+    public bool activateBlinking;
+    public float blinkTimer;
+    public float timeToDisplay;
     #endregion
 
     private void Awake()
@@ -38,6 +54,10 @@ public class GameControlling : MonoBehaviour
             itsMe = this;
             // DontDestroyOnLoad(gameObject); // This line makes it so that the GameControlling persists between scenes - disable if not needed 
         }
+
+        //Set the Text that will be blinked from the inspector of the text component
+        textToBlink = textComponent.text;
+        blinkTimer = BlinkTime;
     }
 
 	// Start is called before the first frame update
@@ -72,6 +92,10 @@ public class GameControlling : MonoBehaviour
                     {
                         spawnPanelTime -= Time.deltaTime * 10;
                     }
+                }
+                else
+                {
+                    StartBSOD();
                 }
             }
             else if(GetComponent<GameState>().state == GameCurrentState.START)
@@ -184,5 +208,68 @@ public class GameControlling : MonoBehaviour
         //Debug.Log(activePanelCount.Length);
         //Debug.Log(unclearedPanels);
         return unclearedPanels;
+    }
+
+    public void StartBSOD()
+    {
+        blueScreen.SetActive(true);
+
+        if (activateBlinking == true)
+        {
+            #region Blinking Text Function
+            if (blinked == false)
+            {
+                blinkTimer -= Time.deltaTime;
+
+                if (blinkTimer <= 0)
+                {
+                    textComponent.text = string.Empty;
+                    blinked = true;
+                }
+            }
+            else if (blinked == true)
+            {
+                blinkTimer += Time.deltaTime;
+
+                if (blinkTimer >= BlinkTime)
+                {
+                    textComponent.text = textToBlink;
+                    blinked = false;
+                }
+            }
+            #endregion
+        }
+
+        #region Display Text
+        if (timeToDisplay >= 0)
+        {
+            timeToDisplay -= Time.deltaTime;
+        }
+        else
+        {
+            activateBlinking = false;
+            textComponent.text = textToBlink;
+            textToBlink = "*** STOP; 0x00000050 (0x8872A990, 0x00x00000001, 0x804F35D7, 0x00000000) \n" +
+                          "\n" +
+                          "A problem has been detected and Doors has been shut down to prevent damage to your computer. \n" +
+                          "\n" +
+                          "I_GOT_YOUR_COMPUTER_NOW" +
+                          "\n" +
+                          "If this is your first time you've seen this Stop error screen. \n" +
+                          "Follow these steps:\n" +
+                          " - To reboot system, press any key. \n" +
+                          " - If the system does not reboot, proceed to bang your head on the keyboard and scream like a little girl. \n" +
+                          " - To contact the peeps who stole your computer...uhh...good luck .\n" +
+                          "\n" +
+                          "Technical information: \n" +
+                          "\n" +
+                          "*** STOP; 0x00000050 (0x8872A990, 0x00x00000001, 0x804F35D7, 0x00000000) \n" +
+                          "\n" +
+                          "Beginning extraction of physical memory \n" +
+                          "Extraction of physical memory complete. \n" +
+                          "Thanks for giving us your computer :D \n" + 
+                          "\n" + "Press Any Key To Continue";
+        }
+        #endregion
     }
 }

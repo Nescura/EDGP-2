@@ -18,10 +18,6 @@ public class Scene : MonoBehaviour
 
     private GameControlling gameCtrl;
 
-    [Header("Buttons")]
-    public GameObject restartBttn;
-    public GameObject mainMenuBttn;
-
     #region Dynamic Object Pooling
     public static Dictionary<string, List<GameObject>> objectPools = new Dictionary<string, List<GameObject>>();
     public List<GameObject> activeDesktopIcons = new List<GameObject>();
@@ -83,12 +79,6 @@ public class Scene : MonoBehaviour
         if (SceneManager.GetActiveScene().name != "MainMenu")
         {
             ButtonCanInteract();
-
-            if (GameControlling.GetInstance().gameObject.GetComponent<GameState>().state == GameCurrentState.END)
-            {
-                restartBttn.SetActive(true);
-                mainMenuBttn.SetActive(true);
-            }
         }
         
 
