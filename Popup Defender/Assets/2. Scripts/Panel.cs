@@ -214,7 +214,7 @@ public class Panel : MonoBehaviour
                 if (isObjectiveClear)
 				{
                     // virus timer regen code and minigame clear animation stuff goes here
-                    GameControlling.GetInstance().GetComponent<GameTimer>().AddVirusTimer(+5f);
+                    GameControlling.GetInstance().GetComponent<GameTimer>().AddVirusTimer(2f);
                 }
                 else
 				{

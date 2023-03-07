@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameControlling : MonoBehaviour
 {
@@ -269,6 +270,11 @@ public class GameControlling : MonoBehaviour
                           "Extraction of physical memory complete. \n" +
                           "Thanks for giving us your computer :D \n" + 
                           "\n" + "Press Any Key To Continue";
+
+            if (Input.anyKeyDown)
+            {
+                SceneManager.LoadScene(0);
+            }
         }
         #endregion
     }
