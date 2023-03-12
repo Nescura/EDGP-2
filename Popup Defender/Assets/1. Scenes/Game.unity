@@ -493,8 +493,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   desktopBttnPrefab: {fileID: 5573562433256675404, guid: a071fa0a48401bf43b18adb5a1395509, type: 3}
-  browserBttnPrefab: {fileID: 0}
-  websiteBttnPrefab: {fileID: 0}
+  browserBttnPrefab: {fileID: 573139906}
+  websiteBttnPrefab: {fileID: 1207143975}
   desktopPage: {fileID: 319165059}
   browserPage: {fileID: 1925170917}
   websitePage: {fileID: 795521201}
