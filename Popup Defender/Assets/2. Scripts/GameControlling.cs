@@ -148,7 +148,7 @@ public class GameControlling : MonoBehaviour
 
     public IPanelStrategy GetRandomMinigame()
 	{
-        int index = Random.Range(0, 4);
+        int index = Random.Range(0, 5);
         switch (index)
         {
             // ADD ALL YOUR PANEL MINIGAMES HERE!!!
@@ -160,6 +160,8 @@ public class GameControlling : MonoBehaviour
                 return new PanelHold();
             case 3:
                 return new PanelHotDog();
+            case 4:
+                return new PanelRoulette();
             default:
                 return new PanelTemplate();
 		}
