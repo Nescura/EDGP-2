@@ -21,7 +21,7 @@ public class GameDataManager : MonoBehaviour
         data = new GameData();
         string json = ReadFromFile(file);
         JsonUtility.FromJsonOverwrite(json, data);
-        Debug.Log(GetFilePath(file));
+        Debug.Log(GetFilePath(file) + " Loaded");
     }
 
     private void WriteToFile(string fileName, string json)

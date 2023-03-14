@@ -23,7 +23,7 @@ public class Buttons : MonoBehaviour
         Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
         hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
 
-        // Colour Handling
+    # region Colour Handling
         if (myScene.canInteract == true)
         {
             thisSprite.color = Color.Lerp(thisSprite.color, Color.white, Time.deltaTime * 5);
@@ -32,8 +32,9 @@ public class Buttons : MonoBehaviour
         {
             thisSprite.color = Color.Lerp(thisSprite.color, new Color(0.5f, 0.5f, 0.5f), Time.deltaTime * 5);
         }
+        #endregion
 
-        // Input Handling: will activate timers on click, and on release
+        #region Input Handling: will activate timers on click, and on release
         if (hit.collider != null && hit.collider.name == gameObject.name && myScene.canInteract == true)
         {
             if (Input.GetMouseButtonDown(0))
@@ -54,8 +55,9 @@ public class Buttons : MonoBehaviour
 				}
             }
         }
+        #endregion
 
-        // Timers
+        //Timers
         if (downTime > 0) downTime -= Time.deltaTime;
         if (upTime > 0) upTime -= Time.deltaTime;
         if (upTime2 > 0) upTime2 -= Time.deltaTime;

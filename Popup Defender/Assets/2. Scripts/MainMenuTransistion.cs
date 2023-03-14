@@ -1,10 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+public enum MenuState { INTRO, MENU, GAME }
 
 public class MainMenuTransistion : MonoBehaviour
 {
+    public GameObject myCamera;
+    private MenuState state;
 
+    [Header("Game Title Variables")]
     [SerializeField] private float randomX;
     [SerializeField] private float randomY;
 
@@ -14,6 +21,18 @@ public class MainMenuTransistion : MonoBehaviour
     public float speed;
     public Vector2 newPos;
 
+    [Header ("Blinking Text Variables")]
+    public bool blinked;
+    public TMP_Text textComponent;
+
+    [Header("MainMenu Variables")]
+    public Image dpLogo;
+    public float showDP;
+    public GameObject myProfile;
+    public GameObject myBG;
+    public bool playGame;
+    public float playGlitch;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,12 +40,63 @@ public class MainMenuTransistion : MonoBehaviour
         RandomizeY();
 
         newPos = new Vector2(newX, newY);
+
+        state = MenuState.INTRO;
     }
 
     // Update is called once per frame
     void Update()
     {
-        this.gameObject.transform.position = Vector2.MoveTowards(transform.position, newPos, speed * Time.deltaTime);
+        if (state == MenuState.INTRO)
+        {
+            if (showDP > 0)
+            {
+                showDP -= Time.deltaTime;
+                BlinkingTxt();
+            }
+            else
+            {
+                var color = dpLogo.color;
+                color.a -= Time.deltaTime;
+                dpLogo.color = color;
+                textComponent.color = color;
+
+                if (color.a <= 0)
+                {
+                    GetComponent<SpriteRenderer>().enabled = true;
+                    state = MenuState.MENU;
+                }
+            }
+        }
+        else if (state == MenuState.MENU)
+        {
+            if (GetComponent<SpriteRenderer>().enabled == true)
+            {
+                BlinkingTxt();
+                textComponent.text = "Press any key to continue";
+                gameObject.transform.position = Vector2.MoveTowards(transform.position, newPos, speed * Time.deltaTime);
+
+                if (Input.anyKeyDown)
+                {
+                    GetComponent<BoxCollider2D>().enabled = false;
+                    GetComponent<SpriteRenderer>().enabled = false;
+                    textComponent.text = "";
+                    myProfile.SetActive(true);
+                    myBG.GetComponent<SpriteRenderer>().color = new Color(0, 0.151f, 0.202f);
+                }
+            }
+
+            if (playGame == true)
+            {
+                playGlitch -= Time.deltaTime;
+                GameObject.Find("Main Camera").GetComponent<GlitchEffect>().glitch = true;
+
+                if (playGlitch <= 0)
+                {
+                    GameObject.Find("Scene").GetComponent<Scene>().Play();
+                }
+            }
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -81,6 +151,32 @@ public class MainMenuTransistion : MonoBehaviour
         else if (randomY == 2 || randomY == 4)
         {
             newY = -3.42f;
+        }
+    }
+
+    void BlinkingTxt()
+    {
+        var color = textComponent.color;
+
+        if (blinked == false)
+        {
+            color.a -= Time.deltaTime;
+            textComponent.color = color;
+
+            if (color.a <= 0)
+            {
+                blinked = true;
+            }
+        }
+        else if (blinked == true)
+        {
+            color.a += Time.deltaTime;
+            textComponent.color = color;
+
+            if (color.a >= 1)
+            {
+                blinked = false;
+            }
         }
     }
 }

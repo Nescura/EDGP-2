@@ -64,14 +64,16 @@ public class Scene : MonoBehaviour
 
     private void Start()
     {
-        gameCtrl = GameControlling.GetInstance();
-
         if (SceneManager.GetActiveScene().name != "MainMenu")
         {
+            gameCtrl = GameControlling.GetInstance();
+            gameCtrl.GetComponent<GameDataManager>().Load();
             SubmitButton();
         }
-
-        gameCtrl.GetComponent<GameDataManager>().Load();
+        else if (SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            GetComponent<GameDataManager>().Load();
+        }
     }
 
     private void Update()
