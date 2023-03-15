@@ -88,6 +88,7 @@ public class MainMenuTransistion : MonoBehaviour
 
             if (playGame == true)
             {
+                FindObjectOfType<AudioManager>().Play("Glitch");
                 playGlitch -= Time.deltaTime;
                 GameObject.Find("Main Camera").GetComponent<GlitchEffect>().glitch = true;
 

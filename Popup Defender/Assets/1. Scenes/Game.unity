@@ -891,7 +891,7 @@ MonoBehaviour:
   displacementMap: {fileID: 0}
   Shader: {fileID: 4800000, guid: a87e91e2d096e9545a132706e9274bbf, type: 3}
   glitch: 0
-  intensity: 0.5
+  intensity: 1
   flipIntensity: 1
   colorIntensity: 1
 --- !u!1 &430375673
@@ -2121,6 +2121,7 @@ MonoBehaviour:
   restartBttn: {fileID: 1236965928}
   mainMenuBttn: {fileID: 513977613}
   blueScreen: {fileID: 1710260892}
+  playGlitch: 1.5
   BlinkTime: 0.5
   textToBlink: 
   textComponent: {fileID: 1587667431}
@@ -3678,6 +3679,12 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 453c23142c7329a4382e4f85454c7b03, type: 3}
     volume: 0.5
     pitch: 2
+    loop: 0
+    source: {fileID: 0}
+  - name: Glitch
+    clip: {fileID: 8300000, guid: 9d8cd2cd2992c5241b01b708b3e91ed0, type: 3}
+    volume: 0.5
+    pitch: 1
     loop: 0
     source: {fileID: 0}
   MasterVolume: 5

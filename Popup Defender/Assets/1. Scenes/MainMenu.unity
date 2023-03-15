@@ -1832,6 +1832,12 @@ MonoBehaviour:
     pitch: 3
     loop: 0
     source: {fileID: 0}
+  - name: Glitch
+    clip: {fileID: 8300000, guid: 9d8cd2cd2992c5241b01b708b3e91ed0, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
   MasterVolume: 5
 --- !u!1 &1913916363
 GameObject:

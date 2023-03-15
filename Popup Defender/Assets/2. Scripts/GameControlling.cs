@@ -32,6 +32,7 @@ public class GameControlling : MonoBehaviour
     public GameObject mainMenuBttn;
     public GameObject blueScreen;
 
+    public float playGlitch;
     public float BlinkTime;
     public string textToBlink;
     public TMP_Text textComponent;
@@ -215,32 +216,40 @@ public class GameControlling : MonoBehaviour
 
     public void StartBSOD()
     {
-        blueScreen.SetActive(true);
+        FindObjectOfType<AudioManager>().Play("Glitch");
+        playGlitch -= Time.deltaTime;
+        GameObject.Find("Main Camera").GetComponent<GlitchEffect>().glitch = true;
 
-        if (activateBlinking == true)
+        if (playGlitch <= 0)
         {
-            #region Blinking Text Function
-            if (blinked == false)
-            {
-                blinkTimer -= Time.deltaTime;
+            FindObjectOfType<AudioManager>().Stop("Glitch");
+            blueScreen.SetActive(true);
 
-                if (blinkTimer <= 0)
-                {
-                    textComponent.text = string.Empty;
-                    blinked = true;
-                }
-            }
-            else if (blinked == true)
+            if (activateBlinking == true)
             {
-                blinkTimer += Time.deltaTime;
-
-                if (blinkTimer >= BlinkTime)
+                #region Blinking Text Function
+                if (blinked == false)
                 {
-                    textComponent.text = textToBlink;
-                    blinked = false;
+                    blinkTimer -= Time.deltaTime;
+
+                    if (blinkTimer <= 0)
+                    {
+                        textComponent.text = string.Empty;
+                        blinked = true;
+                    }
                 }
+                else if (blinked == true)
+                {
+                    blinkTimer += Time.deltaTime;
+
+                    if (blinkTimer >= BlinkTime)
+                    {
+                        textComponent.text = textToBlink;
+                        blinked = false;
+                    }
+                }
+                #endregion
             }
-            #endregion
         }
 
         #region Display Text

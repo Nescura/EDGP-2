@@ -11,6 +11,7 @@ public class Buttons : MonoBehaviour
     public TMPro.TextMeshPro thisTextMesh;
     public Sprite virusSpr;
     private RaycastHit2D hit;
+    private float playGlitch;
 
     private void Start()
     {
@@ -77,6 +78,18 @@ public class Buttons : MonoBehaviour
                 ActivateFunction(hit);
             }
 		}
+
+        if (GameObject.Find("Main Camera").GetComponent<GlitchEffect>().glitch == true)
+        {
+            FindObjectOfType<AudioManager>().Play("Glitch");
+            playGlitch -= Time.deltaTime;
+        }
+
+        if (playGlitch <= 0)
+        {
+            GameObject.Find("Main Camera").GetComponent<GlitchEffect>().glitch = false;
+            playGlitch = 1f;
+        }
     }
 
 	public void OnCollisionStay2D(Collision2D collision)
@@ -111,6 +124,7 @@ public class Buttons : MonoBehaviour
             myScene.WrongButton();
             thisSprite.color = new Color(1f, 0f, 0f);
             thisSprite.sprite = virusSpr;
+            GameObject.Find("Main Camera").GetComponent<GlitchEffect>().glitch = true;
             if (thisTextMesh != null) thisTextMesh.text = "HAHAHAHA\nHAHAHAHA";
 		}
     }
