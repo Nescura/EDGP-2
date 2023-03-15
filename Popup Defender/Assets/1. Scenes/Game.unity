@@ -495,6 +495,7 @@ MonoBehaviour:
   desktopBttnPrefab: {fileID: 5573562433256675404, guid: a071fa0a48401bf43b18adb5a1395509, type: 3}
   browserBttnPrefab: {fileID: 573139906}
   websiteBttnPrefab: {fileID: 1207143975}
+  canClick: 0
   desktopPage: {fileID: 319165059}
   browserPage: {fileID: 1925170917}
   websitePage: {fileID: 795521201}
@@ -3684,7 +3685,7 @@ MonoBehaviour:
   - name: Glitch
     clip: {fileID: 8300000, guid: 9d8cd2cd2992c5241b01b708b3e91ed0, type: 3}
     volume: 0.5
-    pitch: 1
+    pitch: 0.5
     loop: 0
     source: {fileID: 0}
   MasterVolume: 5

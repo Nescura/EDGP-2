@@ -216,13 +216,13 @@ public class GameControlling : MonoBehaviour
 
     public void StartBSOD()
     {
-        FindObjectOfType<AudioManager>().Play("Glitch");
         playGlitch -= Time.deltaTime;
         GameObject.Find("Main Camera").GetComponent<GlitchEffect>().glitch = true;
 
         if (playGlitch <= 0)
         {
             FindObjectOfType<AudioManager>().Stop("Glitch");
+
             blueScreen.SetActive(true);
 
             if (activateBlinking == true)
@@ -250,6 +250,10 @@ public class GameControlling : MonoBehaviour
                 }
                 #endregion
             }
+        }
+        else
+        {
+            FindObjectOfType<AudioManager>().Play("Glitch");
         }
 
         #region Display Text

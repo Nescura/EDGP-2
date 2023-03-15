@@ -79,7 +79,7 @@ public class Buttons : MonoBehaviour
             }
 		}
 
-        if (GameObject.Find("Main Camera").GetComponent<GlitchEffect>().glitch == true)
+        if (GameObject.Find("Main Camera").GetComponent<GlitchEffect>().glitch == true && GameControlling.GetInstance().GetComponent<GameState>().state != GameCurrentState.END)
         {
             FindObjectOfType<AudioManager>().Play("Glitch");
             playGlitch -= Time.deltaTime;
