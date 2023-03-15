@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Scene : MonoBehaviour
 {
     public GameObject desktopBttnPrefab, browserBttnPrefab, websiteBttnPrefab;
-
+    public bool canClick;
     public GameObject desktopPage, browserPage, websitePage;
     private GameObject browserBttn, websiteBttn, submitBttn;
     //public List<GameObject> desktopButtons = new List<GameObject> { }, browserButtons = new List<GameObject> { }, submitButtons = new List<GameObject> { };
@@ -73,6 +73,7 @@ public class Scene : MonoBehaviour
         else if (SceneManager.GetActiveScene().name == "MainMenu")
         {
             GetComponent<GameDataManager>().Load();
+            canClick = true;
         }
     }
 
