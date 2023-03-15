@@ -9,7 +9,6 @@ public enum MenuState { INTRO, MENU, GAME }
 public class MainMenuTransistion : MonoBehaviour
 {
     public GameObject myCamera;
-    public bool canClick;
     private MenuState state;
 
     [Header("Game Title Variables")]
