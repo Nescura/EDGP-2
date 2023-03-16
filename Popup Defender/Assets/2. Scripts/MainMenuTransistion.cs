@@ -32,6 +32,8 @@ public class MainMenuTransistion : MonoBehaviour
     public GameObject myBG;
     public bool playGame;
     public float playGlitch;
+    public TMP_Text highscoreTxt;
+    private GameData myData;
 
     // Start is called before the first frame update
     void Start()
@@ -40,7 +42,7 @@ public class MainMenuTransistion : MonoBehaviour
         RandomizeY();
 
         newPos = new Vector2(newX, newY);
-
+        
         state = MenuState.INTRO;
     }
 
@@ -83,6 +85,9 @@ public class MainMenuTransistion : MonoBehaviour
                     textComponent.text = "";
                     myProfile.SetActive(true);
                     myBG.GetComponent<SpriteRenderer>().color = new Color(0, 0.151f, 0.202f);
+                    myData = GameObject.Find("Scene").GetComponent<GameDataManager>().data;
+                    highscoreTxt.enabled = true;
+                    highscoreTxt.text = "System Message: Days Gone Without A Crash - " + myData.dayCleared + " Days";
                 }
             }
 

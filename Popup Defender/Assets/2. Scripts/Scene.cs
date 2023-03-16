@@ -89,6 +89,12 @@ public class Scene : MonoBehaviour
         {
             FindObjectOfType<AudioManager>().Play("Button");
         }
+
+        if (Input.anyKeyDown)
+        {
+
+            FindObjectOfType<AudioManager>().Play("Keypress");
+        }
     }
 
     #region Randomisation of Button Locations

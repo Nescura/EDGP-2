@@ -3673,11 +3673,11 @@ MonoBehaviour:
   - name: PopUp
     clip: {fileID: 8300000, guid: 416b0c1a03ac1674bbec861739e36852, type: 3}
     volume: 1
-    pitch: 3
+    pitch: 1.5
     loop: 0
     source: {fileID: 0}
   - name: Button
-    clip: {fileID: 8300000, guid: 453c23142c7329a4382e4f85454c7b03, type: 3}
+    clip: {fileID: 8300000, guid: a23236bd9d8b1664baf0eeeaada9e13d, type: 3}
     volume: 0.5
     pitch: 2
     loop: 0
@@ -3686,6 +3686,12 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 9d8cd2cd2992c5241b01b708b3e91ed0, type: 3}
     volume: 0.5
     pitch: 0.5
+    loop: 0
+    source: {fileID: 0}
+  - name: Keypress
+    clip: {fileID: 8300000, guid: eeacb7d274d16244e924df6fc0b102c0, type: 3}
+    volume: 0.3
+    pitch: 1
     loop: 0
     source: {fileID: 0}
   MasterVolume: 5
