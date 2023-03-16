@@ -163,6 +163,8 @@ public class GameControlling : MonoBehaviour
                 return new PanelHotDog();
             case 4:
                 return new PanelRoulette();
+            case 5:
+                return new PanelWhack();
             default:
                 return new PanelTemplate();
 		}
