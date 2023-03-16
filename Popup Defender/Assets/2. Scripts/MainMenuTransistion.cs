@@ -129,6 +129,12 @@ public class MainMenuTransistion : MonoBehaviour
             RandomizeX();
         }
 
+        float r = Random.RandomRange(0.3f, 1f);
+        float g = Random.RandomRange(0.3f, 1f);
+        float b = Random.RandomRange(0.3f, 1f);
+
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(r, g, b);
+
         newPos = new Vector2(newX, newY);
     }
 
