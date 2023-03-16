@@ -13,6 +13,7 @@ public class PanelHold : IPanelStrategy
     float progress;
 
     public Vector2 SetPanelSize() => new Vector2(sizeX, sizeY);
+    public string SetPanelBG() => "";
     public int ObjectiveKeyTech() => 2;
     public string ObjectiveDesc() => "to finish the download!";
 
@@ -37,7 +38,7 @@ public class PanelHold : IPanelStrategy
         if (progress <= 15f)
         {
             progress += Time.deltaTime * 3f;
-            myPanel.GetComponent<Panel>().ForceTimeLeft(Time.deltaTime / 2, false);
+            myPanel.GetComponent<Panel>().ForceTimeLeft(Time.deltaTime / 2, false, true);
         }
         else
 		{

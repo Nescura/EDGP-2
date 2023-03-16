@@ -13,6 +13,7 @@ public class PanelSpam : IPanelStrategy
     int clickCount;
 
     public Vector2 SetPanelSize() => new Vector2(sizeX, sizeY);
+    public string SetPanelBG() => "sprBG_rpgForest";
     public int ObjectiveKeyTech() => 3;
     public string ObjectiveDesc() => "  to defeat the monster!";
 

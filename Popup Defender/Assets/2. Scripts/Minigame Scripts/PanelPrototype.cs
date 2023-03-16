@@ -8,6 +8,7 @@ public class PanelPrototype : IPanelStrategy
     private GameObject testObj;
 
     public Vector2 SetPanelSize() => new Vector2(1f, 1f);
+    public string SetPanelBG() => "";
     public int ObjectiveKeyTech() => 0;
     public string ObjectiveDesc() => "ligma";
 

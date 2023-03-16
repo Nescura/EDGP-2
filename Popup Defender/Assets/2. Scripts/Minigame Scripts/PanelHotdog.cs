@@ -13,13 +13,14 @@ public class PanelHotDog : IPanelStrategy
     private float direction = 5f;
 
     public Vector2 SetPanelSize() => new Vector2(sizeX, sizeY);
+    public string SetPanelBG() => "";
     public int ObjectiveKeyTech() => 1;
     public string ObjectiveDesc() => "  to catch MY HOTDOG!";
 
     public void ResetMinigame(GameObject panelParent, GameObject displayParent)
     {
         myPanel = panelParent; myDisplay = displayParent;
-        sizeX = 2.4f; sizeY = 1.5f; // You can do a lot with the size of panels and even vary it up like so
+        sizeX = 2f; sizeY = 1.5f; // You can do a lot with the size of panels and even vary it up like so
 
         if (hotdogBun == null)
         {
@@ -42,7 +43,7 @@ public class PanelHotDog : IPanelStrategy
         }
         else
 		{
-            myPanel.GetComponent<Panel>().ForceTimeLeft(-1, false);
+            myPanel.GetComponent<Panel>().ForceTimeLeft(-1, false, true);
 		}
     }
 

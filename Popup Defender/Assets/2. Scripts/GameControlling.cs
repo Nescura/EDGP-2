@@ -135,7 +135,7 @@ public class GameControlling : MonoBehaviour
                 foreach (Panel thisPan in panelInstances)
                 {
                     thisPan.isObjectiveClear = true;
-                    thisPan.ForceTimeLeft(0, true);
+                    thisPan.ForceTimeLeft(0, true, true);
                 }
                 spawnPanelTime = 20f;
             }

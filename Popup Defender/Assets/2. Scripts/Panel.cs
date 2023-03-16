@@ -88,12 +88,26 @@ public class Panel : MonoBehaviour
         #region Set size of panel
         GetComponent<RectTransform>().sizeDelta = panelStrat.SetPanelSize(); //new Vector2(panelSizeX, panelSizeY);
         GetComponent<SpriteRenderer>().size = new Vector2(panelStrat.SetPanelSize().x + 0.497f, panelStrat.SetPanelSize().y + 0.49f); //new Vector2(panelSizeX, panelSizeY);
-        thisMask.GetComponent<SpriteRenderer>().size = panelStrat.SetPanelSize(); // new Vector2(panelSizeX, panelSizeY);
+        //thisMask.GetComponent<SpriteRenderer>().size = panelStrat.SetPanelSize(); // new Vector2(panelSizeX, panelSizeY);
+        thisMask.transform.localScale = panelStrat.SetPanelSize();
         GetComponent<BoxCollider2D>().size = new Vector2(panelStrat.SetPanelSize().x + 0.1125f, panelStrat.SetPanelSize().y + 0.175f); // new Vector2(panelSizeX, panelSizeY); // collider
         #endregion
 
-        #region Set expiryTime to zero - this timer is purely for animation when an objective is completed
-        expiryTime = 0f;
+        #region Set Background of panel minigame
+        if (panelStrat.SetPanelBG() == "") // If no BG was defined, just load the default square
+		{
+            thisMask.GetComponent<SpriteRenderer>().sprite = UnityEditor.AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UISprite.psd");
+            thisMask.GetComponent<SpriteRenderer>().color = new Color(68f / 255f, 62f / 255f, 96f / 255f);
+        }
+        else
+		{
+            thisMask.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("BGSprites/" + panelStrat.SetPanelBG());
+            thisMask.GetComponent<SpriteRenderer>().color = Color.white;
+        }
+		#endregion
+
+		#region Set expiryTime to zero - this timer is purely for animation when an objective is completed
+		expiryTime = 0f;
         #endregion
     }
 
@@ -102,10 +116,13 @@ public class Panel : MonoBehaviour
         isObjectiveClear = b;
 	}
 
-    public void ForceTimeLeft(float f, bool directSet) // Forcefully change the time minigame has left
+    public void ForceTimeLeft(float f, bool directSet, bool animateColour) // Forcefully change the time minigame has left
     {
-        if (f < 0) thisTimeBarBG.color = new Color(1f, 0f, 0f, 1f);
-        if (f > 0) thisTimeBarBG.color = new Color(0f, 188f / 255f, 0f, 155f / 255f);
+        if (animateColour)
+        {
+            if (f < 0) thisTimeBarBG.color = new Color(1f, 0f, 0f, 1f);
+            if (f > 0) thisTimeBarBG.color = new Color(0f, 188f / 255f, 0f, 155f / 255f);
+        }
 
         if (directSet) // if directSet is true, it SETS the time to f
         {
@@ -127,30 +144,15 @@ public class Panel : MonoBehaviour
 
         // Layering all objects with SpriteRenderer components in DisplayGameObjs
         SpriteRenderer[] spriteRenders = displayObjs.GetComponentsInChildren<SpriteRenderer>();
-        foreach (SpriteRenderer sprRender in spriteRenders) sprRender.sortingOrder = index - 5 + sprRender.GetComponent<LayerAppending>().indexToAppend;
+        foreach (SpriteRenderer sprRender in spriteRenders)
+        {
+            sprRender.sortingOrder = index - 5 + sprRender.GetComponent<LayerAppending>().indexToAppend;
+            sprRender.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+        }
 
         // Layering all objects with TextMeshPro components in DisplayGameObjs
         TMPro.TextMeshPro[] textMeshes = displayObjs.GetComponentsInChildren<TMPro.TextMeshPro>();
         foreach (TMPro.TextMeshPro tmPro in textMeshes) tmPro.sortingOrder = index - 5;
-
-        #region To be Removed
-        /*
-        foreach (Transform child in transform.Find("DisplayGameObjs"))
-		{
-            child.TryGetComponent(out SpriteRenderer childSprRen);
-            child.TryGetComponent(out TMPro.TextMeshPro childTMPro);
-            if (childSprRen != null) childSprRen.sortingOrder = index - 5;
-            if (childTMPro != null) childTMPro.sortingOrder = index - 5;
-
-            foreach(Transform grandchild in child)
-            {
-                grandchild.TryGetComponent(out SpriteRenderer grandchildSprRen);
-                grandchild.TryGetComponent(out TMPro.TextMeshPro grandchildTMPro);
-                if (grandchildSprRen != null) grandchildSprRen.sortingOrder = index - 5;
-                if (grandchildTMPro != null) grandchildTMPro.sortingOrder = index - 5;
-            }
-        }*/
-        #endregion
 
         // Key Mesh
         thisKeyMesh.transform.parent.GetComponent<SpriteRenderer>().sortingOrder = index + 14;
@@ -169,6 +171,10 @@ public class Panel : MonoBehaviour
 
         // Masking BG
         thisMask.GetComponent<SpriteRenderer>().sortingOrder = index - 20;
+
+        // Set the masking BG to only mask things within these orders (THE MOST IMPORTANT STEP)
+        thisMask.GetComponent<SpriteMask>().frontSortingOrder = index + 25;
+        thisMask.GetComponent<SpriteMask>().backSortingOrder = index - 25;
     }
 
     // Update is called once per frame
@@ -285,6 +291,7 @@ public class Panel : MonoBehaviour
 public interface IPanelStrategy
 {
     Vector2 SetPanelSize(); // Defines the size of the panel. Should be unique for each minigame. ALWAYS return a new Vector2 for this one
+    string SetPanelBG(); // Defines the bg for the sprite. The input here is the NAME of the background sprite in Resources/BGSprites
     int ObjectiveKeyTech(); // 0 for Press, 1 for Tap, 2 for Hold, 3 for Spam
     string ObjectiveDesc(); // Defines the objective of the minigame as instructions for the player. You do NOT need to put a space in the beginning of the string
     void ResetMinigame(GameObject panelParent, GameObject displayParent); // Used when reinitialising game from object pool. Also as a just in case if things go wrong

@@ -13,6 +13,7 @@ public class PanelTemplate : IPanelStrategy // DO NOT EDIT THIS TEMPLATE - Copy 
     int clickCount;
 
     public Vector2 SetPanelSize() => new Vector2(sizeX, sizeY); // You shouldn't need to change anything in this line, refer to line 22 on changing the panel's size
+    public string SetPanelBG() => "";
     public int ObjectiveKeyTech() => 0;  // 0 for Press, 1 for Tap, 2 for Hold, 3 for Spam
     public string ObjectiveDesc() => "to do something!"; // tell the player what pressing the key does
 

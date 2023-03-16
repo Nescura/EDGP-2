@@ -22,6 +22,7 @@ public class PanelDonutTouch : IPanelStrategy
     string[] yesPress = { "DON'T NOT PUSH", "PUSH TO CLOSE", "DO PUSH" }; // is this evil LMAO
 
     public Vector2 SetPanelSize() => new Vector2(sizeX, sizeY);
+    public string SetPanelBG() => "";
     public int ObjectiveKeyTech() => 0;
     public string ObjectiveDesc() => "to push the button!";
 
@@ -55,7 +56,7 @@ public class PanelDonutTouch : IPanelStrategy
         if (shouldYouPress == 0)
         {
             youFuckedIt = true;
-            myPanel.GetComponent<Panel>().ForceTimeLeft(0f, true);
+            myPanel.GetComponent<Panel>().ForceTimeLeft(0f, true, true);
         }
         else
         {
@@ -86,7 +87,7 @@ public class PanelDonutTouch : IPanelStrategy
 
         if (shouldYouPress == 0)
 		{
-            myPanel.GetComponent<Panel>().ForceTimeLeft(-Time.deltaTime, false); // time ticks faster if you're not supposed to press
+            myPanel.GetComponent<Panel>().ForceTimeLeft(-Time.deltaTime, false, false); // time ticks faster if you're not supposed to press
         }
     }
 }
