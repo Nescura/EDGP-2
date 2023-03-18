@@ -149,7 +149,7 @@ public class GameControlling : MonoBehaviour
 
     public IPanelStrategy GetRandomMinigame()
 	{
-        int index = Random.Range(0, 6);
+        int index = Random.Range(0, 7);
         switch (index)
         {
             // ADD ALL YOUR PANEL MINIGAMES HERE!!!
