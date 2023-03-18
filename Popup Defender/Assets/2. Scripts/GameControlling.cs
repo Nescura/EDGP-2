@@ -149,7 +149,7 @@ public class GameControlling : MonoBehaviour
 
     public IPanelStrategy GetRandomMinigame()
 	{
-        int index = Random.Range(0, 5);
+        int index = Random.Range(0, 6);
         switch (index)
         {
             // ADD ALL YOUR PANEL MINIGAMES HERE!!!
@@ -165,6 +165,8 @@ public class GameControlling : MonoBehaviour
                 return new PanelRoulette();
             case 5:
                 return new PanelWhack();
+            case 6:
+                return new PanelTowerBuilder();
             default:
                 return new PanelTemplate();
 		}

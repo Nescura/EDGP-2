@@ -1,1 +1,1 @@
-{"dayCleared":4}
+{"dayCleared":0}
