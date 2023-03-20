@@ -9,14 +9,16 @@ public class PanelWhack : IPanelStrategy
     float sizeX, sizeY;
 
     // Extra variables go under here
-    private GameObject hammer, mole;
+    private GameObject hammer, mole, moleHide;
     int smackCount;
-    bool isHeld = false;
+    float speed = 2f;
+    bool isHeld = false, isSmacking = false;
+
 
     public Vector2 SetPanelSize() => new Vector2(sizeX, sizeY); // You shouldn't need to change anything in this line, refer to line 22 on changing the panel's size
     public string SetPanelBG() => "Ground";
     public int ObjectiveKeyTech() => 2;  // 0 for Press, 1 for Tap, 2 for Hold, 3 for Spam
-    public string ObjectiveDesc() => "to lift hammer and release to whack"; // tell the player what pressing the key does
+    public string ObjectiveDesc() => "to lift hammer & release to whack"; // tell the player what pressing the key does
 
     public void ResetMinigame(GameObject panelParent, GameObject displayParent)
     {
@@ -34,6 +36,11 @@ public class PanelWhack : IPanelStrategy
         if (mole == null) // this line is mostly to account for object pooling later, please make you do this
         {
             mole = GameObject.Instantiate(Resources.Load("Mole"), new Vector3(0f, -0.4f, 1f) + myDisplay.transform.position, Quaternion.identity, myDisplay.transform) as GameObject;
+        }
+
+        if (moleHide == null) // this line is mostly to account for object pooling later, please make you do this
+        {
+            moleHide = GameObject.Instantiate(Resources.Load("MoleHide"), new Vector3(0f, -2.55f, 1f) + myDisplay.transform.position, Quaternion.identity, myDisplay.transform) as GameObject;
         }
     }
 
@@ -56,10 +63,13 @@ public class PanelWhack : IPanelStrategy
     {
         isHeld = false;
 
+        // If fully held, it will smack
         if (hammer.transform.eulerAngles.z >= 60f)
         {
             hammer.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            isSmacking = true;
         }
+        // Otherwise, it will reset
         else
         {
             hammer.transform.rotation = Quaternion.Euler(0f, 0f, 20f);
@@ -72,11 +82,42 @@ public class PanelWhack : IPanelStrategy
 
     public void MiniUpdate() // Basically the Update() function but for these panels
     {
-        if(isHeld == false && hammer.transform.eulerAngles.z < 20f)
+        mole.GetComponent<SpriteRenderer>().sprite = mole.GetComponent<MoleSprites>().sprites[Mathf.Clamp(smackCount, 0, 3)];
+
+        if(mole.transform.localPosition.y >= -0.2f && speed > 0)
+        {
+            speed *= -1;
+            //mole.transform.position += new Vector3(0, Time.deltaTime * -3, 0);
+            Debug.Log("hello");
+        }
+
+        if (mole.transform.localPosition.y <= -0.8f & speed < 0)
+        {
+            speed *= -1;
+            //mole.transform.position += new Vector3(0, Time.deltaTime * 3, 0);
+            Debug.LogWarning("boo");
+        }
+
+        mole.transform.position += new Vector3(0, Time.deltaTime * speed, 0);
+
+        if (isSmacking)
+        {
+            if (hammer.GetComponent<Collider2D>().IsTouching(mole.GetComponent<Collider2D>()))
+            {
+                smackCount++;
+                isSmacking = false;
+                myPanel.GetComponent<Panel>().ForceTimeLeft(2, false, true);
+            }
+        }
+
+        if (smackCount >= 3)
+        {
+            myPanel.GetComponent<Panel>().SetSuccess(true);
+        }
+
+        if (isHeld == false && hammer.transform.eulerAngles.z < 20f)
         {
             hammer.transform.Rotate(0, 0, Time.deltaTime * 50f);
         }
-
-        //if () myPanel.GetComponent<Panel>().SetSuccess(true);
     }
 }
