@@ -23,7 +23,7 @@ public class PanelWhack : IPanelStrategy
     public void ResetMinigame(GameObject panelParent, GameObject displayParent)
     {
         myPanel = panelParent; myDisplay = displayParent;
-        sizeX = 1.6f; sizeY = 1.8f;
+        sizeX = 1.5f; sizeY = 1.8f;
 
         // From here, you can do whatever you need to do here
         // When spawning objects, because this script does not inherit MonoBehaviour, you MUST use GameObject.Instantiate() as GameObject - it just is, sorry about that
@@ -78,30 +78,33 @@ public class PanelWhack : IPanelStrategy
 
     public void OnTimeUp() // Runs when the minigame is out of time. This function is typically for animations if any (like, a baby crying when the milk isn't finished or something idk)
     {
+
     }
 
     public void MiniUpdate() // Basically the Update() function but for these panels
     {
+        // Change sprites based on smackCount
         mole.GetComponent<SpriteRenderer>().sprite = mole.GetComponent<MoleSprites>().sprites[Mathf.Clamp(smackCount, 0, 3)];
 
+        // Peeka
         if(mole.transform.localPosition.y >= -0.2f && speed > 0)
         {
             speed *= -1;
-            //mole.transform.position += new Vector3(0, Time.deltaTime * -3, 0);
-            Debug.Log("hello");
         }
 
+        // Boo
         if (mole.transform.localPosition.y <= -0.8f & speed < 0)
         {
             speed *= -1;
-            //mole.transform.position += new Vector3(0, Time.deltaTime * 3, 0);
-            Debug.LogWarning("boo");
         }
 
+        // PeekaBoo!
         mole.transform.position += new Vector3(0, Time.deltaTime * speed, 0);
 
+        // isSmacking check helps with collider stuff not detecting
         if (isSmacking)
         {
+            // 
             if (hammer.GetComponent<Collider2D>().IsTouching(mole.GetComponent<Collider2D>()))
             {
                 smackCount++;
@@ -110,11 +113,13 @@ public class PanelWhack : IPanelStrategy
             }
         }
 
+        // Win Condition
         if (smackCount >= 3)
         {
             myPanel.GetComponent<Panel>().SetSuccess(true);
         }
 
+        // Resets hammer angle upon releasing once held/tapped button
         if (isHeld == false && hammer.transform.eulerAngles.z < 20f)
         {
             hammer.transform.Rotate(0, 0, Time.deltaTime * 50f);
