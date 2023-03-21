@@ -14,7 +14,7 @@ public class GameControlling : MonoBehaviour
 
     public static int layerAppend = 0;
 
-    public int spawnMax = 3; // max amt of pop-ups that can be on screen
+    public int spawnMax = 1; // max amt of pop-ups that can be on screen
     public float spawnPanelTime = 0;
     public float minigameTimer = 10f;
 
@@ -123,6 +123,7 @@ public class GameControlling : MonoBehaviour
             }
             #endregion
 
+            #region Debugging Codes
             if (Input.GetKeyDown(KeyCode.Backspace)) // FOR DEBUGGING PURPOSES - spawn a panel regardless of time or max
 			{
                 SpawnPanel(); 
@@ -144,6 +145,7 @@ public class GameControlling : MonoBehaviour
             {
                 GetComponent<GameState>().state = GameCurrentState.END;
             }
+            #endregion
         }
     }
 

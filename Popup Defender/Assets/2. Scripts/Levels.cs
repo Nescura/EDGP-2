@@ -21,7 +21,7 @@ public class Levels : MonoBehaviour
             //max number of pop-ups +1
             if (GameControlling.GetInstance().spawnMax < 20)
             {
-                GameControlling.GetInstance().spawnMax += 2;
+                GameControlling.GetInstance().spawnMax += 1;
             }
         }
         else

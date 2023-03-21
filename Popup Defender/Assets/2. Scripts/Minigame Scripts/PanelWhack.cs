@@ -84,7 +84,7 @@ public class PanelWhack : IPanelStrategy
     public void MiniUpdate() // Basically the Update() function but for these panels
     {
         // Change sprites based on smackCount
-        mole.GetComponent<SpriteRenderer>().sprite = mole.GetComponent<MoleSprites>().sprites[Mathf.Clamp(smackCount, 0, 3)];
+        mole.GetComponent<SpriteRenderer>().sprite = mole.GetComponent<MoleSprites>().sprites[Mathf.Clamp(smackCount, 0, 2)];
 
         // Peeka
         if(mole.transform.localPosition.y >= -0.2f && speed > 0)
@@ -114,7 +114,7 @@ public class PanelWhack : IPanelStrategy
         }
 
         // Win Condition
-        if (smackCount >= 3)
+        if (smackCount >= 2)
         {
             myPanel.GetComponent<Panel>().SetSuccess(true);
         }

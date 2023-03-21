@@ -1983,7 +1983,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 401060415}
   panelPrefab: {fileID: -5879608897876754005, guid: e890eb794a5e5b243857baa5fbf95a70, type: 3}
-  spawnMax: 3
+  spawnMax: 1
   spawnPanelTime: 0
   minigameTimer: 10
   restartBttn: {fileID: 1236965928}

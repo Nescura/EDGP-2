@@ -160,6 +160,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprites:
   - {fileID: 4902501639501924522, guid: 26a0ede1fe90be247bd45e76d9eadeeb, type: 3}
-  - {fileID: 7026235404992099671, guid: 26a0ede1fe90be247bd45e76d9eadeeb, type: 3}
   - {fileID: -1267737444797614288, guid: 26a0ede1fe90be247bd45e76d9eadeeb, type: 3}
   - {fileID: -4552531834632608256, guid: 26a0ede1fe90be247bd45e76d9eadeeb, type: 3}
