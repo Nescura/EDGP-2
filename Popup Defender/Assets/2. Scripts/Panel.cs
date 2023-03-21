@@ -96,7 +96,7 @@ public class Panel : MonoBehaviour
         #region Set Background of panel minigame
         if (panelStrat.SetPanelBG() == "") // If no BG was defined, just load the default square
 		{
-            thisMask.GetComponent<SpriteRenderer>().sprite = UnityEditor.AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UISprite.psd");
+            thisMask.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("UISquare");
             thisMask.GetComponent<SpriteRenderer>().color = new Color(68f / 255f, 62f / 255f, 96f / 255f);
         }
         else
