@@ -16,7 +16,7 @@ public class PanelDonutTouch : IPanelStrategy
     Color buttonColour = new Color (188f / 255f, 20f / 255f, 20f / 255f);
     bool youFuckedIt = false; // extra check
 
-    string[] buttonWords = { "EXPLODE", "PRESS", "FREE\nMONEY", "MAIDENS", "SHUT\nDOWN", "DO NOT\nPRESS", "DOWNLOAD", "SHARE", "DELETE" };
+    string[] buttonWords = { "CLOSE", "PRESS\nME", "FREE\nMONEY", "MAIDENS", "SHUT\nDOWN", "DO NOT\nPRESS", "DOWNLOAD", "SHARE", "DELETE" };
     Color[] buttonColours = { new Color(20f / 255f, 20f / 255f, 20f / 255f), new Color(188f / 255f, 20f / 255f, 20f / 255f), new Color(188f / 255, 188f / 255f, 20f / 255f), new Color(20f / 255f, 188f / 255f, 20f / 255f), new Color(20f / 255f, 188f / 255f, 188f / 255f), new Color(20f / 255f, 20f / 255f, 188f / 255f), new Color(188f / 255f, 20f / 255f, 188f / 255f) };
     string[] noPress = { "DON'T PUSH", "PUSH TO FAIL", "DO NOT PUSH" };
     string[] yesPress = { "DON'T NOT PUSH", "PUSH TO CLOSE", "DO PUSH" }; // is this evil LMAO

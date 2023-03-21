@@ -38,7 +38,7 @@ public class PanelSpam : IPanelStrategy
 
     public void OnControlHold()
     {
-        testObj.GetComponent<SpriteRenderer>().color = Color.white;
+        testObj.GetComponent<SpriteRenderer>().color = Color.red;
     }
 
     public void OnControlUp()
@@ -51,7 +51,7 @@ public class PanelSpam : IPanelStrategy
 
     public void MiniUpdate()
     {
-        testObj.GetComponent<SpriteRenderer>().color = Color.red;
+        testObj.GetComponent<SpriteRenderer>().color = Color.white;
         testObj.GetComponentInChildren<TMPro.TextMeshPro>().text = clickCount.ToString();
     }
 }
