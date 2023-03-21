@@ -22,7 +22,7 @@ public class PanelDonutTouch : IPanelStrategy
     string[] yesPress = { "DON'T NOT PUSH", "PUSH TO CLOSE", "DO PUSH" }; // is this evil LMAO
 
     public Vector2 SetPanelSize() => new Vector2(sizeX, sizeY);
-    public string SetPanelBG() => "";
+    public string SetPanelBG() => "sprBG_money";
     public int ObjectiveKeyTech() => 0;
     public string ObjectiveDesc() => "to push the button!";
 
