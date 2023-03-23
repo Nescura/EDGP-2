@@ -3572,6 +3572,24 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: FailMiniGame
+    clip: {fileID: 8300000, guid: 6be38a1bf15fa8d4e963e7c093f81da9, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Bonk
+    clip: {fileID: 8300000, guid: 4184212ff665a1f4f8f142ed9dadb98e, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Slash
+    clip: {fileID: 8300000, guid: 40a0ff31275c6ed4988cf27824e93676, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
   MasterVolume: 5
 --- !u!4 &1831536789
 Transform:

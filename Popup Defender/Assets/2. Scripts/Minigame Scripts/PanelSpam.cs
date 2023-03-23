@@ -10,6 +10,7 @@ public class PanelSpam : IPanelStrategy
 
     // Extra variables go under here
     private GameObject testObj;
+    private GameObject audio;
     int clickCount;
 
     public Vector2 SetPanelSize() => new Vector2(sizeX, sizeY);
@@ -27,11 +28,17 @@ public class PanelSpam : IPanelStrategy
             testObj = GameObject.Instantiate(Resources.Load("TestObj"), new Vector3(Random.Range(-0.4f, 0.4f), Random.Range(-0.4f, 0.4f), 1) + myDisplay.transform.position, Quaternion.identity, myDisplay.transform) as GameObject;
         }
 
+        if (audio == null)
+        {
+            audio = GameObject.Find("AudioManager");
+        }
+
         clickCount = 10;
     }
 
     public void OnControlDown()
     {
+        audio.GetComponent<AudioManager>().Play("Slash");
         if (clickCount > 0) clickCount--;
         if (clickCount <= 0) myPanel.GetComponent<Panel>().SetSuccess(true);
     }

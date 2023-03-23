@@ -266,6 +266,12 @@ public class Panel : MonoBehaviour
         if (timeLeft <= 0 && !isObjectiveClear)
 		{
             GetComponent<SpriteRenderer>().color = Color.red;
+
+            if (playedCleared == false)
+            {
+                FindObjectOfType<AudioManager>().Play("FailMiniGame");
+                playedCleared = true;
+            }
         }
         else if (isObjectiveClear)
 		{

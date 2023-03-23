@@ -9,7 +9,7 @@ public class PanelWhack : IPanelStrategy
     float sizeX, sizeY;
 
     // Extra variables go under here
-    private GameObject hammer, mole, moleHide;
+    private GameObject hammer, mole, moleHide, audio;
     int smackCount;
     float speed = 2f;
     bool isHeld = false, isSmacking = false;
@@ -41,6 +41,11 @@ public class PanelWhack : IPanelStrategy
         if (moleHide == null) // this line is mostly to account for object pooling later, please make you do this
         {
             moleHide = GameObject.Instantiate(Resources.Load("MoleHide"), new Vector3(0f, -2.55f, 1f) + myDisplay.transform.position, Quaternion.identity, myDisplay.transform) as GameObject;
+        }
+
+        if (audio == null)
+        {
+            audio = GameObject.Find("AudioManager");
         }
     }
 
@@ -104,10 +109,10 @@ public class PanelWhack : IPanelStrategy
         // isSmacking check helps with collider stuff not detecting
         if (isSmacking)
         {
-            // 
             if (hammer.GetComponent<Collider2D>().IsTouching(mole.GetComponent<Collider2D>()))
             {
                 smackCount++;
+                audio.GetComponent<AudioManager>().Play("Bonk");
                 isSmacking = false;
                 myPanel.GetComponent<Panel>().ForceTimeLeft(2, false, true);
             }
