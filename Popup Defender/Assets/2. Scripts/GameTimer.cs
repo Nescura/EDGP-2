@@ -42,7 +42,8 @@ public class GameTimer : MonoBehaviour
             // NOTE: InverseLerp gives a value between 0 to 1, allowing us to basically check if the display virus time is at least 0.05% close to the actual virus time value
             // and if so, add system timer by one and repeat the virus timer process again - this is the "lose a life" scenario
             if (Mathf.InverseLerp(0, 15f, virusTimerLerp) < 0.0005f)
-            { 
+            {
+                FindObjectOfType<AudioManager>().Play("Gong");
                 systemTimer += 1;
                 virusTimer = 10;
                 virusTimerLerp = virusTimer;

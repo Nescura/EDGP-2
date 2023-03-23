@@ -22,6 +22,8 @@ public class Panel : MonoBehaviour
     [Header("Panel Dragging Stuff")]
     public Vector3 mouseClickPosOffset;
 
+    private bool playedCleared;
+
     // Initialization of variables - there's a lot here, it's because these variables would change very often. Please bear with it lol
     public void Initialize(IPanelStrategy panelStrategy, float timeInSecs, KeyCode key)
     {
@@ -114,7 +116,7 @@ public class Panel : MonoBehaviour
     public void SetSuccess(bool b) // Checks whether the minigame is cleared or not
 	{
         isObjectiveClear = b;
-	}
+    }
 
     public void ForceTimeLeft(float f, bool directSet, bool animateColour) // Forcefully change the time minigame has left
     {
@@ -180,6 +182,12 @@ public class Panel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isObjectiveClear == true && playedCleared == false)
+        {
+            FindObjectOfType<AudioManager>().Play("ClearMiniGame");
+            playedCleared = true;
+        }
+
         // Objective Text Handling
         thisObjectiveKeyTechMesh.text = keyTechs[Mathf.Clamp(panelStrat.ObjectiveKeyTech(), 0, 3)];
         thisObjectiveMesh.text = panelStrat.ObjectiveDesc();

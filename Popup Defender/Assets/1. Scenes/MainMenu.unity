@@ -2663,8 +2663,8 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: Button
-    clip: {fileID: 8300000, guid: a23236bd9d8b1664baf0eeeaada9e13d, type: 3}
-    volume: 0.5
+    clip: {fileID: 8300000, guid: 1d36fa273c7c59f44baddd8c3b28df44, type: 3}
+    volume: 1
     pitch: 2
     loop: 0
     source: {fileID: 0}

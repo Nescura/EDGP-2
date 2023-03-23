@@ -3537,26 +3537,38 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: PopUp
-    clip: {fileID: 8300000, guid: 416b0c1a03ac1674bbec861739e36852, type: 3}
+    clip: {fileID: 8300000, guid: aba7c8e5be907ae47b720ee157ecab41, type: 3}
     volume: 1
     pitch: 1.5
     loop: 0
     source: {fileID: 0}
   - name: Button
-    clip: {fileID: 8300000, guid: a23236bd9d8b1664baf0eeeaada9e13d, type: 3}
-    volume: 0.5
+    clip: {fileID: 8300000, guid: 1d36fa273c7c59f44baddd8c3b28df44, type: 3}
+    volume: 1
     pitch: 2
     loop: 0
     source: {fileID: 0}
   - name: Glitch
     clip: {fileID: 8300000, guid: 9d8cd2cd2992c5241b01b708b3e91ed0, type: 3}
-    volume: 0.5
+    volume: 1
     pitch: 0.5
     loop: 0
     source: {fileID: 0}
   - name: Keypress
     clip: {fileID: 8300000, guid: eeacb7d274d16244e924df6fc0b102c0, type: 3}
-    volume: 0.3
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ClearMiniGame
+    clip: {fileID: 8300000, guid: 46bf0315931fec0488d2ec6fd028805f, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+  - name: Gong
+    clip: {fileID: 8300000, guid: 5805ac843800bd24f8428173ab3119e6, type: 3}
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
