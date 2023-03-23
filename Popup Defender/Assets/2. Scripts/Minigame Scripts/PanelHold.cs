@@ -13,7 +13,7 @@ public class PanelHold : IPanelStrategy
     float progress;
 
     public Vector2 SetPanelSize() => new Vector2(sizeX, sizeY);
-    public string SetPanelBG() => "";
+    public string SetPanelBG() => "sprBG_download";
     public int ObjectiveKeyTech() => 2;
     public string ObjectiveDesc() => "to finish the download!";
 

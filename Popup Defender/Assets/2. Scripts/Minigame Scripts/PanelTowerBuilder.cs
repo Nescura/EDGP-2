@@ -17,7 +17,7 @@ public class PanelTowerBuilder : IPanelStrategy
 
     public Vector2 SetPanelSize() => new Vector2(sizeX, sizeY);
     public int ObjectiveKeyTech() => 1;
-    public string SetPanelBG() => "";
+    public string SetPanelBG() => "sprBG_burger";
     public string ObjectiveDesc() => "to place the block";
 
     public void ResetMinigame(GameObject panelParent, GameObject displayParent)
