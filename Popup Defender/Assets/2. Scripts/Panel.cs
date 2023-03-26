@@ -14,15 +14,18 @@ public class Panel : MonoBehaviour
     public string[] keyTechs = {"Press", "Tap", "Hold", "Spam"};
 
     [Header("Display Stuff (please leave them empty)")]
-    public Color thisKeyBGColour;
-    public GameObject thisMask, thisTimeParent, thisTimeBarFill;
-    public SpriteRenderer thisKeyBG, thisTimeBarBG, thisTimeBarSpr;
-    public TMPro.TextMeshPro thisKeyMesh, thisTimeMesh, thisTimeMeshDec, thisObjectiveKeyTechMesh, thisObjectiveMesh;
+    private Color thisKeyBGColour;
+    private GameObject thisMask, thisTimeParent, thisTimeBarFill;
+    private SpriteRenderer thisKeyBG, thisTimeBarBG, thisTimeBarSpr;
+    private TMPro.TextMeshPro thisKeyMesh, thisTimeMesh, thisTimeMeshDec, thisObjectiveKeyTechMesh, thisObjectiveMesh;
 
     [Header("Panel Dragging Stuff")]
     public Vector3 mouseClickPosOffset;
 
-    private bool playedCleared;
+    [Header("Panel Look Variations")]
+    public Sprite[] panelSprites;
+
+    private bool isClearPlayed;
 
     // Initialization of variables - there's a lot here, it's because these variables would change very often. Please bear with it lol
     public void Initialize(IPanelStrategy panelStrategy, float timeInSecs, KeyCode key)
@@ -37,18 +40,10 @@ public class Panel : MonoBehaviour
 
         #region Setting strategies
         this.panelStrat = panelStrategy;
-        //panelSizeX = sizeX; panelSizeY = sizeY;
         timeInit = timeInSecs;
 
-        /* This doesn't need to be here. If we wanted to make time tick down faster for this minigame, we can do it in that script instead. Refer to line 97 in PanelDonutTouch.cs
-        if (this.panelStrat.ToString() == "PanelDonutTouch")
-        {
-            timeLeft = timeInit - 5f;
-        }
-        else
-        {
-            timeLeft = timeInit - 1f;
-        }*/
+        GetComponent<SpriteRenderer>().sprite = panelSprites[Random.Range(0, panelSprites.Length)];
+
         #endregion
 
         #region Assign the mask in child
@@ -108,8 +103,12 @@ public class Panel : MonoBehaviour
         }
 		#endregion
 
-		#region Set expiryTime to zero - this timer is purely for animation when an objective is completed
+		#region Other Miscellaneous Stuff
+        //Set expiryTime to zero - this timer is purely for animation when an objective is completed
 		expiryTime = 0f;
+
+        // Set the boolean to whether the cleared sound is played or not back to false
+        isClearPlayed = false;
         #endregion
     }
 
@@ -182,12 +181,6 @@ public class Panel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isObjectiveClear == true && playedCleared == false)
-        {
-            FindObjectOfType<AudioManager>().Play("ClearMiniGame");
-            playedCleared = true;
-        }
-
         // Objective Text Handling
         thisObjectiveKeyTechMesh.text = keyTechs[Mathf.Clamp(panelStrat.ObjectiveKeyTech(), 0, 3)];
         thisObjectiveMesh.text = panelStrat.ObjectiveDesc();
@@ -199,16 +192,16 @@ public class Panel : MonoBehaviour
         {
             if (timeLeft > 0)
             {
-                if (!isObjectiveClear) timeLeft -= Time.deltaTime; // Only decrease time if objective is not complete
-
-                panelStrat.MiniUpdate();
+                if (!isObjectiveClear)
+                {
+                    timeLeft -= Time.deltaTime; // Only decrease time if objective is not complete
+                    
+                    panelStrat.MiniUpdate();
+                }
             }
             else
             {
                 panelStrat.OnTimeUp();
-                //Destroy(this.gameObject); This shouldn't be here. Lines 199 to 217 already does this
-
-                //gameControlling.popupCounter -= 1;
             }
         }
         
@@ -220,6 +213,12 @@ public class Panel : MonoBehaviour
         if (isObjectiveClear || timeLeft <= 0)
 		{
             expiryTime += Time.deltaTime;
+            StartCoroutine(PlayClearSFX());
+
+            if ((expiryTime >= 0.7f && isObjectiveClear) || (expiryTime >= 3f && !isObjectiveClear))
+			{
+                transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(3f, 0f, 1f), Time.deltaTime * 10);
+            }
 
             if ((expiryTime >= 1.2f && isObjectiveClear) || (expiryTime >= 3.5f && !isObjectiveClear)) // After expiryTime is up, run all the stuff that deactivates it 
 			{
@@ -234,6 +233,7 @@ public class Panel : MonoBehaviour
 				{
                     // minigame fail animation goes here
                 }
+
 
                 Destroy(this.gameObject); // gameObject.SetActive(false); replace with object pooling expire down the line
             }
@@ -263,23 +263,37 @@ public class Panel : MonoBehaviour
         thisTimeBarBG.color = Color.Lerp(thisTimeBarBG.color, new Color(0f, 0f, 0f, 155f / 255f), 0.01f);
 
         // Objective Clearing
-        if (timeLeft <= 0 && !isObjectiveClear)
-		{
-            GetComponent<SpriteRenderer>().color = Color.red;
-
-            if (playedCleared == false)
-            {
-                FindObjectOfType<AudioManager>().Play("FailMiniGame");
-                playedCleared = true;
-            }
-        }
-        else if (isObjectiveClear)
+        // Note: moved sound stuff into a function at PlayClearSFX, then moved to line 216
+        if (isObjectiveClear)
 		{
             GetComponent<SpriteRenderer>().color = Color.green;
         }
-        else
+        else if (timeLeft > 0)
 		{
             GetComponent<SpriteRenderer>().color = Color.white;
+        }
+        else
+        {
+            GetComponent<SpriteRenderer>().color = Color.red;
+        }
+    }
+
+    private IEnumerator PlayClearSFX()
+	{
+        yield return new WaitForFixedUpdate();
+        
+        if (!isClearPlayed)
+		{
+            if (!isObjectiveClear)
+            {
+                FindObjectOfType<AudioManager>().Play("FailMiniGame");
+            }
+            else
+            {
+                FindObjectOfType<AudioManager>().Play("ClearMiniGame");
+            }
+
+            isClearPlayed = true;
         }
     }
 

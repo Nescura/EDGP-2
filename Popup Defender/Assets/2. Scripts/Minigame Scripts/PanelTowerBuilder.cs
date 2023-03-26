@@ -97,7 +97,7 @@ public class PanelTowerBuilder : IPanelStrategy
         blockCount++; // increases the block count
         blockList[blockCount].SetActive(true); //Set next block active
         activeBlock = blockList[blockCount]; // set new block as active block
-        activeBlock.GetComponent<SpriteRenderer>().sortingOrder = previousBlock.GetComponent<SpriteRenderer>().sortingOrder;
+        activeBlock.GetComponent<SpriteRenderer>().sortingOrder = previousBlock.GetComponent<SpriteRenderer>().sortingOrder + 1;
         direction = 3f; //Start the active block
     }
     void MissedBlock()
@@ -118,7 +118,7 @@ public class PanelTowerBuilder : IPanelStrategy
         blockList[blockCount].SetActive(true); //Set next block active
         blockList[blockCount].transform.localScale = new Vector3(previousBlock.transform.lossyScale.x - blockOffset, 0.75f, 1); //reduce the scale of the new block by whatever the offset was
         activeBlock = blockList[blockCount]; // set new block as active block
-        activeBlock.GetComponent<SpriteRenderer>().sortingOrder = previousBlock.GetComponent<SpriteRenderer>().sortingOrder;
+        activeBlock.GetComponent<SpriteRenderer>().sortingOrder = previousBlock.GetComponent<SpriteRenderer>().sortingOrder + 1;
         direction = 3f; //Start the active block
     }
     void BlockOverOnRight()
@@ -130,7 +130,7 @@ public class PanelTowerBuilder : IPanelStrategy
         blockList[blockCount].SetActive(true); //Set next block active
         blockList[blockCount].transform.localScale = new Vector3(previousBlock.transform.lossyScale.x - blockOffset, 0.75f, 1); //reduce the scale of the new block by whatever the offset was
         activeBlock = blockList[blockCount]; // set new block as active block
-        activeBlock.GetComponent<SpriteRenderer>().sortingOrder = previousBlock.GetComponent<SpriteRenderer>().sortingOrder;
+        activeBlock.GetComponent<SpriteRenderer>().sortingOrder = previousBlock.GetComponent<SpriteRenderer>().sortingOrder + 1;
         direction = 3f; //Start the active block
     }
     void BlockWithin()
@@ -141,7 +141,7 @@ public class PanelTowerBuilder : IPanelStrategy
         blockList[blockCount].SetActive(true); //Set next block active
         blockList[blockCount].transform.localScale = new Vector3(previousBlock.transform.lossyScale.x, 0.75f, 1); //reduce the scale of the new block by whatever the offset was
         activeBlock = blockList[blockCount]; // set new block as active block
-        activeBlock.GetComponent<SpriteRenderer>().sortingOrder = previousBlock.GetComponent<SpriteRenderer>().sortingOrder;
+        activeBlock.GetComponent<SpriteRenderer>().sortingOrder = previousBlock.GetComponent<SpriteRenderer>().sortingOrder + 1;
         direction = 3f; //Start the active block
     }
 

@@ -7,7 +7,7 @@ public class GameTimer : MonoBehaviour
 {
     // Tams here, sorry for changing the names of the variables, it's mostly to avoid confusion ^^;7
     public int systemTimer; // Was deadlineTimer before, and was a float
-    public float virusTimer = 10f; // Was deadlinetimerSec before
+    public float virusTimerInit = 10f, virusTimer; // Was deadlinetimerSec before
     public TMPro.TextMeshProUGUI myDeadLineTxt;
     public Image myVirusTimePie;
 
@@ -21,7 +21,8 @@ public class GameTimer : MonoBehaviour
     {
         myState = this.GetComponent<GameState>();
         systemTimer = 50;
-        virusTimer = 10f;
+        virusTimerInit = 10f;
+        virusTimer = virusTimerInit;
         virusTimerLerp = virusTimer;
     }
 
@@ -29,8 +30,6 @@ public class GameTimer : MonoBehaviour
     void Update()
     {
         DeadlineTimerFunctions();
-
-        //systemTimer.
     }
 
     void DeadlineTimerFunctions()
@@ -45,19 +44,19 @@ public class GameTimer : MonoBehaviour
             {
                 FindObjectOfType<AudioManager>().Play("Gong");
                 systemTimer += 1;
-                virusTimer = 10;
+                virusTimer = virusTimerInit;
                 virusTimerLerp = virusTimer;
             }
 
             // virus time ticks to 0 ALWAYS if there are minigames on screen
             if (virusTimer > 0 && GameControlling.GetInstance().GetActivePanelCount() > 0)
             {
-                virusTimer -= Time.deltaTime * 2; //previous virus timer goes down to slow
+                virusTimer -= Time.deltaTime; //previous virus timer goes down too slow // Counterpoint: Now it goes down *too fast*. Besides, aren't we making the virus timer decrease faster as the game goes on, and not already blindingly fast at the very beginning? I've added a thing for it in Levels.cs -tams
             }
 
             // virus timer display stuff
             virusTimerLerp = Mathf.Lerp(virusTimerLerp, virusTimer, Time.deltaTime * 2);
-            myVirusTimePie.fillAmount = Mathf.InverseLerp(0, 10f, virusTimerLerp);
+            myVirusTimePie.fillAmount = Mathf.InverseLerp(0, virusTimerInit, virusTimerLerp);
 
             myDeadLineTxt.text = "23:" + string.Format("{0:D2}", (int)systemTimer);
         }
@@ -72,13 +71,13 @@ public class GameTimer : MonoBehaviour
 
     public void ResetSystemTimer() // Was ResetTimer() before
     {
-        virusTimer = 10f; virusTimerLerp = virusTimer;
+        virusTimer = virusTimerInit; virusTimerLerp = virusTimer;
         systemTimer = 50;
         myDeadLineTxt.text = "23:" + string.Format("{0}:D2", (int)systemTimer);
     }
 
     public void AddVirusTimer(float timeToAdd)
 	{
-        virusTimer = Mathf.Clamp(virusTimer + timeToAdd, 0f, 10.1f); // Value can also be negative to reduce virus time, if needed
+        virusTimer = Mathf.Clamp(virusTimer + timeToAdd, 0f, virusTimerInit + 0.1f); // Value can also be negative to reduce virus time, if needed
 	}
 }

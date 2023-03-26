@@ -117,19 +117,14 @@ MonoBehaviour:
   - Tap
   - Hold
   - Spam
-  thisKeyBGColour: {r: 0, g: 0, b: 0, a: 0}
-  thisMask: {fileID: 0}
-  thisTimeParent: {fileID: 0}
-  thisTimeBarFill: {fileID: 0}
-  thisKeyBG: {fileID: 0}
-  thisTimeBarBG: {fileID: 0}
-  thisTimeBarSpr: {fileID: 0}
-  thisKeyMesh: {fileID: 0}
-  thisTimeMesh: {fileID: 0}
-  thisTimeMeshDec: {fileID: 0}
-  thisObjectiveKeyTechMesh: {fileID: 0}
-  thisObjectiveMesh: {fileID: 0}
   mouseClickPosOffset: {x: 0, y: 0, z: 0}
+  panelSprites:
+  - {fileID: 21300000, guid: 888882d8b86643647ba44b89b25b0280, type: 3}
+  - {fileID: 21300000, guid: e77971ba711e5444e9dbec9cd6981cb8, type: 3}
+  - {fileID: 21300000, guid: 358fedd6e1c3a9940a77adc63331584e, type: 3}
+  - {fileID: 21300000, guid: e28f630ef5dfaca45abf56f2829c661c, type: 3}
+  - {fileID: 21300000, guid: 6d64e6382deae094b84089d83bcb1446, type: 3}
+  - {fileID: 21300000, guid: 30964bc7822a6644f9f5d059d7bce053, type: 3}
 --- !u!61 &2013866139762109889
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -146,7 +141,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0.065}
   m_SpriteTilingProperty:
     border: {x: 0.246875, y: 0.20625, z: 0.25625, w: 0.3125}
-    pivot: {x: 0.498, y: 0.4722222}
+    pivot: {x: 0.5, y: 0.47474748}
     oldSize: {x: 2.34375, y: 1.85625}
     newSize: {x: 2.18, y: 2.285}
     adaptiveTilingThreshold: 0

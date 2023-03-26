@@ -30,7 +30,7 @@ public class PanelWhack : IPanelStrategy
         // Example here:
         if (hammer == null) // this line is mostly to account for object pooling later, please make you do this
         {
-            hammer = GameObject.Instantiate(Resources.Load("Hammer"), new Vector3(-1.9f, 0.7f, 1f) + myDisplay.transform.position, Quaternion.identity, myDisplay.transform) as GameObject;
+            hammer = GameObject.Instantiate(Resources.Load("Hammer"), new Vector3(-2f, 0.6f, 1f) + myDisplay.transform.position, Quaternion.identity, myDisplay.transform) as GameObject;
         }
 
         if (mole == null) // this line is mostly to account for object pooling later, please make you do this
@@ -47,6 +47,8 @@ public class PanelWhack : IPanelStrategy
         {
             audio = GameObject.Find("AudioManager");
         }
+
+        speed = Random.Range(1.7f, 2.3f);
     }
 
     public void OnControlDown() // Runs on the frame the key is pressed. Should happen only once per press
@@ -92,13 +94,13 @@ public class PanelWhack : IPanelStrategy
         mole.GetComponent<SpriteRenderer>().sprite = mole.GetComponent<MoleSprites>().sprites[Mathf.Clamp(smackCount, 0, 2)];
 
         // Peeka
-        if(mole.transform.localPosition.y >= -0.2f && speed > 0)
+        if(mole.transform.localPosition.y >= -0.1f && speed > 0)
         {
             speed *= -1;
         }
 
         // Boo
-        if (mole.transform.localPosition.y <= -0.8f & speed < 0)
+        if (mole.transform.localPosition.y <= -0.6f & speed < 0)
         {
             speed *= -1;
         }
@@ -114,7 +116,7 @@ public class PanelWhack : IPanelStrategy
                 smackCount++;
                 audio.GetComponent<AudioManager>().Play("Bonk");
                 isSmacking = false;
-                myPanel.GetComponent<Panel>().ForceTimeLeft(2, false, true);
+                myPanel.GetComponent<Panel>().ForceTimeLeft(10f, true, true); // was Adding 2s before, if people found this minigame hard, maybe resetting the time back to full would be a good choice
             }
         }
 

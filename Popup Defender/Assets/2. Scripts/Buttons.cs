@@ -52,7 +52,7 @@ public class Buttons : MonoBehaviour
                 }
                 else
 				{
-                    upTime = 0.2f;
+                    upTime = 0.25f;
 				}
             }
         }

@@ -15,7 +15,7 @@ public class GameControlling : MonoBehaviour
     public static int layerAppend = 0;
 
     public int spawnMax = 1; // max amt of pop-ups that can be on screen
-    public float spawnPanelTime = 0;
+    public float spawnPanelTimeAvg = 8f, spawnPanelTime = 0;
     public float minigameTimer = 10f;
 
     //public int popupCounter = 0;
@@ -79,6 +79,7 @@ public class GameControlling : MonoBehaviour
         {
             #region Spawn Panel
 
+            // On game over, spam screen with panels
             if (GetComponent<GameState>().state == GameCurrentState.END)
             {
                 spawnMax = 24;
@@ -100,6 +101,8 @@ public class GameControlling : MonoBehaviour
                     StartBSOD();
                 }
             }
+
+            // Actual game spawning for panels
             else if(GetComponent<GameState>().state == GameCurrentState.START)
             {
                 spawnPanelTime -= Time.deltaTime;
@@ -118,19 +121,19 @@ public class GameControlling : MonoBehaviour
                         }
                     }
 
-                    spawnPanelTime = Random.Range(6f, 10f); // for playtest (09/02/2023), randomize intervals of time between panel spawns. Note that this will be a constant for each different level
+                    spawnPanelTime = Random.Range(spawnPanelTimeAvg * 0.8f, spawnPanelTimeAvg * 1.2f); // randomize intervals of time between panel spawns based on spawnPanelTimeAvg. Decreases every odd level, increasing frequency of panel spawnws
                 }
             }
             #endregion
 
             #region Debugging Codes
-            if (Input.GetKeyDown(KeyCode.Backspace)) // FOR DEBUGGING PURPOSES - spawn a panel regardless of time or max
+            if (Input.GetKeyDown(KeyCode.Insert)) // FOR DEBUGGING PURPOSES - spawn a panel regardless of time or max
 			{
                 SpawnPanel(); 
-                spawnPanelTime = Random.Range(6f, 10f);
+                spawnPanelTime = Random.Range(spawnPanelTimeAvg * 0.8f, spawnPanelTimeAvg * 1.2f);
             }
 
-            if (Input.GetKeyDown(KeyCode.Equals)) // FOR DEBUGGING PURPOSES - clear all panels and give 20s of breathing room
+            if (Input.GetKeyDown(KeyCode.Delete)) // FOR DEBUGGING PURPOSES - clear all panels and give 20s of breathing room
             {
                 Panel[] panelInstances = FindObjectsOfType<Panel>();
                 foreach (Panel thisPan in panelInstances)
@@ -151,7 +154,7 @@ public class GameControlling : MonoBehaviour
 
     public IPanelStrategy GetRandomMinigame()
 	{
-        int index = Random.Range(0, 7);
+        int index = Random.Range(0, 7); // REMEMBER, INTEGER RANDOM RANGE IS MAX EXCLUSIVE - e.g. if there are 5 cases, make sure the max range is 6!
         switch (index)
         {
             // ADD ALL YOUR PANEL MINIGAMES HERE!!!
@@ -281,13 +284,13 @@ public class GameControlling : MonoBehaviour
                           "Follow these steps:\n" +
                           " - To reboot system, press any key. \n" +
                           " - If the system does not reboot, proceed to bang your head on the keyboard and scream like a little girl. \n" +
-                          " - To contact the peeps who stole your computer...uhh...good luck .\n" +
+                          " - To contact the peeps who stole your computer... nope. Sucks to suck bye.\n" +
                           "\n" +
                           "Technical information: \n" +
                           "\n" +
                           "*** STOP; 0x00000050 (0x8872A990, 0x00x00000001, 0x804F35D7, 0x00000000) \n" +
                           "\n" +
-                          "Beginning extraction of physical memory \n" +
+                          "Beginning extraction of physical memory... \n" +
                           "Extraction of physical memory complete. \n" +
                           "Thanks for giving us your computer :D \n" + 
                           "\n" + "Press Any Key To Continue";

@@ -9,9 +9,9 @@ public class PanelSpam : IPanelStrategy
     float sizeX, sizeY;
 
     // Extra variables go under here
-    private GameObject testObj;
+    private GameObject mob, downloadBar, fillBar, slash;
     private GameObject audio;
-    int clickCount;
+    float enemyHP;
 
     public Vector2 SetPanelSize() => new Vector2(sizeX, sizeY);
     public string SetPanelBG() => "sprBG_rpgForest";
@@ -21,11 +21,26 @@ public class PanelSpam : IPanelStrategy
     public void ResetMinigame(GameObject panelParent, GameObject displayParent)
     {
         myPanel = panelParent; myDisplay = displayParent;
-        sizeX = 2f; sizeY = 2f;
+        sizeX = 1.6f; sizeY = 1.6f;
 
-        if (testObj == null)
+        if (mob == null)
 		{
-            testObj = GameObject.Instantiate(Resources.Load("TestObj"), new Vector3(Random.Range(-0.4f, 0.4f), Random.Range(-0.4f, 0.4f), 1) + myDisplay.transform.position, Quaternion.identity, myDisplay.transform) as GameObject;
+            mob = GameObject.Instantiate(Resources.Load("Monster"), new Vector3(0, 0f, 1) + myDisplay.transform.position, Quaternion.identity, myDisplay.transform) as GameObject;
+        }
+
+        if (downloadBar == null)
+        {
+            downloadBar = GameObject.Instantiate(Resources.Load("DownloadBar"), new Vector3(0, 1.8f, 1) + myDisplay.transform.position, Quaternion.identity, myDisplay.transform) as GameObject;
+            fillBar = downloadBar.transform.Find("Bar").gameObject;
+
+            downloadBar.transform.localScale = new Vector3(0.25f, 0.15f, 1f);
+            fillBar.transform.Find("BarSpr").GetComponent<SpriteRenderer>().color = Color.red;
+        }
+
+        if (slash == null)
+        {
+            slash = GameObject.Instantiate(Resources.Load("Slash"), new Vector3(0, 0f, 1) + myDisplay.transform.position, Quaternion.identity, myDisplay.transform) as GameObject;
+            slash.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0f);
         }
 
         if (audio == null)
@@ -33,19 +48,24 @@ public class PanelSpam : IPanelStrategy
             audio = GameObject.Find("AudioManager");
         }
 
-        clickCount = 10;
+        enemyHP = 10;
     }
 
     public void OnControlDown()
     {
         audio.GetComponent<AudioManager>().Play("Slash");
-        if (clickCount > 0) clickCount--;
-        if (clickCount <= 0) myPanel.GetComponent<Panel>().SetSuccess(true);
+        mob.GetComponent<SpriteRenderer>().color = Color.red;
+
+        slash.transform.localScale = new Vector3(0.3f, 0.3f, 1f);
+        slash.transform.Rotate(0, 0, Random.Range(0f, 180f));
+        slash.GetComponent<SpriteRenderer>().color = Color.white;
+
+        if (enemyHP > 0) enemyHP -= 0.9f;
+        if (enemyHP <= 0) myPanel.GetComponent<Panel>().SetSuccess(true);
     }
 
     public void OnControlHold()
     {
-        testObj.GetComponent<SpriteRenderer>().color = Color.red;
     }
 
     public void OnControlUp()
@@ -58,7 +78,10 @@ public class PanelSpam : IPanelStrategy
 
     public void MiniUpdate()
     {
-        testObj.GetComponent<SpriteRenderer>().color = Color.white;
-        testObj.GetComponentInChildren<TMPro.TextMeshPro>().text = clickCount.ToString();
+        if (slash.transform.localScale.x < 1f) slash.transform.localScale += new Vector3(Time.deltaTime * 10f, 0f, 0f);
+        slash.GetComponent<SpriteRenderer>().color = Color.Lerp(slash.GetComponent<SpriteRenderer>().color, new Color(1f, 1f, 1f, 0f), Time.deltaTime * 10);
+
+        mob.GetComponent<SpriteRenderer>().color = Color.Lerp(mob.GetComponent<SpriteRenderer>().color, Color.white, Time.deltaTime * 10);
+        fillBar.transform.localScale = new Vector3(enemyHP / 10f, 1, 1);
     }
 }
