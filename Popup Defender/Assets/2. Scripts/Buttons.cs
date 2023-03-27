@@ -49,7 +49,7 @@ public class Buttons : MonoBehaviour
             {
                 if (mustDoubleClick && upTime > 0)
                 {
-                    upTime2 = 0.1f;
+                    upTime2 = 0.2f;
                 }
                 else
 				{
@@ -98,7 +98,8 @@ public class Buttons : MonoBehaviour
         if (this.name == "Litterbin" && collision.gameObject.name != "BrowserBttn" && collision.gameObject.TryGetComponent(out Buttons btnScr) && (btnScr.upTime > 0 || btnScr.upTime2 > 0))
 		{
             myScene.ObjectEnd("dsktpIcon", collision.gameObject);
-		}
+            FindObjectOfType<AudioManager>().Play("Trashed");
+        }
 	}
 
 	public void ActivateFunction(RaycastHit2D hit)
@@ -120,6 +121,7 @@ public class Buttons : MonoBehaviour
         else if (hit.collider.gameObject.name == "SubmitBttn" && myScene.canInteract == true)
         {
             myScene.SubmitButton();
+            FindObjectOfType<AudioManager>().Play("Submitted");
             ResetTimers();
         }
         else if (notVirus == false)

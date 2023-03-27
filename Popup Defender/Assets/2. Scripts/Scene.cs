@@ -19,7 +19,7 @@ public class Scene : MonoBehaviour
     private GameControlling gameCtrl;
 
     [Header("Randomised Submit Button Text")]
-    public string[] submitTextArray;
+    private string[] submitTextArray = new string[] { "Susmit", "Submiss", "Subsist", "Superst", "Sauce", "5ubmit", "Subway", "sUbMiT", "timbuS", "Simbat", "Sumbit", "Simbutt" };
 
     #region Dynamic Object Pooling
     public static Dictionary<string, List<GameObject>> objectPools = new Dictionary<string, List<GameObject>>();
@@ -255,7 +255,6 @@ public class Scene : MonoBehaviour
 
     IEnumerator DesktopPage()
     {
-        FindObjectOfType<AudioManager>().Play("Submitted");
         yayFlash.GetComponent<Image>().color = new Color(60f / 255f, 1f, 120f / 255f, 1f);
 
         desktopPage.SetActive(false);

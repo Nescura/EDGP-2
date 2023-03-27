@@ -1887,7 +1887,6 @@ MonoBehaviour:
   dayPage: {fileID: 0}
   dayTextMesh: {fileID: 0}
   canInteract: 0
-  submitTextArray: []
   activeDesktopIcons: []
   activeBrowserIcons: []
   activeSubmitBttns: []
@@ -3251,6 +3250,12 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Submitted
     clip: {fileID: 8300000, guid: d0d613d9e3cbe6e4c9f1e063316a87b6, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Trashed
+    clip: {fileID: 8300000, guid: 0dae3aa1bd8f0de49a569a35bd82ca49, type: 3}
     volume: 1
     pitch: 1
     loop: 0
