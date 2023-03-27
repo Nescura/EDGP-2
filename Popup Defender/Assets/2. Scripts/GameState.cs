@@ -8,7 +8,7 @@ public class GameState : MonoBehaviour
 {
     public GameCurrentState state;
 
-    private bool savedAlrd;
+    public bool savedAlrd;
 
     // Start is called before the first frame update
     void Start()
@@ -22,9 +22,12 @@ public class GameState : MonoBehaviour
         {
             if (savedAlrd != true)
             {
-                GetComponent<GameDataManager>().data.dayCleared = GetComponent<Levels>().clearedLevel;
-                GetComponent<GameDataManager>().Save();
-                savedAlrd = true;
+                if (GetComponent<GameDataManager>().data.dayCleared < GetComponent<Levels>().clearedLevel)
+                {
+                    GetComponent<GameDataManager>().data.dayCleared = GetComponent<Levels>().clearedLevel;
+                    GetComponent<GameDataManager>().Save();
+                    savedAlrd = true;
+                }
             }
         }
     }

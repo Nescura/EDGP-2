@@ -353,6 +353,7 @@ MonoBehaviour:
   upTime2: 0
   mustDoubleClick: 1
   notVirus: 0
+  clickable: 0
   thisSprite: {fileID: 9147275403412814200}
   thisTextMesh: {fileID: 7462823538382646086}
   virusSpr: {fileID: 21300000, guid: e6331e279af585a4b91fbde9840368d8, type: 3}
@@ -384,7 +385,7 @@ MonoBehaviour:
   folderNameArray:
   - New Folder
   - Incriminating Evidence
-  - TheyTube_Downloader
+  - FINAL_FINAL_LAST_REPORT.PDF
   - Gidi Stuff
   - aksjdfh
   - BLOCKOLI_ALPHA
@@ -395,10 +396,10 @@ MonoBehaviour:
   - NOTAVIRUS
   - New Entity3D Project
   - fghfghfgh
-  - Porn
-  - Not Porn
-  - Definitely Not Porn
-  - MEMES
+  - '"Study Materials"'
+  - Memes when my GPA is 5.0
+  - Definitely Not SuS
+  - Memes when my GPA is 1.0
   - priracy_client_0.131
   - a
   - SuSClient

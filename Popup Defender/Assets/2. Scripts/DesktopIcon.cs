@@ -32,11 +32,6 @@ public class DesktopIcon : MonoBehaviour
         Initialise();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
 	public void Initialise()
     {
         iconHighlight.SetActive(false);

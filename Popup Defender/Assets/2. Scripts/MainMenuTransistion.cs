@@ -84,10 +84,10 @@ public class MainMenuTransistion : MonoBehaviour
                     GetComponent<SpriteRenderer>().enabled = false;
                     textComponent.text = "";
                     myProfile.SetActive(true);
-                    myBG.GetComponent<SpriteRenderer>().color = new Color(0, 0.151f, 0.202f);
+                    //myBG.GetComponent<SpriteRenderer>().color = new Color(0, 0.151f, 0.202f);
                     myData = GameObject.Find("Scene").GetComponent<GameDataManager>().data;
                     highscoreTxt.enabled = true;
-                    highscoreTxt.text = "System Message: Days Gone Without A Crash - " + myData.dayCleared + " Days";
+                    highscoreTxt.text = "System Message: Highest Number Of Days Gone Without A Crash - " + myData.dayCleared + " Days";
                 }
             }
 

@@ -54,11 +54,11 @@ public class GameTimer : MonoBehaviour
             // virus time ticks to 0 ALWAYS if there are minigames on screen
             if (virusTimer > 0 && GameControlling.GetInstance().GetActivePanelCount() > 0)
             {
-                virusTimer -= Time.deltaTime; //previous virus timer goes down too slow // Counterpoint: Now it goes down *too fast*. Besides, aren't we making the virus timer decrease faster as the game goes on, and not already blindingly fast at the very beginning? I've added a thing for it in Levels.cs -tams
+                virusTimer -= Time.deltaTime * 2; //previous virus timer goes down too slow // Counterpoint: Now it goes down *too fast*. Besides, aren't we making the virus timer decrease faster as the game goes on, and not already blindingly fast at the very beginning? I've added a thing for it in Levels.cs -tams
             }
 
             // virus timer display stuff
-            virusTimerLerp = Mathf.Lerp(virusTimerLerp, virusTimer, Time.deltaTime * 2);
+            virusTimerLerp = Mathf.Lerp(virusTimerLerp, virusTimer, Time.deltaTime);
             myVirusTimePie.fillAmount = Mathf.InverseLerp(0, virusTimerInit, virusTimerLerp);
 
             myDeadLineTxt.text = "23:" + string.Format("{0:D2}", (int)systemTimer);

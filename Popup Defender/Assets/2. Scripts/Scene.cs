@@ -19,7 +19,7 @@ public class Scene : MonoBehaviour
     private GameControlling gameCtrl;
 
     [Header("Randomised Submit Button Text")]
-    private string[] submitTextArray = new string[] { "Susmit", "Submiss", "Subsist", "Superst", "Sauce", "5ubmit", "Subway", "sUbMiT", "timbuS", "Simbat", "Sumbit", "Simbutt" };
+    private string[] submitTextArray = new string[] { "Susmit", "Submiss", "Subsist", "Superst", "Sauce", "5ubm1t", "Subway", "sUbMiT", "timbuS", "Simbat", "Sumbit", "Simbutt" };
 
     #region Dynamic Object Pooling
     public static Dictionary<string, List<GameObject>> objectPools = new Dictionary<string, List<GameObject>>();
@@ -97,6 +97,17 @@ public class Scene : MonoBehaviour
         {
 
             FindObjectOfType<AudioManager>().Play("Keypress");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Equals))
+        {
+            GameControlling.GetInstance().spawnMax = 20;
+            GameControlling.GetInstance().spawnPanelTimeAvg = 10f;
+            GameControlling.GetInstance().GetComponent<GameTimer>().virusTimerInit = 10f;
+
+            gameCtrl.GetComponent<Levels>().currentLevel = 20;
+
+            SubmitButton();
         }
     }
 

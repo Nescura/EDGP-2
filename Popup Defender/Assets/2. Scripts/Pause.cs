@@ -23,6 +23,18 @@ public class Pause : MonoBehaviour
         {
             myPauseBttn.SetActive(false);
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape) && GetComponent<GameState>().state != GameCurrentState.END)
+        {
+            if (myState.state == GameCurrentState.PAUSED)
+            {
+                ResumeClicked();
+            }
+            else
+            {
+                PauseClicked();
+            }
+        }
     }
 
     public void PauseClicked()
@@ -31,6 +43,7 @@ public class Pause : MonoBehaviour
         myState.state = GameCurrentState.PAUSED;
         myPauseBttn.SetActive(false);
         pauseMenu.SetActive(true);
+        Debug.Log("OwO");
     }
 
     public void ResumeClicked()

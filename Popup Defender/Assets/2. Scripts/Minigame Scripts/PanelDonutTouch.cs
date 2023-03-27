@@ -74,7 +74,7 @@ public class PanelDonutTouch : IPanelStrategy
 
     public void OnTimeUp()
     {
-        if (shouldYouPress == 0 && !youFuckedIt)
+        if (shouldYouPress == 0 && youFuckedIt == false)
         {
             myPanel.GetComponent<Panel>().SetSuccess(true);
         }

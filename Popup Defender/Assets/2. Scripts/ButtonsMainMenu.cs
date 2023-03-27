@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ButtonsMainMenu : MonoBehaviour
 {
@@ -73,6 +74,12 @@ public class ButtonsMainMenu : MonoBehaviour
                     hit.collider.gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
                     how2play.SetActive(true);
                     optionMenu.SetActive(false);
+                }
+                else if (hit.collider.gameObject.name == "Credits Button")
+                {
+                    Debug.Log("Credits Button Clicked");
+                    hit.collider.gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
+                    SceneManager.LoadScene(2);
                 }
             }
         }
