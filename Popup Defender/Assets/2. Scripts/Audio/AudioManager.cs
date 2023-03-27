@@ -66,4 +66,16 @@ public class AudioManager : MonoBehaviour
             }
         }
     }
+
+    public void SetPitch(string name, float pitchValue)
+    {
+        foreach (Sound s in sounds)
+        {
+            if (s.name == name)
+            {
+                s.source.pitch = pitchValue;
+                break;
+            }
+        }
+    }
 }

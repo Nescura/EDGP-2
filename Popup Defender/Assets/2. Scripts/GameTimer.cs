@@ -43,9 +43,12 @@ public class GameTimer : MonoBehaviour
             if (Mathf.InverseLerp(0, 15f, virusTimerLerp) < 0.0005f)
             {
                 FindObjectOfType<AudioManager>().Play("Gong");
+                FindObjectOfType<AudioManager>().SetPitch("Gong", 1 - ((systemTimer - 50) * 0.05f));
                 systemTimer += 1;
                 virusTimer = virusTimerInit;
                 virusTimerLerp = virusTimer;
+                myDeadLineTxt.rectTransform.localScale = new Vector3(1.5f, 1.5f, 1f);
+                myDeadLineTxt.color = Color.red;
             }
 
             // virus time ticks to 0 ALWAYS if there are minigames on screen
@@ -59,6 +62,8 @@ public class GameTimer : MonoBehaviour
             myVirusTimePie.fillAmount = Mathf.InverseLerp(0, virusTimerInit, virusTimerLerp);
 
             myDeadLineTxt.text = "23:" + string.Format("{0:D2}", (int)systemTimer);
+            myDeadLineTxt.rectTransform.localScale = Vector3.Lerp(myDeadLineTxt.rectTransform.localScale, Vector3.one, Time.deltaTime);
+            myDeadLineTxt.color = Color.Lerp(myDeadLineTxt.color, Color.white, Time.deltaTime);
         }
 
         //once deadline timer reaches 0, game state would be set to END

@@ -83,6 +83,7 @@ public class Panel : MonoBehaviour
         #endregion
 
         #region Set size of panel
+        GetComponent<RectTransform>().localScale = new Vector3(2f, 2f, 1f);
         GetComponent<RectTransform>().sizeDelta = panelStrat.SetPanelSize(); //new Vector2(panelSizeX, panelSizeY);
         GetComponent<SpriteRenderer>().size = new Vector2(panelStrat.SetPanelSize().x + 0.497f, panelStrat.SetPanelSize().y + 0.49f); //new Vector2(panelSizeX, panelSizeY);
         //thisMask.GetComponent<SpriteRenderer>().size = panelStrat.SetPanelSize(); // new Vector2(panelSizeX, panelSizeY);
@@ -234,10 +235,14 @@ public class Panel : MonoBehaviour
                     // minigame fail animation goes here
                 }
 
-
                 Destroy(this.gameObject); // gameObject.SetActive(false); replace with object pooling expire down the line
             }
-		}
+        }
+
+        else
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(3f, 3f, 1f), Time.deltaTime * 10);
+        }
 
         // Input Handling
         if (timeLeft > 0)

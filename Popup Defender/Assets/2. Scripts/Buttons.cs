@@ -6,7 +6,7 @@ public class Buttons : MonoBehaviour
 {
     private Scene myScene;
     public float downTime, upTime, upTime2; // Timers to check if a button is pushed down and up at the same time
-    public bool mustDoubleClick, notVirus;
+    public bool mustDoubleClick, notVirus, clickable;
     public SpriteRenderer thisSprite;
     public TMPro.TextMeshPro thisTextMesh;
     public Sprite virusSpr;
@@ -16,6 +16,7 @@ public class Buttons : MonoBehaviour
     private void Start()
     {
         myScene = GameObject.Find("Scene").GetComponent<Scene>();
+        clickable = false;
     }
 
     void Update()
@@ -36,7 +37,7 @@ public class Buttons : MonoBehaviour
         #endregion
 
         #region Input Handling: will activate timers on click, and on release
-        if (hit.collider != null && hit.collider.name == gameObject.name && myScene.canInteract == true)
+        if (hit.collider != null && hit.collider.name == gameObject.name && myScene.canInteract == true && clickable)
         {
             if (Input.GetMouseButtonDown(0))
 			{
@@ -102,6 +103,8 @@ public class Buttons : MonoBehaviour
 
 	public void ActivateFunction(RaycastHit2D hit)
 	{
+        if (!clickable) return;
+
         if (hit.collider.gameObject.name == "BrowserBttn" && myScene.canInteract == true)
         {
             myScene.BrowserButton();
@@ -114,7 +117,7 @@ public class Buttons : MonoBehaviour
             GameControlling.GetInstance().SpawnMaxPanels();
             ResetTimers();
         }
-        else if (hit.collider.gameObject.name == "Submit Bttn" && myScene.canInteract == true)
+        else if (hit.collider.gameObject.name == "SubmitBttn" && myScene.canInteract == true)
         {
             myScene.SubmitButton();
             ResetTimers();
@@ -122,10 +125,18 @@ public class Buttons : MonoBehaviour
         else if (notVirus == false)
 		{
             myScene.WrongButton();
-            thisSprite.color = new Color(1f, 0f, 0f);
-            thisSprite.sprite = virusSpr;
+
+            if (virusSpr != null)
+            {
+                thisSprite.sprite = virusSpr;
+            }
+            else
+			{
+                thisSprite.color = new Color(1f, 0f, 0f);
+            }
+
             GameObject.Find("Main Camera").GetComponent<GlitchEffect>().glitch = true;
-            if (thisTextMesh != null) thisTextMesh.text = "HAHAHAHA\nHAHAHAHA";
+            if (thisTextMesh != null) thisTextMesh.text = "HAHAHA\nHAHAHA";
 		}
     }
 
@@ -135,4 +146,14 @@ public class Buttons : MonoBehaviour
         upTime = 0f;
         upTime2 = 0f;
 	}
+
+	private void OnMouseOver()
+	{
+        clickable = true;
+	}
+
+	private void OnMouseExit()
+	{
+        clickable = false;
+    }
 }

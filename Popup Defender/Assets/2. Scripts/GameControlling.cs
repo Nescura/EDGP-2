@@ -127,7 +127,7 @@ public class GameControlling : MonoBehaviour
             #endregion
 
             #region Debugging Codes
-            if (Input.GetKeyDown(KeyCode.Insert)) // FOR DEBUGGING PURPOSES - spawn a panel regardless of time or max
+            if (Input.GetKeyDown(KeyCode.Insert) && GetActivePanelCount() < 24) // FOR DEBUGGING PURPOSES - spawn a panel regardless of time or max
 			{
                 SpawnPanel(); 
                 spawnPanelTime = Random.Range(spawnPanelTimeAvg * 0.8f, spawnPanelTimeAvg * 1.2f);

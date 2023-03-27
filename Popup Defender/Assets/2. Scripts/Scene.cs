@@ -6,9 +6,9 @@ using UnityEngine.UI;
 
 public class Scene : MonoBehaviour
 {
-    public GameObject desktopBttnPrefab, browserBttnPrefab, websiteBttnPrefab;
+    public GameObject desktopBttnPrefab, browserBttnPrefab, submitBttnPrefab;
     public bool canClick;
-    public GameObject desktopPage, browserPage, websitePage;
+    public GameObject desktopPage, browserPage, websitePage, yayFlash;
     private GameObject browserBttn, websiteBttn, submitBttn;
     //public List<GameObject> desktopButtons = new List<GameObject> { }, browserButtons = new List<GameObject> { }, submitButtons = new List<GameObject> { };
 
@@ -17,6 +17,9 @@ public class Scene : MonoBehaviour
     public bool canInteract;
 
     private GameControlling gameCtrl;
+
+    [Header("Randomised Submit Button Text")]
+    public string[] submitTextArray;
 
     #region Dynamic Object Pooling
     public static Dictionary<string, List<GameObject>> objectPools = new Dictionary<string, List<GameObject>>();
@@ -109,11 +112,12 @@ public class Scene : MonoBehaviour
         /*foreach (GameObject b in activeBrowserIcons)
         {
             ObjectEnd("BrowserIcon", b);
-        }
+        }*/
+        if (submitBttn != null) ObjectEnd(submitBttn.name, submitBttn);
         foreach (GameObject s in activeSubmitBttns)
         {
-            ObjectEnd("SubmitBttn", s);
-        }*/
+            ObjectEnd(s.name, s);
+        }
 
         // Creation of Desktop Buttons
         if (browserBttn == null) // if the real browser button hasn't been made, make it
@@ -147,7 +151,45 @@ public class Scene : MonoBehaviour
         // nothing here for now
 
         // Creation of Submit Buttons (will have many buttons of similar looking names, e.g. "Susmit" and "Summit")
-        // nothing here for now
+        if (submitBttn == null) // if the real browser button hasn't been made, make it
+        {
+            submitBttn = ObjectUse("SubmitBttn", (SubmitBttn) =>
+            {
+                SubmitBttn.name = "SubmitBttn";
+                SubmitBttn.GetComponent<Buttons>().notVirus = true;
+                SubmitBttn.GetComponent<Buttons>().thisTextMesh.text = "Submit";
+                SubmitBttn.transform.localPosition = new Vector2(0.3f, -4.5f);
+                SubmitBttn.SetActive(true);
+            }, submitBttnPrefab, websitePage.transform);
+        }
+        else // same as above, but requires less setup
+        {
+            ObjectUse(submitBttn.name, (SubmitBttn) =>
+            {
+                SubmitBttn.name = "SubmitBttn";
+                SubmitBttn.GetComponent<Buttons>().notVirus = true;
+                SubmitBttn.GetComponent<Buttons>().thisTextMesh.text = "Submit";
+                SubmitBttn.transform.localPosition = new Vector2(Random.Range(-5f, 5f), Random.Range(-4.65f, 1f));
+                SubmitBttn.SetActive(true);
+            }, submitBttnPrefab, websitePage.transform);
+        }
+        for (int i = (level - 1) * 2; i > 0; i -= 1)
+        {
+            GameObject s = ObjectUse("SusBttn", (susBttn) =>
+            {
+                susBttn.name = "SusBttn";
+                susBttn.GetComponent<Buttons>().notVirus = false;
+                susBttn.GetComponent<Buttons>().thisTextMesh.text = submitTextArray[Random.Range(0, submitTextArray.Length)];
+                susBttn.transform.localPosition = new Vector2(Random.Range(-5f, 5f), Random.Range(-4.65f, 1f));
+                if (susBttn.GetComponent<Collider2D>().IsTouching(submitBttn.GetComponent<Collider2D>()))
+				{
+                    ObjectEnd(susBttn.name, susBttn);
+                    i += 1;
+                }
+                susBttn.SetActive(true);
+            }, submitBttnPrefab, websitePage.transform);
+            activeSubmitBttns.Add(s);
+        }
     }
     #endregion
 
@@ -195,10 +237,7 @@ public class Scene : MonoBehaviour
 
     public void SubmitButton()
     {
-        desktopPage.SetActive(false);
-        browserPage.SetActive(false);
-        websitePage.SetActive(false);
-
+        // tams here, moved some stuff into the coroutine. If this messes stuff up... I'm sorry
         gameCtrl.GetComponent<GameTimer>().myDeadLineTxt.enabled = false;
         gameCtrl.spawnPanelTime = 99f;
         gameCtrl.GetComponent<Levels>().CheckCurrentLevel();
@@ -216,6 +255,19 @@ public class Scene : MonoBehaviour
 
     IEnumerator DesktopPage()
     {
+        FindObjectOfType<AudioManager>().Play("Submitted");
+        yayFlash.GetComponent<Image>().color = new Color(60f / 255f, 1f, 120f / 255f, 1f);
+
+        desktopPage.SetActive(false);
+        browserPage.SetActive(false);
+        websitePage.SetActive(false);
+
+        for (float s = 2; s > 0; s -= Time.deltaTime)
+		{
+            yayFlash.GetComponent<Image>().color = Color.Lerp(yayFlash.GetComponent<Image>().color, new Color(60f / 255f, 1f, 120f / 255f, 0f), Time.deltaTime * 4f);
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+
         yield return new WaitForSeconds(1.5f);
 
         gameCtrl.GetComponent<Levels>().clearedLevel += 1;

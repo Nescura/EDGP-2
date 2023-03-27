@@ -295,7 +295,7 @@ RectTransform:
   - {fileID: 2002598871}
   - {fileID: 880471915}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -413,7 +413,7 @@ Transform:
   m_LocalScale: {x: 1.7275391, y: 1.8462995, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &117463963
 BoxCollider2D:
@@ -1089,7 +1089,7 @@ Transform:
   m_LocalScale: {x: 0.07476005, y: 15.2532, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &593637637
 Rigidbody2D:
@@ -1449,7 +1449,7 @@ Transform:
   m_LocalScale: {x: 2.6133423, y: 0.7794385, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &782153525
 Rigidbody2D:
@@ -1713,7 +1713,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1023373633
 GameObject:
@@ -1823,7 +1823,7 @@ Transform:
   m_LocalScale: {x: 0.07476005, y: 15.2532, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1023373637
 Rigidbody2D:
@@ -1878,14 +1878,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   desktopBttnPrefab: {fileID: 0}
   browserBttnPrefab: {fileID: 0}
-  websiteBttnPrefab: {fileID: 0}
+  submitBttnPrefab: {fileID: 0}
   canClick: 0
   desktopPage: {fileID: 0}
   browserPage: {fileID: 0}
   websitePage: {fileID: 0}
+  yayFlash: {fileID: 0}
   dayPage: {fileID: 0}
   dayTextMesh: {fileID: 0}
   canInteract: 0
+  submitTextArray: []
   activeDesktopIcons: []
   activeBrowserIcons: []
   activeSubmitBttns: []
@@ -2479,7 +2481,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1768717107
 GameObject:
@@ -2589,7 +2591,7 @@ Transform:
   m_LocalScale: {x: 2.6133423, y: 0.7794385, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1768717111
 Rigidbody2D:
@@ -2612,81 +2614,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!1 &1863197802
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1863197803}
-  - component: {fileID: 1863197804}
-  m_Layer: 0
-  m_Name: AudioManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1863197803
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1863197802}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.0895488, y: -2.2824092, z: -0.5485808}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1863197804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1863197802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed0dff1ec7c3aa74aaae0d98a9d40984, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sounds:
-  - name: MenuBGM
-    clip: {fileID: 0}
-    volume: 0
-    pitch: 0
-    loop: 0
-    source: {fileID: 0}
-  - name: Button
-    clip: {fileID: 8300000, guid: 1d36fa273c7c59f44baddd8c3b28df44, type: 3}
-    volume: 1
-    pitch: 2
-    loop: 0
-    source: {fileID: 0}
-  - name: PopUp
-    clip: {fileID: 8300000, guid: 416b0c1a03ac1674bbec861739e36852, type: 3}
-    volume: 1
-    pitch: 1.5
-    loop: 0
-    source: {fileID: 0}
-  - name: Glitch
-    clip: {fileID: 8300000, guid: 9d8cd2cd2992c5241b01b708b3e91ed0, type: 3}
-    volume: 0.5
-    pitch: 0.5
-    loop: 0
-    source: {fileID: 0}
-  - name: Keypress
-    clip: {fileID: 8300000, guid: eeacb7d274d16244e924df6fc0b102c0, type: 3}
-    volume: 0.3
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  MasterVolume: 5
 --- !u!1 &1913916363
 GameObject:
   m_ObjectHideFlags: 0
@@ -3229,6 +3156,117 @@ Transform:
   - {fileID: 174152137}
   - {fileID: 1968182491}
   - {fileID: 1682963657}
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2118063643
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2118063645}
+  - component: {fileID: 2118063644}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2118063644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118063643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed0dff1ec7c3aa74aaae0d98a9d40984, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: MenuBGM
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: PopUp
+    clip: {fileID: 8300000, guid: aba7c8e5be907ae47b720ee157ecab41, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+  - name: Button
+    clip: {fileID: 8300000, guid: 1d36fa273c7c59f44baddd8c3b28df44, type: 3}
+    volume: 1
+    pitch: 2
+    loop: 0
+    source: {fileID: 0}
+  - name: Glitch
+    clip: {fileID: 8300000, guid: 9d8cd2cd2992c5241b01b708b3e91ed0, type: 3}
+    volume: 1
+    pitch: 0.5
+    loop: 0
+    source: {fileID: 0}
+  - name: Keypress
+    clip: {fileID: 8300000, guid: eeacb7d274d16244e924df6fc0b102c0, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ClearMiniGame
+    clip: {fileID: 8300000, guid: 46bf0315931fec0488d2ec6fd028805f, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+  - name: Gong
+    clip: {fileID: 8300000, guid: 5805ac843800bd24f8428173ab3119e6, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: FailMiniGame
+    clip: {fileID: 8300000, guid: 6be38a1bf15fa8d4e963e7c093f81da9, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Bonk
+    clip: {fileID: 8300000, guid: 4184212ff665a1f4f8f142ed9dadb98e, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Slash
+    clip: {fileID: 8300000, guid: 40a0ff31275c6ed4988cf27824e93676, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Submitted
+    clip: {fileID: 8300000, guid: a315f1df6515eaf48a940eb573c78900, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  MasterVolume: 5
+--- !u!4 &2118063645
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118063643}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
