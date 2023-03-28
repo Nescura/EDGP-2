@@ -59,7 +59,7 @@ public class PanelTowerBuilder : IPanelStrategy
         }
         else
         {
-            if ((activeBlock.transform.position.x + (activeBlock.transform.lossyScale.x) / 2) < previousBlock.transform.position.x - (previousBlock.transform.lossyScale.x) / 2 || (activeBlock.transform.position.x - (activeBlock.transform.lossyScale.x) / 2) > previousBlock.transform.position.x + (previousBlock.transform.lossyScale.x) / 2)//check if the blocks are touching, this is if block are not touching
+            if ((activeBlock.transform.position.x + (activeBlock.transform.lossyScale.x) / 2) < ((previousBlock.transform.position.x - (previousBlock.transform.lossyScale.x) / 2) + 1.5) || (activeBlock.transform.position.x - (activeBlock.transform.lossyScale.x) / 2) > ((previousBlock.transform.position.x + (previousBlock.transform.lossyScale.x) / 2) - 1.5))//check if the blocks are touching, this is if block are not touching
             {
                 MissedBlock();
             }
