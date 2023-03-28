@@ -48,6 +48,7 @@ public class PanelSpam : IPanelStrategy
             audio = GameObject.Find("AudioManager");
         }
 
+        mob.GetComponent<AudioSource>().Play();
         enemyHP = 10 + GameControlling.GetInstance().GetComponent<Levels>().currentLevel;
     }
 
@@ -62,7 +63,11 @@ public class PanelSpam : IPanelStrategy
         slash.GetComponent<SpriteRenderer>().color = Color.white;
 
         if (enemyHP > 0) enemyHP -= 0.9f;
-        if (enemyHP <= 0) myPanel.GetComponent<Panel>().SetSuccess(true);
+        if (enemyHP <= 0)
+		{
+            myPanel.GetComponent<Panel>().SetSuccess(true);
+            mob.GetComponent<AudioSource>().Stop();
+        }
     }
 
     public void OnControlHold()

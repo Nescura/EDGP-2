@@ -266,6 +266,7 @@ public class GameControlling : MonoBehaviour
         }
         else
         {
+            FindObjectOfType<AudioManager>().StopAll();
             FindObjectOfType<AudioManager>().Play("Glitch");
         }
 

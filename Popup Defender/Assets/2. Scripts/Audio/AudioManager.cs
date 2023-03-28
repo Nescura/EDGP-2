@@ -67,6 +67,14 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void StopAll()
+    {
+        foreach (Sound s in sounds)
+        {
+            s.source.Stop();
+        }
+    }
+
     public void SetPitch(string name, float pitchValue)
     {
         foreach (Sound s in sounds)
