@@ -140,19 +140,13 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: WheelSpin
-    clip: {fileID: 8300000, guid: 28fff5413e801c74ca418b6ae4b4c0b8, type: 3}
-    volume: 0.5
-    pitch: 1
-    loop: 1
-    source: {fileID: 0}
-  - name: WheelWin
+  - name: Roulette Win
     clip: {fileID: 8300000, guid: d961756aab03d284e9306901baf5a354, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: WheelLose
+  - name: Roulette Lose
     clip: {fileID: 8300000, guid: 1968c0500d9dcc94b944761b1420d884, type: 3}
     volume: 1
     pitch: 1
@@ -169,5 +163,47 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     loop: 1
+    source: {fileID: 0}
+  - name: Hot Dog Theme 3
+    clip: {fileID: 8300000, guid: bf0f0e497681162458d18f4f751a6b47, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Roulette Spin
+    clip: {fileID: 8300000, guid: 28fff5413e801c74ca418b6ae4b4c0b8, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Roulette Spin 2
+    clip: {fileID: 8300000, guid: 28fff5413e801c74ca418b6ae4b4c0b8, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Roulette Spin 3
+    clip: {fileID: 8300000, guid: 28fff5413e801c74ca418b6ae4b4c0b8, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Download 1
+    clip: {fileID: 8300000, guid: 6fcb021821f4cdc4bb43dff28b6b9379, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Download 2
+    clip: {fileID: 8300000, guid: df612db7f8939894986f7f6363f786f5, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Download 3
+    clip: {fileID: 8300000, guid: 7044d6839b2640842ab1c2fca9167337, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
     source: {fileID: 0}
   MasterVolume: 5
