@@ -1596,6 +1596,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
+  savedAlrd: 0
 --- !u!114 &855682407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3422,6 +3423,42 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     loop: 0
+    source: {fileID: 0}
+  - name: Slap 1
+    clip: {fileID: 8300000, guid: d57b5820f96f95c4da970ec21007ec4d, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Slap 2
+    clip: {fileID: 8300000, guid: 86ba7bedb206a1746974a28576573bac, type: 3}
+    volume: 1
+    pitch: 0.5
+    loop: 0
+    source: {fileID: 0}
+  - name: Slap 3
+    clip: {fileID: 8300000, guid: 170a418a48e58364b9f8444d28751615, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Sizzle
+    clip: {fileID: 8300000, guid: 4f78fb3eed5211940953e7965c974fac, type: 3}
+    volume: 0.8
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Hot Dog Theme 1
+    clip: {fileID: 8300000, guid: cd054c8258c912849bac99294d5d7317, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Hot Dog Theme 2
+    clip: {fileID: 8300000, guid: a484c1aeb6639bf46abc6a1c7ee5d706, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
     source: {fileID: 0}
   MasterVolume: 5
 --- !u!4 &1831536789

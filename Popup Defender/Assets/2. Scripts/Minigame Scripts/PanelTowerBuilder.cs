@@ -7,9 +7,7 @@ public class PanelTowerBuilder : IPanelStrategy
     GameObject myPanel, myDisplay;
     float sizeX, sizeY;
 
-    private GameObject buildingBlockStack;
-    private GameObject activeBlock;
-    private GameObject previousBlock;
+    private GameObject buildingBlockStack, activeBlock, previousBlock, audio;
     private int blockCount;
     private float blockOffset;
     float direction = 3f;
@@ -32,6 +30,11 @@ public class PanelTowerBuilder : IPanelStrategy
             buildingBlockStack = GameObject.Instantiate(Resources.Load("Building Block Stack"), Vector3.down * 2 + myDisplay.transform.position, Quaternion.identity, myDisplay.transform) as GameObject;
         }
 
+        if (audio == null)
+        {
+            audio = GameObject.Find("AudioManager");
+        }
+
         blockCount = 0;
         activeBlock = null;
         previousBlock = null;
@@ -49,12 +52,15 @@ public class PanelTowerBuilder : IPanelStrategy
 
         blockList[0].SetActive(true);
         activeBlock = blockList[0];
+
+        audio.GetComponent<AudioManager>().Play("Sizzle");
     }
 
     public void OnControlDown()
     {
         if (previousBlock == null)
         {
+            PlaySound();
             FirstBlock();
         }
         else
@@ -65,8 +71,11 @@ public class PanelTowerBuilder : IPanelStrategy
             }
             else //if the blocks are touching
             {
+                PlaySound();
+
                 if (blockCount == blockList.Count - 1) // check if all the blocks are out, there are no blocks left
                 {
+                    PlaySound();
                     LastBlock();
                 }
                 else // There are remaining blocks
@@ -109,6 +118,7 @@ public class PanelTowerBuilder : IPanelStrategy
     {
         direction = 0; //stops the active block
         myPanel.GetComponent<Panel>().SetSuccess(true);
+        audio.GetComponent<AudioManager>().Stop("Sizzle");
     }
     //void BlockOverOnLeft()
     //{
@@ -146,6 +156,24 @@ public class PanelTowerBuilder : IPanelStrategy
         direction = 3f; //Start the active block
     }
 
+    void PlaySound()
+    {
+        int chosen = Random.Range(1, 3);
+
+        if (chosen == 1)
+        {
+            audio.GetComponent<AudioManager>().Play("Slap 1");
+        }
+        else if (chosen == 2)
+        {
+            audio.GetComponent<AudioManager>().Play("Slap 2");
+        }
+        else if (chosen == 3)
+        {
+            audio.GetComponent<AudioManager>().Play("Slap 3");
+        }
+    }
+
     public void OnControlHold()
     {
 
@@ -156,6 +184,7 @@ public class PanelTowerBuilder : IPanelStrategy
     }
     public void OnTimeUp()
     {
+        audio.GetComponent<AudioManager>().Stop("Sizzle");
     }
     public void MiniUpdate()
     {

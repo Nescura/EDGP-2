@@ -9,7 +9,7 @@ public class PanelHotDog : IPanelStrategy
     float sizeX, sizeY;
 
     // Extra variables go under here
-    private GameObject hotdog, hotdogBun;
+    private GameObject hotdog, hotdogBun, audio;
     private float direction = 5f;
 
     public Vector2 SetPanelSize() => new Vector2(sizeX, sizeY);
@@ -30,6 +30,14 @@ public class PanelHotDog : IPanelStrategy
 		{
             hotdog = GameObject.Instantiate(Resources.Load("HotDog"), new Vector3(-1, 0, 1) + myDisplay.transform.position, Quaternion.identity, myDisplay.transform) as GameObject;
         }
+
+        if (audio == null)
+        {
+            audio = GameObject.Find("AudioManager");
+        }
+
+        PlaySound();
+
         direction = Random.Range(3f, 6f);
     }
 
@@ -40,6 +48,9 @@ public class PanelHotDog : IPanelStrategy
             direction = 0;
             hotdog.transform.position = hotdogBun.transform.position;
             myPanel.GetComponent<Panel>().SetSuccess(true);
+            audio.GetComponent<AudioManager>().Stop("Hot Dog Theme 1");
+            audio.GetComponent<AudioManager>().Stop("Hot Dog Theme 2");
+            audio.GetComponent<AudioManager>().Stop("Hot Dog Theme 3");
         }
         else
 		{
@@ -57,7 +68,27 @@ public class PanelHotDog : IPanelStrategy
 
     public void OnTimeUp()
     {
+        audio.GetComponent<AudioManager>().Stop("Hot Dog Theme 1");
+        audio.GetComponent<AudioManager>().Stop("Hot Dog Theme 2");
+        audio.GetComponent<AudioManager>().Stop("Hot Dog Theme 3");
+    }
 
+    void PlaySound()
+    {
+        int chosen = Random.Range(1, 3);
+
+        if (chosen == 1)
+        {
+            audio.GetComponent<AudioManager>().Play("Hot Dog Theme 1");
+        }
+        else if (chosen == 2)
+        {
+            audio.GetComponent<AudioManager>().Play("Hot Dog Theme 2");
+        }
+        else if (chosen == 3)
+        {
+            audio.GetComponent<AudioManager>().Play("Hot Dog Theme 3");
+        }
     }
 
     public void MiniUpdate()
