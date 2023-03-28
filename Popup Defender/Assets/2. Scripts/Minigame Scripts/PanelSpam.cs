@@ -53,6 +53,7 @@ public class PanelSpam : IPanelStrategy
 
     public void OnControlDown()
     {
+        audio.GetComponent<AudioManager>().SetPitch("Slash", Random.Range(0.95f, 1.05f));
         audio.GetComponent<AudioManager>().Play("Slash");
         mob.GetComponent<SpriteRenderer>().color = Color.red;
 
