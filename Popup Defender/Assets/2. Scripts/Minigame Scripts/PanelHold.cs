@@ -51,7 +51,7 @@ public class PanelHold : IPanelStrategy
             myPanel.GetComponent<Panel>().ForceTimeLeft(Time.deltaTime / 2, false, true);
         }
         else
-		{
+        {
             myPanel.GetComponent<Panel>().SetSuccess(true);
             StopSound();
             timeup = true;

@@ -309,6 +309,10 @@ public class Panel : MonoBehaviour
                 {
                     FindObjectOfType<AudioManager>().Play("ClearMiniGame");
                 }
+                else if (panelStrat.ToString() == "PanelHold")
+                {
+                    FindObjectOfType<AudioManager>().Play("ClearMiniGame");
+                }
             }
 
             isClearPlayed = true;
