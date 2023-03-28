@@ -154,7 +154,7 @@ public class GameControlling : MonoBehaviour
 
     public IPanelStrategy GetRandomMinigame()
 	{
-        int index = Random.Range(0, 7); // REMEMBER, INTEGER RANDOM RANGE IS MAX EXCLUSIVE - e.g. if there are 5 cases, make sure the max range is 6!
+        int index = 7;//Random.Range(0, 8); // REMEMBER, INTEGER RANDOM RANGE IS MAX EXCLUSIVE - e.g. if there are 5 cases, make sure the max range is 6!
         switch (index)
         {
             // ADD ALL YOUR PANEL MINIGAMES HERE!!!
@@ -172,6 +172,8 @@ public class GameControlling : MonoBehaviour
                 return new PanelWhack();
             case 6:
                 return new PanelTowerBuilder();
+            case 7:
+                return new PanelFind();
             default:
                 return new PanelTemplate();
 		}

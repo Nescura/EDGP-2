@@ -15,7 +15,7 @@ public class PanelHotDog : IPanelStrategy
     public Vector2 SetPanelSize() => new Vector2(sizeX, sizeY);
     public string SetPanelBG() => "sprBG_HIYA";
     public int ObjectiveKeyTech() => 1;
-    public string ObjectiveDesc() => "  to catch MY HOTDOG!";
+    public string ObjectiveDesc() => "  to catch the dog!";
 
     public void ResetMinigame(GameObject panelParent, GameObject displayParent)
     {
