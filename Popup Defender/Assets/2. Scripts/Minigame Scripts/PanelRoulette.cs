@@ -47,8 +47,12 @@ public class PanelRoulette: IPanelStrategy // DO NOT EDIT THIS TEMPLATE - Copy a
 		}
         rotateSpeedInit = Random.Range(3f, 4f);
 
+<<<<<<< Updated upstream
         audio.GetComponent<AudioManager>().SetPitch("WheelSpin", Random.Range(0.95f, 1.05f));
         audio.GetComponent<AudioManager>().Play("WheelSpin");
+=======
+        RouletteSpinSound();
+>>>>>>> Stashed changes
     }
 
     public void OnControlDown() // Runs on the frame the key is pressed. Should happen only once per press
@@ -85,6 +89,7 @@ public class PanelRoulette: IPanelStrategy // DO NOT EDIT THIS TEMPLATE - Copy a
 
     public void OnTimeUp() // Runs when the minigame is out of time. This function is typically for animations if any (like, a baby crying when the milk isn't finished or something idk)
     {
+        StopRouletteSpinSound();
     }
 
     public void MiniUpdate() // Basically the Update() function but for these panels
@@ -103,17 +108,51 @@ public class PanelRoulette: IPanelStrategy // DO NOT EDIT THIS TEMPLATE - Copy a
     {
         myPanel.GetComponent<Panel>().ForceTimeLeft(-1f, false, true);
         rotateSpeedInit = Mathf.Clamp(rotateSpeedInit - 1f, 1f, 14f); // leniency - slow down arrow per fail
+<<<<<<< Updated upstream
 
         audio.GetComponent<AudioManager>().SetPitch("WheelLose", Random.Range(0.8f, 1f));
         audio.GetComponent<AudioManager>().Play("WheelLose");
+=======
+        audio.GetComponent<AudioManager>().Play("Roulette Lose");
+>>>>>>> Stashed changes
     }
 
     private void Gottem()
 	{
         myPanel.GetComponent<Panel>().SetSuccess(true);
+<<<<<<< Updated upstream
         audio.GetComponent<AudioManager>().Stop("WheelSpin");
 
         audio.GetComponent<AudioManager>().SetPitch("WheelWin", Random.Range(1f, 1.2f));
         audio.GetComponent<AudioManager>().Play("WheelWin");
+=======
+        StopRouletteSpinSound();
+        audio.GetComponent<AudioManager>().Play("Roulette Win");
+    }
+
+    private void RouletteSpinSound()
+    {
+        int chosen = Random.Range(1, 4);
+
+        if (chosen == 1)
+        {
+            audio.GetComponent<AudioManager>().Play("Roulette Spin");
+        }
+        else if (chosen == 2)
+        {
+            audio.GetComponent<AudioManager>().Play("Roulette Spin 2");
+        }
+        else if (chosen == 3)
+        {
+            audio.GetComponent<AudioManager>().Play("Roulette Spin 3");
+        }
+    }
+
+    private void StopRouletteSpinSound()
+    {
+        audio.GetComponent<AudioManager>().Stop("Roulette Spin");
+        audio.GetComponent<AudioManager>().Stop("Roulette Spin 2");
+        audio.GetComponent<AudioManager>().Stop("Roulette Spin 3");
+>>>>>>> Stashed changes
     }
 }

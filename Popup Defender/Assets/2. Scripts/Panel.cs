@@ -298,11 +298,17 @@ public class Panel : MonoBehaviour
 		{
             if (!isObjectiveClear)
             {
-                FindObjectOfType<AudioManager>().Play("FailMiniGame");
+                if (panelStrat.ToString() == "PanelTowerBuilder")
+                {
+                    FindObjectOfType<AudioManager>().Play("FailMiniGame");
+                }
             }
             else
             {
-                FindObjectOfType<AudioManager>().Play("ClearMiniGame");
+                if (panelStrat.ToString() == "PanelTowerBuilder")
+                {
+                    FindObjectOfType<AudioManager>().Play("ClearMiniGame");
+                }
             }
 
             isClearPlayed = true;

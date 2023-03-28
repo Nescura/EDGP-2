@@ -158,7 +158,7 @@ public class PanelTowerBuilder : IPanelStrategy
 
     void PlaySound()
     {
-        int chosen = Random.Range(1, 3);
+        int chosen = Random.Range(1, 4);
 
         if (chosen == 1)
         {

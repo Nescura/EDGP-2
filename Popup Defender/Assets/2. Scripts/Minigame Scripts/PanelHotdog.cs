@@ -48,9 +48,7 @@ public class PanelHotDog : IPanelStrategy
             direction = 0;
             hotdog.transform.position = hotdogBun.transform.position;
             myPanel.GetComponent<Panel>().SetSuccess(true);
-            audio.GetComponent<AudioManager>().Stop("Hot Dog Theme 1");
-            audio.GetComponent<AudioManager>().Stop("Hot Dog Theme 2");
-            audio.GetComponent<AudioManager>().Stop("Hot Dog Theme 3");
+            StopSound();
         }
         else
 		{
@@ -68,14 +66,12 @@ public class PanelHotDog : IPanelStrategy
 
     public void OnTimeUp()
     {
-        audio.GetComponent<AudioManager>().Stop("Hot Dog Theme 1");
-        audio.GetComponent<AudioManager>().Stop("Hot Dog Theme 2");
-        audio.GetComponent<AudioManager>().Stop("Hot Dog Theme 3");
+        StopSound();   
     }
 
     void PlaySound()
     {
-        int chosen = Random.Range(1, 3);
+        int chosen = Random.Range(1, 4);
 
         if (chosen == 1)
         {
@@ -89,6 +85,13 @@ public class PanelHotDog : IPanelStrategy
         {
             audio.GetComponent<AudioManager>().Play("Hot Dog Theme 3");
         }
+    }
+
+    void StopSound()
+    {
+        audio.GetComponent<AudioManager>().Stop("Hot Dog Theme 1");
+        audio.GetComponent<AudioManager>().Stop("Hot Dog Theme 2");
+        audio.GetComponent<AudioManager>().Stop("Hot Dog Theme 3");
     }
 
     public void MiniUpdate()
