@@ -355,11 +355,11 @@ public class Panel : MonoBehaviour
         Vector2 viewportZero = GameControlling.GetInstance().mainCamera.ViewportToWorldPoint(Vector2.zero);
         Vector2 viewportOne = GameControlling.GetInstance().mainCamera.ViewportToWorldPoint(Vector2.one);
 
-        if (transform.position.x > viewportOne.x || transform.position.x < viewportZero.x)
-            speedX *= -1;
+        if (transform.position.x > viewportOne.x) speedX = -Mathf.Abs(speedX);
+        else if (transform.position.x < viewportZero.x) speedX = Mathf.Abs(speedX);
 
-        if (transform.position.y > viewportOne.y || transform.position.y < viewportZero.y)
-            speedY *= -1;
+        if (transform.position.y > viewportOne.y) speedY = -Mathf.Abs(speedY);
+        else if (transform.position.y < viewportZero.y) speedY = Mathf.Abs(speedY);
 
         transform.position += new Vector3(x * Time.deltaTime, y * Time.deltaTime, 0);
 	}

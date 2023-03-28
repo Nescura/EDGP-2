@@ -9,7 +9,7 @@ public class PanelRoulette: IPanelStrategy // DO NOT EDIT THIS TEMPLATE - Copy a
     float sizeX, sizeY;
 
     // Extra variables go under here
-    private GameObject wheel, arrow;
+    private GameObject wheel, arrow, audio;
     private float rotateSpeedInit = 5f, rotateSpeed;
     private int finalAngle, isFlipped;
 
@@ -35,12 +35,20 @@ public class PanelRoulette: IPanelStrategy // DO NOT EDIT THIS TEMPLATE - Copy a
             arrow = GameObject.Instantiate(Resources.Load("Arrow"), Vector3.zero + myDisplay.transform.position, Quaternion.identity, myDisplay.transform) as GameObject;
         }
 
+        if (audio == null)
+        {
+            audio = GameObject.Find("AudioManager");
+        }
+
         isFlipped = Random.Range(0, 2);
         if (isFlipped == 1)
 		{
             wheel.transform.rotation = Quaternion.Euler(0, 0, 90);
 		}
         rotateSpeedInit = Random.Range(3f, 4f);
+
+        audio.GetComponent<AudioManager>().SetPitch("WheelSpin", Random.Range(0.95f, 1.05f));
+        audio.GetComponent<AudioManager>().Play("WheelSpin");
     }
 
     public void OnControlDown() // Runs on the frame the key is pressed. Should happen only once per press
@@ -95,10 +103,17 @@ public class PanelRoulette: IPanelStrategy // DO NOT EDIT THIS TEMPLATE - Copy a
     {
         myPanel.GetComponent<Panel>().ForceTimeLeft(-1f, false, true);
         rotateSpeedInit = Mathf.Clamp(rotateSpeedInit - 1f, 1f, 14f); // leniency - slow down arrow per fail
+
+        audio.GetComponent<AudioManager>().SetPitch("WheelLose", Random.Range(0.8f, 1f));
+        audio.GetComponent<AudioManager>().Play("WheelLose");
     }
 
     private void Gottem()
 	{
         myPanel.GetComponent<Panel>().SetSuccess(true);
+        audio.GetComponent<AudioManager>().Stop("WheelSpin");
+
+        audio.GetComponent<AudioManager>().SetPitch("WheelWin", Random.Range(1f, 1.2f));
+        audio.GetComponent<AudioManager>().Play("WheelWin");
     }
 }

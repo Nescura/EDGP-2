@@ -48,12 +48,12 @@ public class PanelSpam : IPanelStrategy
             audio = GameObject.Find("AudioManager");
         }
 
-        enemyHP = 10;
+        enemyHP = 10 + GameControlling.GetInstance().GetComponent<Levels>().currentLevel;
     }
 
     public void OnControlDown()
     {
-        audio.GetComponent<AudioManager>().SetPitch("Slash", Random.Range(0.95f, 1.05f));
+        audio.GetComponent<AudioManager>().SetPitch("Slash", Random.Range(0.9f, 1.1f));
         audio.GetComponent<AudioManager>().Play("Slash");
         mob.GetComponent<SpriteRenderer>().color = Color.red;
 

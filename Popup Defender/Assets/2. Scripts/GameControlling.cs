@@ -107,12 +107,12 @@ public class GameControlling : MonoBehaviour
             {
                 spawnPanelTime -= Time.deltaTime;
 
-                //spawn Panel (debug)
+                // When it's time to spawn a panel, spawn one
                 if (spawnPanelTime <= 0)
                 {
-                    if (GetActivePanelCount() < spawnMax) // spawn two more if there's not even a single one on screen
+                    if (GetActivePanelCount() < spawnMax)
                     {
-                        int amtToSpawn = spawnMax - GetActivePanelCount(); //totalPanel;
+                        int amtToSpawn = spawnMax - GetActivePanelCount();
                         int randomAmt = Random.Range(1, amtToSpawn + 1);
 
                         for (int i = 0; i < randomAmt; i++)

@@ -99,7 +99,7 @@ public class Scene : MonoBehaviour
             FindObjectOfType<AudioManager>().Play("Keypress");
         }
 
-        if (Input.GetKeyDown(KeyCode.Equals))
+        if (Input.GetKeyDown(KeyCode.PageDown))
         {
             GameControlling.GetInstance().spawnMax = 20;
             GameControlling.GetInstance().spawnPanelTimeAvg = 10f;
@@ -271,6 +271,17 @@ public class Scene : MonoBehaviour
         desktopPage.SetActive(false);
         browserPage.SetActive(false);
         websitePage.SetActive(false);
+
+        // Clear every panel (just in case)
+        Panel[] panelInstances = FindObjectsOfType<Panel>();
+        if (panelInstances.Length > 0)
+        {
+            foreach (Panel thisPan in panelInstances)
+            {
+                thisPan.isObjectiveClear = true;
+                thisPan.ForceTimeLeft(0, true, true);
+            }
+        }
 
         for (float s = 2; s > 0; s -= Time.deltaTime)
 		{
