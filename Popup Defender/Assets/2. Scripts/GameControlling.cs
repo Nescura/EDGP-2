@@ -154,7 +154,7 @@ public class GameControlling : MonoBehaviour
 
     public IPanelStrategy GetRandomMinigame()
 	{
-        int index = 7;//Random.Range(0, 8); // REMEMBER, INTEGER RANDOM RANGE IS MAX EXCLUSIVE - e.g. if there are 5 cases, make sure the max range is 6!
+        int index = Random.Range(0, 8); // REMEMBER, INTEGER RANDOM RANGE IS MAX EXCLUSIVE - e.g. if there are 5 cases, make sure the max range is 6!
         switch (index)
         {
             // ADD ALL YOUR PANEL MINIGAMES HERE!!!
@@ -202,7 +202,9 @@ public class GameControlling : MonoBehaviour
             Quaternion.identity, this.transform);
         newPanel.GetComponent<Panel>().Initialize(chosenPanelStrat, minigameTimer, inputManager.GenerateKey());
         newPanel.GetComponent<Panel>().LayerToFront(layerAppend += 50);
-        if (GetComponent<Levels>().currentLevel >= 10)
+
+        // Make panels start moving after going past this level
+        if (GetComponent<Levels>().currentLevel > 5)
         {
             newPanel.GetComponent<Panel>().SetSpeed(Random.Range(GetComponent<Levels>().currentLevel / -20f, GetComponent<Levels>().currentLevel / 20f), Random.Range(GetComponent<Levels>().currentLevel / -20f, GetComponent<Levels>().currentLevel / 20f));
         }

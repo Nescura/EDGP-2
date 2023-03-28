@@ -44,12 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: MenuBGM
-    clip: {fileID: 0}
-    volume: 0
-    pitch: 0
-    loop: 0
-    source: {fileID: 0}
   - name: PopUp
     clip: {fileID: 8300000, guid: aba7c8e5be907ae47b720ee157ecab41, type: 3}
     volume: 1
@@ -204,10 +198,22 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 7044d6839b2640842ab1c2fca9167337, type: 3}
     volume: 1
     pitch: 1
-    loop: 0
+    loop: 1
     source: {fileID: 0}
   - name: Squeak
     clip: {fileID: 8300000, guid: 76dd27dceda402f47b38fb07e04ccde8, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Gunshot
+    clip: {fileID: 8300000, guid: b0b968c61f608ec4a80116a1053e46b9, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: BalloonPop
+    clip: {fileID: 8300000, guid: c4e9b9a6bf633ef4996cb37ba8e3ef5d, type: 3}
     volume: 1
     pitch: 1
     loop: 0

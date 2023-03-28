@@ -16,7 +16,7 @@ public class Panel : MonoBehaviour
     [Header("Display Stuff (please leave them empty)")]
     private Color thisKeyBGColour;
     private GameObject thisMask, thisTimeParent, thisTimeBarFill;
-    private SpriteRenderer thisKeyBG, thisTimeBarBG, thisTimeBarSpr;
+    private SpriteRenderer thisKeyBG, thisKeyBGAll, thisTimeBarBG, thisTimeBarSpr;
     private TMPro.TextMeshPro thisKeyMesh, thisTimeMesh, thisTimeMeshDec, thisObjectiveKeyTechMesh, thisObjectiveMesh;
 
     [Header("Panel Dragging Stuff")]
@@ -63,6 +63,7 @@ public class Panel : MonoBehaviour
             thisKeyMesh.text = assignedKey.ToString();
 		}
         thisKeyBGColour = new Color (0f, 0f, 0f, 155f / 255f);
+        thisKeyBGAll = thisKeyBG.transform.Find("KeyBGAll").GetComponent<SpriteRenderer>();
         #endregion
 
         #region Assign the time display's components
@@ -90,6 +91,7 @@ public class Panel : MonoBehaviour
         //thisMask.GetComponent<SpriteRenderer>().size = panelStrat.SetPanelSize(); // new Vector2(panelSizeX, panelSizeY);
         thisMask.transform.localScale = panelStrat.SetPanelSize();
         GetComponent<BoxCollider2D>().size = new Vector2(panelStrat.SetPanelSize().x + 0.1125f, panelStrat.SetPanelSize().y + 0.175f); // new Vector2(panelSizeX, panelSizeY); // collider
+        thisKeyBGAll.transform.localScale = new Vector3(GetComponent<RectTransform>().sizeDelta.x + 3.3f, 0.9f, 1f);
         #endregion
 
         #region Set Background of panel minigame
@@ -160,6 +162,7 @@ public class Panel : MonoBehaviour
         // Key Mesh
         thisKeyMesh.transform.parent.GetComponent<SpriteRenderer>().sortingOrder = index + 14;
         thisKeyMesh.sortingOrder = index + 15;
+        thisKeyBGAll.sortingOrder = index + 7;
 
         // Time Bars and Mesh
         //thisTimeMesh.transform.parent.GetComponent<SpriteRenderer>().sortingOrder = index;

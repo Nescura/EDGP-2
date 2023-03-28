@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: 3175021661767505257}
   m_Layer: 0
   m_Name: DesktopIcon
-  m_TagString: Untagged
+  m_TagString: Buttons
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

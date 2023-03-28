@@ -16,7 +16,7 @@ public class PanelRoulette: IPanelStrategy // DO NOT EDIT THIS TEMPLATE - Copy a
     public Vector2 SetPanelSize() => new Vector2(sizeX, sizeY); // You shouldn't need to change anything in this line, refer to line 22 on changing the panel's size
     public string SetPanelBG() => "sprBG_roulette";
     public int ObjectiveKeyTech() => 1;  // 0 for Press, 1 for Tap, 2 for Hold, 3 for Spam
-    public string ObjectiveDesc() => "to STOP SPINNING"; // tell the player what pressing the key does
+    public string ObjectiveDesc() => "to stop spinning!"; // tell the player what pressing the key does
 
     public void ResetMinigame(GameObject panelParent, GameObject displayParent)
     {
