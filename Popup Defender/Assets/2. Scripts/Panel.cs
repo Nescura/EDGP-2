@@ -25,6 +25,7 @@ public class Panel : MonoBehaviour
     [Header("Panel Look Variations")]
     public Sprite[] panelSprites;
 
+    private float speedX, speedY;
     private bool isClearPlayed;
 
     // Initialization of variables - there's a lot here, it's because these variables would change very often. Please bear with it lol
@@ -281,6 +282,12 @@ public class Panel : MonoBehaviour
         {
             GetComponent<SpriteRenderer>().color = Color.red;
         }
+
+        // Preventing Panel from moving too far offscreen
+        CameraBoundaryCheck();
+
+        // Moving the panels on their own
+        MoveMe(speedX, speedY);
     }
 
     private IEnumerator PlayClearSFX()
@@ -319,6 +326,48 @@ public class Panel : MonoBehaviour
             this.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane + 1)) + mouseClickPosOffset;
         }
     }
+
+    public void CameraBoundaryCheck() // Prevents the panel from moving too far away from offscreen
+    {
+        float moveX = transform.position.x;
+        float moveY = transform.position.y;
+
+        Vector2 viewportZero = GameControlling.GetInstance().mainCamera.ViewportToWorldPoint(Vector2.zero);
+        Vector2 viewportOne = GameControlling.GetInstance().mainCamera.ViewportToWorldPoint(Vector2.one);
+
+        // If Panel is out of the screen from the left
+        if (moveX > viewportOne.x)
+            moveX = Mathf.Lerp(moveX, viewportOne.x, 0.02f);
+        else if (transform.position.x < viewportZero.x)
+            moveX = Mathf.Lerp(moveX, viewportZero.x, 0.02f);
+
+        if (moveY > viewportOne.y)
+            moveY = Mathf.Lerp(moveY, viewportOne.y, 0.02f);
+        else if (transform.position.y < viewportZero.y)
+            moveY = Mathf.Lerp(moveY, viewportZero.y, 0.02f);
+
+        //Debug.Log(playerPosX + ", " + playerPosY);
+        transform.position = new Vector2(moveX, moveY);
+    }
+
+    public void MoveMe(float x, float y) // Forcefully moves the panel based on inputs
+	{
+        Vector2 viewportZero = GameControlling.GetInstance().mainCamera.ViewportToWorldPoint(Vector2.zero);
+        Vector2 viewportOne = GameControlling.GetInstance().mainCamera.ViewportToWorldPoint(Vector2.one);
+
+        if (transform.position.x > viewportOne.x || transform.position.x < viewportZero.x)
+            speedX *= -1;
+
+        if (transform.position.y > viewportOne.y || transform.position.y < viewportZero.y)
+            speedY *= -1;
+
+        transform.position += new Vector3(x * Time.deltaTime, y * Time.deltaTime, 0);
+	}
+
+    public void SetSpeed(float x, float y)
+	{
+        speedX = x; speedY = y;
+	}
 }
 
 public interface IPanelStrategy

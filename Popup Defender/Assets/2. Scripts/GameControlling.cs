@@ -200,6 +200,10 @@ public class GameControlling : MonoBehaviour
             Quaternion.identity, this.transform);
         newPanel.GetComponent<Panel>().Initialize(chosenPanelStrat, minigameTimer, inputManager.GenerateKey());
         newPanel.GetComponent<Panel>().LayerToFront(layerAppend += 50);
+        if (GetComponent<Levels>().currentLevel >= 10)
+        {
+            newPanel.GetComponent<Panel>().SetSpeed(Random.Range(GetComponent<Levels>().currentLevel / -20f, GetComponent<Levels>().currentLevel / 20f), Random.Range(GetComponent<Levels>().currentLevel / -20f, GetComponent<Levels>().currentLevel / 20f));
+        }
     }
 
     public void SpawnMaxPanels()
