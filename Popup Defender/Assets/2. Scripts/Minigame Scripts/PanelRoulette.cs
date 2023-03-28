@@ -40,7 +40,7 @@ public class PanelRoulette: IPanelStrategy // DO NOT EDIT THIS TEMPLATE - Copy a
 		{
             wheel.transform.rotation = Quaternion.Euler(0, 0, 90);
 		}
-        rotateSpeedInit = Random.Range(0.2f, 1f);
+        rotateSpeedInit = Random.Range(3f, 4f);
     }
 
     public void OnControlDown() // Runs on the frame the key is pressed. Should happen only once per press
@@ -87,14 +87,14 @@ public class PanelRoulette: IPanelStrategy // DO NOT EDIT THIS TEMPLATE - Copy a
 
         if (myPanel.GetComponent<Panel>().isObjectiveClear != true)
         {
-            rotateSpeed = Mathf.Clamp(Mathf.Lerp(rotateSpeed, rotateSpeedInit, rotateSpeedInit * Time.deltaTime), 0.2f, 1f);
+            rotateSpeed = Mathf.Clamp(Mathf.Lerp(rotateSpeed, rotateSpeedInit, rotateSpeedInit * Time.deltaTime), 1f, 5f);
         }
     }
 
     private void Shit()
     {
         myPanel.GetComponent<Panel>().ForceTimeLeft(-1f, false, true);
-        rotateSpeedInit = Mathf.Clamp(rotateSpeedInit - 1f, 0.2f, 1f); // leniency - slow down arrow per fail
+        rotateSpeedInit = Mathf.Clamp(rotateSpeedInit - 1f, 1f, 14f); // leniency - slow down arrow per fail
     }
 
     private void Gottem()
