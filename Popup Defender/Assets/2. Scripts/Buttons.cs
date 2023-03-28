@@ -39,7 +39,7 @@ public class Buttons : MonoBehaviour
         #region Input Handling: will activate timers on click, and on release
         if (hit.collider != null && hit.collider.name == gameObject.name && myScene.canInteract == true && clickable)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButton(0))
 			{
                 thisSprite.color = new Color(0.5f, 0.5f, 0.5f);
                 downTime = 0.1f;
