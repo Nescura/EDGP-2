@@ -46,13 +46,7 @@ public class PanelRoulette: IPanelStrategy // DO NOT EDIT THIS TEMPLATE - Copy a
             wheel.transform.rotation = Quaternion.Euler(0, 0, 90);
 		}
         rotateSpeedInit = Random.Range(3f, 4f);
-
-<<<<<<< Updated upstream
-        audio.GetComponent<AudioManager>().SetPitch("WheelSpin", Random.Range(0.95f, 1.05f));
-        audio.GetComponent<AudioManager>().Play("WheelSpin");
-=======
         RouletteSpinSound();
->>>>>>> Stashed changes
     }
 
     public void OnControlDown() // Runs on the frame the key is pressed. Should happen only once per press
@@ -108,24 +102,12 @@ public class PanelRoulette: IPanelStrategy // DO NOT EDIT THIS TEMPLATE - Copy a
     {
         myPanel.GetComponent<Panel>().ForceTimeLeft(-1f, false, true);
         rotateSpeedInit = Mathf.Clamp(rotateSpeedInit - 1f, 1f, 14f); // leniency - slow down arrow per fail
-<<<<<<< Updated upstream
-
-        audio.GetComponent<AudioManager>().SetPitch("WheelLose", Random.Range(0.8f, 1f));
-        audio.GetComponent<AudioManager>().Play("WheelLose");
-=======
         audio.GetComponent<AudioManager>().Play("Roulette Lose");
->>>>>>> Stashed changes
     }
 
     private void Gottem()
 	{
         myPanel.GetComponent<Panel>().SetSuccess(true);
-<<<<<<< Updated upstream
-        audio.GetComponent<AudioManager>().Stop("WheelSpin");
-
-        audio.GetComponent<AudioManager>().SetPitch("WheelWin", Random.Range(1f, 1.2f));
-        audio.GetComponent<AudioManager>().Play("WheelWin");
-=======
         StopRouletteSpinSound();
         audio.GetComponent<AudioManager>().Play("Roulette Win");
     }
@@ -153,6 +135,5 @@ public class PanelRoulette: IPanelStrategy // DO NOT EDIT THIS TEMPLATE - Copy a
         audio.GetComponent<AudioManager>().Stop("Roulette Spin");
         audio.GetComponent<AudioManager>().Stop("Roulette Spin 2");
         audio.GetComponent<AudioManager>().Stop("Roulette Spin 3");
->>>>>>> Stashed changes
     }
 }
