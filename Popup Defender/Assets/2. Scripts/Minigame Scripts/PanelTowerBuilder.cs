@@ -192,6 +192,11 @@ public class PanelTowerBuilder : IPanelStrategy
         if (activeBlock.transform.localPosition.x <= -2.5 && direction < 0) direction *= -1;
 
         activeBlock.transform.position += new Vector3(Time.deltaTime * direction, 0, 0);
+
+        if (GameControlling.GetInstance().GetComponent<GameState>().state == GameCurrentState.END)
+        {
+            audio.GetComponent<AudioManager>().Stop("Sizzle");
+        }
     }
 
 }

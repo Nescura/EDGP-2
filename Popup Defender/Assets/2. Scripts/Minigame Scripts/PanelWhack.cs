@@ -96,7 +96,10 @@ public class PanelWhack : IPanelStrategy
         // Peeka
         if(mole.transform.localPosition.y >= -0.1f && speed > 0)
         {
-            audio.GetComponent<AudioManager>().Play("Squeak");
+            if (GameControlling.GetInstance().GetComponent<GameState>().state == GameCurrentState.START)
+            {
+                audio.GetComponent<AudioManager>().Play("Squeak");
+            }
             speed *= -1;
         }
 

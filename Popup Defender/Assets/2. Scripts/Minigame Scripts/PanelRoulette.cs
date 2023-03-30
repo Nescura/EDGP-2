@@ -96,6 +96,11 @@ public class PanelRoulette: IPanelStrategy // DO NOT EDIT THIS TEMPLATE - Copy a
         {
             rotateSpeed = Mathf.Clamp(Mathf.Lerp(rotateSpeed, rotateSpeedInit, rotateSpeedInit * Time.deltaTime), 1f, 5f);
         }
+
+        if (GameControlling.GetInstance().GetComponent<GameState>().state == GameCurrentState.END)
+        {
+            StopRouletteSpinSound();
+        }
     }
 
     private void Shit()

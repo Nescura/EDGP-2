@@ -100,5 +100,10 @@ public class PanelHotDog : IPanelStrategy
         if (hotdog.transform.localPosition.x <= -0.95 && direction < 0)   direction *= -1;
 
         hotdog.transform.position += new Vector3(Time.deltaTime * direction, 0, 0);
+
+        if (GameControlling.GetInstance().GetComponent<GameState>().state == GameCurrentState.END)
+        {
+            StopSound();
+        }
     }
 }

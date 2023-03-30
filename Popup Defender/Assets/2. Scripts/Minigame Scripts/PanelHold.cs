@@ -82,6 +82,11 @@ public class PanelHold : IPanelStrategy
     public void MiniUpdate()
     {
         fillBar.transform.localScale = new Vector3(progress / 15f, 1, 1);
+
+        if (GameControlling.GetInstance().GetComponent<GameState>().state == GameCurrentState.END)
+        {
+            StopSound();
+        }
     }
 
     private void PlaySound()

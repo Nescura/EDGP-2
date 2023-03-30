@@ -305,6 +305,10 @@ public class Panel : MonoBehaviour
                 {
                     FindObjectOfType<AudioManager>().Play("FailMiniGame");
                 }
+                else if (panelStrat.ToString() == "PanelDonutTouch")
+                {
+                    FindObjectOfType<AudioManager>().Play("FailMiniGame");
+                }
             }
             else
             {
@@ -313,6 +317,10 @@ public class Panel : MonoBehaviour
                     FindObjectOfType<AudioManager>().Play("ClearMiniGame");
                 }
                 else if (panelStrat.ToString() == "PanelHold")
+                {
+                    FindObjectOfType<AudioManager>().Play("ClearMiniGame");
+                }
+                else if (panelStrat.ToString() == "PanelDonutTouch")
                 {
                     FindObjectOfType<AudioManager>().Play("ClearMiniGame");
                 }
