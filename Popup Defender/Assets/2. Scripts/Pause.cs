@@ -43,7 +43,7 @@ public class Pause : MonoBehaviour
         myState.state = GameCurrentState.PAUSED;
         myPauseBttn.SetActive(false);
         pauseMenu.SetActive(true);
-        Debug.Log("OwO");
+        //Debug.Log("OwO");
     }
 
     public void ResumeClicked()
@@ -56,6 +56,7 @@ public class Pause : MonoBehaviour
 
     public void QuitClicked()
     {
+        FindObjectOfType<AudioManager>().StopAll();
         FindObjectOfType<AudioManager>().Play("Button");
         SceneManager.LoadScene(0);
     }

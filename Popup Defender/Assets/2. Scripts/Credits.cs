@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class Credits : MonoBehaviour
 {
+    public Animator credits;
     float timer;
 
     // Update is called once per frame
     void Update()
     {
-        if (timer >= 16)
+        if (timer >= 17.8f)
         {
             SceneManager.LoadScene(0);
         }
@@ -17,5 +18,15 @@ public class Credits : MonoBehaviour
         {
             timer += Time.deltaTime;
         }
+
+        if (Input.anyKey)
+        {
+            timer += Time.deltaTime * 2;
+            credits.speed = 2.25f;
+        }
+        else
+		{
+            credits.speed = 0.75f;
+		}
     }
 }

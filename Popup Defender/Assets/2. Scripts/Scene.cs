@@ -76,6 +76,11 @@ public class Scene : MonoBehaviour
         else if (SceneManager.GetActiveScene().name == "MainMenu")
         {
             GetComponent<GameDataManager>().Load();
+            if (GetComponent<GameDataManager>().ReadFromFile("data.txt") == "" || GameObject.Find("Scene").GetComponent<GameDataManager>().data.dayCleared < 1)
+			{
+                GameControlling.tutorialPlease = true;
+			}
+
             canClick = true;
         }
     }
@@ -90,12 +95,19 @@ public class Scene : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            FindObjectOfType<AudioManager>().Play("Button");
+            FindObjectOfType<AudioManager>().SetPitch("MouseDown", Random.Range(1.9f, 2.1f));
+            FindObjectOfType<AudioManager>().Play("MouseDown");
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            FindObjectOfType<AudioManager>().SetPitch("MouseUp", Random.Range(1.9f, 2.1f));
+            FindObjectOfType<AudioManager>().Play("MouseUp");
         }
 
         if (Input.anyKeyDown)
         {
-
+            FindObjectOfType<AudioManager>().SetPitch("Keypress", Random.Range(0.9f, 1.1f));
             FindObjectOfType<AudioManager>().Play("Keypress");
         }
 
@@ -299,8 +311,18 @@ public class Scene : MonoBehaviour
         gameCtrl.GetComponent<GameTimer>().ResetSystemTimer();
         gameCtrl.GetComponent<GameTimer>().myDeadLineTxt.enabled = true;
         desktopPage.SetActive(true);
-        gameCtrl.SpawnMaxPanels();
-        gameCtrl.spawnPanelTime = 0f;
+        if (GameControlling.tutorialPlease && gameCtrl.GetComponent<Levels>().clearedLevel == 0)
+		{
+            gameCtrl.SpawnTutorialPanel();
+            gameCtrl.spawnPanelTime = 1f;
+        }
+        else
+        {
+            GameControlling.tutorialPlease = false;
+            gameCtrl.SpawnMaxPanels();
+            gameCtrl.spawnPanelTime = 0f;
+		}
+
     }
 
     // Decoupled so that all buttons can be interacted with less hardcoding

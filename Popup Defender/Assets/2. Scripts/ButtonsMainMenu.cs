@@ -12,6 +12,7 @@ public class ButtonsMainMenu : MonoBehaviour
     public GameObject optionMenu;
     public GameObject how2play;
     private MainMenuTransistion myMainMenuStuff;
+    bool clickable = false;
 
     // Start is called before the first frame update
     void Start()
@@ -26,13 +27,27 @@ public class ButtonsMainMenu : MonoBehaviour
         Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
         hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
 
+        if (gameObject.name == "Tutorial Option")
+        {
+            if (GameControlling.tutorialPlease)
+            {
+                GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("RadioOn");
+            }
+            else
+            {
+                GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("RadioOff");
+            }
+        }
+
+        if (!clickable) return;
+
         if (Input.GetMouseButtonDown(0))
         {
             if (hit.collider != null && hit.collider.gameObject.tag == "Buttons")
             {
                 if (hit.collider.gameObject.name == "Play Bttn")
                 {
-                    Debug.Log("Play Bttn Clicked");
+                    //Debug.Log("Play Bttn Clicked");
                     if (myScene.canClick == true)
                     {
                         GameObject.Find("Title").GetComponent<MainMenuTransistion>().playGame = true;
@@ -41,7 +56,7 @@ public class ButtonsMainMenu : MonoBehaviour
                 }
                 else if (hit.collider.gameObject.name == "Power Bttn")
                 {
-                    Debug.Log("Power Bttn Clicked");
+                    //Debug.Log("Power Bttn Clicked");
                     if (myScene.canClick == true)
                     {
                         myScene.Quit();
@@ -49,7 +64,7 @@ public class ButtonsMainMenu : MonoBehaviour
                 }
                 else if (hit.collider.gameObject.name == "Setting Bttn")
                 {
-                    Debug.Log("Settings Bttn Clicked");
+                    //Debug.Log("Settings Bttn Clicked");
                     hit.collider.gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
                     settingsBttn.SetActive(false);
                     optionMenu.SetActive(true);
@@ -57,7 +72,7 @@ public class ButtonsMainMenu : MonoBehaviour
                 }
                 else if (hit.collider.gameObject.name == "Close Button")
                 {
-                    Debug.Log("Close Bttn Clicked");
+                    //Debug.Log("Close Bttn Clicked");
                     hit.collider.gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
                     settingsBttn.SetActive(true);
                     optionMenu.SetActive(false);
@@ -65,21 +80,28 @@ public class ButtonsMainMenu : MonoBehaviour
                 }
                 else if (hit.collider.gameObject.name == "Option Button")
                 {
-                    Debug.Log("Option Bttn Clicked");
+                    //Debug.Log("Option Bttn Clicked");
                     hit.collider.gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
                 }
                 else if (hit.collider.gameObject.name == "How To Play Button")
                 {
-                    Debug.Log("How To Play Bttn Clicked");
+                    //Debug.Log("How To Play Bttn Clicked");
                     hit.collider.gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
                     how2play.SetActive(true);
                     optionMenu.SetActive(false);
                 }
                 else if (hit.collider.gameObject.name == "Credits Button")
                 {
-                    Debug.Log("Credits Button Clicked");
+                    //Debug.Log("Credits Button Clicked");
                     hit.collider.gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
                     SceneManager.LoadScene(2);
+                }
+                else if (hit.collider.gameObject.name == "Tutorial Option")
+                {
+                    //Debug.Log("Credits Button Clicked");
+                    hit.collider.gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
+                    GameControlling.tutorialPlease = !GameControlling.tutorialPlease;
+                    //Debug.Log(GameControlling.tutorialPlease);
                 }
             }
         }
@@ -96,7 +118,7 @@ public class ButtonsMainMenu : MonoBehaviour
     void OnMouseOver()
     {
         // Change the color of the GameObject to red when the mouse is over GameObject
-
+        clickable = true;
         if (gameObject.tag == "Buttons")
         {
             gameObject.GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 0.7f);
@@ -105,6 +127,7 @@ public class ButtonsMainMenu : MonoBehaviour
 
     void OnMouseExit()
     {
+        clickable = false;
         if (gameObject.tag == "Buttons")
         {
             gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);

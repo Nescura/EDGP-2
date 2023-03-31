@@ -189,6 +189,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &119066434 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5438920684588625375, guid: cff507bf95314f5449d6b01d2a27b9a2, type: 3}
+  m_PrefabInstance: {fileID: 1629903366}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &597759608
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,6 +321,10 @@ PrefabInstance:
     - target: {fileID: 792774811365321463, guid: cff507bf95314f5449d6b01d2a27b9a2, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 1786
+      objectReference: {fileID: 0}
+    - target: {fileID: 1709302192529168034, guid: cff507bf95314f5449d6b01d2a27b9a2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -674
       objectReference: {fileID: 0}
     - target: {fileID: 3866498917685583157, guid: cff507bf95314f5449d6b01d2a27b9a2, type: 3}
       propertyPath: m_Sprite
@@ -945,3 +954,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba12b268921946b40bda07e51808c525, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  credits: {fileID: 119066434}

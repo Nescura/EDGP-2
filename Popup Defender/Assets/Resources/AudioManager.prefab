@@ -52,7 +52,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Button
     clip: {fileID: 8300000, guid: 1d36fa273c7c59f44baddd8c3b28df44, type: 3}
-    volume: 1
+    volume: 0.9
     pitch: 2
     loop: 0
     source: {fileID: 0}
@@ -216,6 +216,18 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: c4e9b9a6bf633ef4996cb37ba8e3ef5d, type: 3}
     volume: 1
     pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: MouseDown
+    clip: {fileID: 8300000, guid: 4f61269f994dc0841959cc97204677da, type: 3}
+    volume: 0.725
+    pitch: 2
+    loop: 0
+    source: {fileID: 0}
+  - name: MouseUp
+    clip: {fileID: 8300000, guid: 9225b0324a88a7f4b9e1ccd6521eed39, type: 3}
+    volume: 0.725
+    pitch: 2
     loop: 0
     source: {fileID: 0}
   MasterVolume: 5

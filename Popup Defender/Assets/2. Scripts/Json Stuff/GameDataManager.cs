@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameDataManager : MonoBehaviour
 {
@@ -35,7 +36,7 @@ public class GameDataManager : MonoBehaviour
         }
     }
 
-    private string ReadFromFile(string fileName)
+    public string ReadFromFile(string fileName)
     {
         string path = GetFilePath(fileName);
         if (File.Exists(path))

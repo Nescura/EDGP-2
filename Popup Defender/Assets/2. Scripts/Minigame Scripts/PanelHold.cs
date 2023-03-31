@@ -18,7 +18,7 @@ public class PanelHold : IPanelStrategy
     public Vector2 SetPanelSize() => new Vector2(sizeX, sizeY);
     public string SetPanelBG() => "sprBG_download";
     public int ObjectiveKeyTech() => 2;
-    public string ObjectiveDesc() => "to finish the download!";
+    public string ObjectiveDesc() => "to download!";
 
     public void ResetMinigame(GameObject panelParent, GameObject displayParent)
     {
@@ -48,7 +48,7 @@ public class PanelHold : IPanelStrategy
         if (progress <= 15f)
         {
             progress += Time.deltaTime * 3f;
-            myPanel.GetComponent<Panel>().ForceTimeLeft(Time.deltaTime / 2, false, true);
+            myPanel.GetComponent<Panel>().ForceTimeLeft(Time.deltaTime, false, true);
         }
         else
         {

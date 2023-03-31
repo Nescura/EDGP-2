@@ -98,7 +98,7 @@ public class Panel : MonoBehaviour
         if (panelStrat.SetPanelBG() == "") // If no BG was defined, just load the default square
 		{
             thisMask.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("UISquare");
-            thisMask.GetComponent<SpriteRenderer>().color = new Color(68f / 255f, 62f / 255f, 96f / 255f);
+            thisMask.GetComponent<SpriteRenderer>().color = new Color(68f / 255f, 62f / 255f, 58f / 255f);
         }
         else
 		{
@@ -131,11 +131,11 @@ public class Panel : MonoBehaviour
 
         if (directSet) // if directSet is true, it SETS the time to f
         {
-            timeLeft = f;
+            timeLeft = Mathf.Clamp(f, -20f, timeInit);
         }
         else // if directSet is false, it adds f to the time. If you want to reduce time, f would need to be negative
         {
-            timeLeft += f;
+            timeLeft = Mathf.Clamp(timeLeft + f, -20f, timeInit);
         }
     }
 
@@ -294,38 +294,19 @@ public class Panel : MonoBehaviour
     }
 
     private IEnumerator PlayClearSFX()
-	{
+    {
         yield return new WaitForFixedUpdate();
-        
+
         if (!isClearPlayed)
-		{
+        {
             if (!isObjectiveClear)
             {
-                if (panelStrat.ToString() == "PanelTowerBuilder")
-                {
-                    FindObjectOfType<AudioManager>().Play("FailMiniGame");
-                }
-                else if (panelStrat.ToString() == "PanelDonutTouch")
-                {
-                    FindObjectOfType<AudioManager>().Play("FailMiniGame");
-                }
+                FindObjectOfType<AudioManager>().Play("FailMiniGame");
             }
             else
             {
-                if (panelStrat.ToString() == "PanelTowerBuilder")
-                {
-                    FindObjectOfType<AudioManager>().Play("ClearMiniGame");
-                }
-                else if (panelStrat.ToString() == "PanelHold")
-                {
-                    FindObjectOfType<AudioManager>().Play("ClearMiniGame");
-                }
-                else if (panelStrat.ToString() == "PanelDonutTouch")
-                {
-                    FindObjectOfType<AudioManager>().Play("ClearMiniGame");
-                }
+                FindObjectOfType<AudioManager>().Play("ClearMiniGame");
             }
-
             isClearPlayed = true;
         }
     }

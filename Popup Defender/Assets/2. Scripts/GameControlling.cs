@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 public class GameControlling : MonoBehaviour
 {
     #region Variables
+    public static bool tutorialPlease;
+
     // get NEW inputmanager in this class
     public Camera mainCamera;
     public GameObject panelPrefab;
@@ -21,6 +23,8 @@ public class GameControlling : MonoBehaviour
     //public int popupCounter = 0;
 
     public InputManager inputManager;
+
+    public GameObject tutorialPanel;
 
     // Singleton
     private static GameControlling itsMe;
@@ -105,7 +109,7 @@ public class GameControlling : MonoBehaviour
             // Actual game spawning for panels
             else if(GetComponent<GameState>().state == GameCurrentState.START)
             {
-                spawnPanelTime -= Time.deltaTime;
+                if (tutorialPanel == null) spawnPanelTime -= Time.deltaTime;
 
                 // When it's time to spawn a panel, spawn one
                 if (spawnPanelTime <= 0)
@@ -210,6 +214,26 @@ public class GameControlling : MonoBehaviour
         }
     }
 
+    public void SpawnTutorialPanel()
+    {
+        //popupCounter += 1;
+
+        //Debug.Log(inputManager.keyCodeList.Count);
+        // Pull one random minigame to be spawned
+        // Make sure you throw your script into the minigames List
+        IPanelStrategy chosenPanelStrat = new PanelTutorial();
+
+        Vector2 viewportZero = mainCamera.ViewportToWorldPoint(Vector2.zero);
+        Vector2 viewportOne = mainCamera.ViewportToWorldPoint(Vector2.one);
+        FindObjectOfType<AudioManager>().Play("PopUp");
+        tutorialPanel = Instantiate(panelPrefab,
+            new Vector3(Random.Range(viewportZero.x * 0.9f, viewportOne.x * 0.9f),
+            Random.Range(viewportZero.y * 0.9f, viewportOne.y * 0.9f), -5),
+            Quaternion.identity, this.transform);
+        tutorialPanel.GetComponent<Panel>().Initialize(chosenPanelStrat, minigameTimer, inputManager.GenerateKey());
+        tutorialPanel.GetComponent<Panel>().LayerToFront(layerAppend += 50);
+    }
+
     public void SpawnMaxPanels()
     {
         for (int x = 0; x < spawnMax; x++)
@@ -301,7 +325,7 @@ public class GameControlling : MonoBehaviour
                           "\n" +
                           "Beginning extraction of physical memory... \n" +
                           "Extraction of physical memory complete. \n" +
-                          "Thanks for giving us your computer :D \n" + 
+                          "Thanks for giving us your computer :D \n" +
                           "\n" + "Press Any Key To Continue";
 
             if (Input.anyKeyDown)

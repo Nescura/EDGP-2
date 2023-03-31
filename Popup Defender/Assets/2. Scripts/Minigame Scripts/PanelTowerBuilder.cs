@@ -109,6 +109,7 @@ public class PanelTowerBuilder : IPanelStrategy
         activeBlock = blockList[blockCount]; // set new block as active block
         activeBlock.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = previousBlock.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder + 1;
         direction = 3f; //Start the active block
+        myPanel.GetComponent<Panel>().ForceTimeLeft(3f, false, true);
     }
     void MissedBlock()
     {
@@ -154,6 +155,7 @@ public class PanelTowerBuilder : IPanelStrategy
         activeBlock = blockList[blockCount]; // set new block as active block
         activeBlock.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = previousBlock.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder + 1;
         direction = 3f + (blockCount / 2); //Start the active block
+        myPanel.GetComponent<Panel>().ForceTimeLeft(3f, false, true);
     }
 
     void PlaySound()

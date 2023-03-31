@@ -11,7 +11,7 @@ public class PanelSpam : IPanelStrategy
     // Extra variables go under here
     private GameObject mob, downloadBar, fillBar, slash;
     private GameObject audio;
-    float enemyHP;
+    float enemyHP, enemyHPInit;
 
     public Vector2 SetPanelSize() => new Vector2(sizeX, sizeY);
     public string SetPanelBG() => "sprBG_rpgForest";
@@ -49,7 +49,8 @@ public class PanelSpam : IPanelStrategy
         }
 
         mob.GetComponent<AudioSource>().Play();
-        enemyHP = 10 + GameControlling.GetInstance().GetComponent<Levels>().currentLevel;
+        enemyHPInit = 10 + GameControlling.GetInstance().GetComponent<Levels>().currentLevel;
+        enemyHP = enemyHPInit;
     }
 
     public void OnControlDown()
@@ -62,7 +63,12 @@ public class PanelSpam : IPanelStrategy
         slash.transform.Rotate(0, 0, Random.Range(0f, 180f));
         slash.GetComponent<SpriteRenderer>().color = Color.white;
 
-        if (enemyHP > 0) enemyHP -= 0.9f;
+        if (enemyHP > 0)
+        {
+            enemyHP -= 0.9f;
+            myPanel.GetComponent<Panel>().ForceTimeLeft(0.5f, false, true);
+        }
+
         if (enemyHP <= 0)
 		{
             myPanel.GetComponent<Panel>().SetSuccess(true);
@@ -88,6 +94,6 @@ public class PanelSpam : IPanelStrategy
         slash.GetComponent<SpriteRenderer>().color = Color.Lerp(slash.GetComponent<SpriteRenderer>().color, new Color(1f, 1f, 1f, 0f), Time.deltaTime * 10);
 
         mob.GetComponent<SpriteRenderer>().color = Color.Lerp(mob.GetComponent<SpriteRenderer>().color, Color.white, Time.deltaTime * 10);
-        fillBar.transform.localScale = new Vector3(enemyHP / 10f, 1, 1);
+        fillBar.transform.localScale = new Vector3(enemyHP / enemyHPInit, 1, 1);
     }
 }
