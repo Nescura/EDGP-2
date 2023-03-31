@@ -38,7 +38,7 @@ public class PanelHotDog : IPanelStrategy
 
         PlaySound();
 
-        direction = Random.Range(3f, 6f);
+        direction = Random.Range(3f, 6f) + GameControlling.GetInstance().GetComponent<Levels>().currentLevel;
     }
 
     public void OnControlDown()

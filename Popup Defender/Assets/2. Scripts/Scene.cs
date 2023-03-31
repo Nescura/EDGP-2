@@ -132,6 +132,7 @@ public class Scene : MonoBehaviour
         {
             ObjectEnd(d.name, d);
         }
+        activeDesktopIcons.Clear();
         /*foreach (GameObject b in activeBrowserIcons)
         {
             ObjectEnd("BrowserIcon", b);
@@ -141,7 +142,7 @@ public class Scene : MonoBehaviour
         {
             ObjectEnd(s.name, s);
         }
-
+        activeSubmitBttns.Clear();
         // Creation of Desktop Buttons
         if (browserBttn == null) // if the real browser button hasn't been made, make it
 		{
@@ -194,6 +195,10 @@ public class Scene : MonoBehaviour
                 SubmitBttn.GetComponent<Buttons>().thisTextMesh.text = "Submit";
                 SubmitBttn.transform.localPosition = new Vector2(Random.Range(-5f, 5f), Random.Range(-4.65f, 1f));
                 SubmitBttn.SetActive(true);
+                if (level >= 6)
+                {
+                    SubmitBttn.GetComponent<SubmitMove>().SetSpeed(Random.Range(level / -9f, level / 9f), Random.Range(level / -9f, level / 9f));
+                }
             }, submitBttnPrefab, websitePage.transform);
         }
         for (int i = (level - 1) * 2; i > 0; i -= 1)
@@ -204,11 +209,16 @@ public class Scene : MonoBehaviour
                 susBttn.GetComponent<Buttons>().notVirus = false;
                 susBttn.GetComponent<Buttons>().thisTextMesh.text = submitTextArray[Random.Range(0, submitTextArray.Length)];
                 susBttn.transform.localPosition = new Vector2(Random.Range(-5f, 5f), Random.Range(-4.65f, 1f));
-                if (susBttn.GetComponent<Collider2D>().IsTouching(submitBttn.GetComponent<Collider2D>()))
+                if (submitBttn.GetComponent<Collider2D>().IsTouching(susBttn.GetComponent<Collider2D>()))
 				{
                     ObjectEnd(susBttn.name, susBttn);
+                    activeSubmitBttns.Remove(susBttn);
                     i += 1;
                 }
+                if (level >= 6)
+				{
+                    susBttn.GetComponent<SubmitMove>().SetSpeed(Random.Range(level / -9f, level / 9f), Random.Range(level / -9f, level / 9f));
+				}
                 susBttn.SetActive(true);
             }, submitBttnPrefab, websitePage.transform);
             activeSubmitBttns.Add(s);

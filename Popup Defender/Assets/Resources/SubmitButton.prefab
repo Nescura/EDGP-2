@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3663997388480249381}
   - component: {fileID: 4368249896776417251}
   - component: {fileID: 3237008360383373395}
+  - component: {fileID: -1607278362203101882}
   m_Layer: 0
   m_Name: SubmitButton
   m_TagString: Buttons
@@ -154,6 +155,18 @@ MonoBehaviour:
   thisSprite: {fileID: 5186436011498730275}
   thisTextMesh: {fileID: 5551611702821955146}
   virusSpr: {fileID: 0}
+--- !u!114 &-1607278362203101882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541695426542606547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 007c2f2c9445a9e42a25b9e118881a44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8321016259835020703
 GameObject:
   m_ObjectHideFlags: 0

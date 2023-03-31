@@ -1410,7 +1410,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &795521202
 Transform:
   m_ObjectHideFlags: 0
@@ -1598,6 +1598,7 @@ MonoBehaviour:
   spawnPanelTimeAvg: 0
   spawnPanelTime: 0
   minigameTimer: 10
+  tutorialPanel: {fileID: 0}
   restartBttn: {fileID: 1236965928}
   mainMenuBttn: {fileID: 513977613}
   blueScreen: {fileID: 1710260892}
@@ -3687,6 +3688,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2019918450}
   - component: {fileID: 2019918451}
+  - component: {fileID: 2019918452}
   m_Layer: 0
   m_Name: NoodleBG
   m_TagString: Untagged
@@ -3764,3 +3766,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2019918452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2019918449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 007c2f2c9445a9e42a25b9e118881a44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedX: 0
+  speedY: 0
